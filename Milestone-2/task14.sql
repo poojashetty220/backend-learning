@@ -5,8 +5,9 @@ ALTER TABLE posts
 \echo '=================================================='
 
 \echo 'Attempt to insert a post with a non-existent user_id'
-INSERT INTO posts (title,content,user_id)
-VALUES ('Bad insert','Should fail',999);
+SELECT * FROM users WHERE id = 2;
+INSERT INTO posts (id, title,content,user_id)
+VALUES ('p6', 'good insert','Should not fail', 999);
 
 SELECT * FROM posts
 \echo 'This insert should fail due to foreign key constraint violation'

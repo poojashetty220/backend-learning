@@ -26,7 +26,7 @@ for FILE in task1.sql task2.sql task3.sql task4.sql task5.sql task7.sql task8.sq
 done
 
 # Run the SQL queries on blog_db
-for FILE in task10.sql task11.sql task12.sql task13.sql task14.sql; do
+for FILE in task10.sql task11.sql task12.sql task13.sql task14.sql task15.sql; do
   if [ -f "$FILE" ]; then
     echo "📄 Running $FILE on $BLOG_DATABASE"
     psql -U "$PG_USER" -h "$PG_HOST" -p "$PG_PORT" -d "$BLOG_DATABASE" -f "$FILE"
@@ -34,6 +34,16 @@ for FILE in task10.sql task11.sql task12.sql task13.sql task14.sql; do
     echo "⚠️  File '$FILE' not found. Skipping."
   fi
 done
+
+# Export schema and data to dump.sql
+pg_dump -U myuser -h localhost -p 5432 -d mydb -F p -f dump.sql
+
+# Drop and recreate the database
+dropdb -U myuser -h localhost -p 5432 mydb
+createdb -U myuser -h localhost -p 5432 mydb
+
+# Restore from dump.sql
+psql -U myuser -h localhost -p 5432 -d mydb -f dump.sql
 
 echo "✅ All tasks completed successfully"
 
