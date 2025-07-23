@@ -144,6 +144,7 @@ const UserForm: React.FC<UserFormProps> = ({ user, onSave, onCancel }) => {
               <input
                 type="text"
                 id="age"
+                name='age'
                 value={formData.age}
                 onChange={(e) => handleInputChange('age', e.target.value)}
                 className={`w-full px-3 py-2 border rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent ${

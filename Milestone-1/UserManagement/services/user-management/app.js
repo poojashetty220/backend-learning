@@ -1,9 +1,9 @@
-const express = require('express');
+// app.js (as ES Module)
+import express from 'express';
+import users from './routes/users.js';
 
 const router = express.Router();
 
-// Import the User model
-const users = require('./routes/users.js');
-
-// Define routes
 router.use('/users', users);
+
+export default router;

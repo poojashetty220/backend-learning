@@ -1,8 +1,18 @@
-import User from "../../../entities/User";
+import express from 'express';
+import User from '../../../entities/User.js';
 
-app.get('/', async (req, res) => {
+const router = express.Router();
+
+router.get('/', async (req, res) => {
   try {
-    const users = await User.find();
+    const { min_age } = req.query; // e.g., /api/users?min_age=30
+    const filter = {};
+
+    if (min_age) {
+      filter.age = { $gte: Number(min_age) };
+    }
+
+    const users = await User.find(filter);
     res.json(users);
   } catch (error) {
     res.status(500).json({ message: error.message });
@@ -10,7 +20,7 @@ app.get('/', async (req, res) => {
 });
 
 // Create user
-app.post('/create', async (req, res) => {
+router.post('/', async (req, res) => {
   try {
     const user = new User(req.body);
     const savedUser = await user.save();
@@ -21,7 +31,7 @@ app.post('/create', async (req, res) => {
 });
 
 // Delete user
-app.delete('/:id', async (req, res) => {
+router.delete('/:id', async (req, res) => {
   try {
     const user = await User.findByIdAndDelete(req.params.id);
     if (!user) return res.status(404).json({ message: 'User not found' });
@@ -31,7 +41,7 @@ app.delete('/:id', async (req, res) => {
   }
 });
 
-app.get('/:id', async (req, res) => {
+router.get('/:id', async (req, res) => {
   try {
     const user = await User.findById(req.params.id);
     if (!user) return res.status(404).json({ message: 'User not found' });
@@ -41,7 +51,7 @@ app.get('/:id', async (req, res) => {
   }
 });
 
-app.put('/:id', async (req, res) => {
+router.put('/:id', async (req, res) => {
   try {
     const user = await User.findByIdAndUpdate(req.params.id, req.body, { new: true });
     if (!user) return res.status(404).json({ message: 'User not found' });
@@ -50,4 +60,6 @@ app.put('/:id', async (req, res) => {
     res.status(400).json({ message: error.message });
   }
 });
+
+export default router;
 

@@ -1,6 +1,4 @@
 import express from 'express';
-import mongoose from 'mongoose';
-import User from './models/User.js';
 import { connect } from './lib/connect.js';
 import routes from './services/user-management/app.js';
 
@@ -32,7 +30,7 @@ app.get('/', (req, res) => {
   res.send('Hello from Node.js server with MongoDB!');
 });
 
-app.use(routes)
+app.use('/api', routes)
 
 app.listen(PORT, () => {
   console.log(`🚀 Server is running on http://localhost:${PORT}`);

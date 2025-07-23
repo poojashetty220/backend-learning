@@ -1,3 +1,5 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
+import axios from 'axios';
 import { User, UserFormData } from '../types/user';
 
 const API_URL = 'http://localhost:3001/api';
@@ -16,36 +18,32 @@ const mapUser = (user: any): User => ({
 
 export const userService = {
   // Get all users from MongoDB
-  getUsers: async (): Promise<User[]> => {
-    try {
-      const response = await fetch(`${API_URL}/users`);
-      if (!response.ok) throw new Error('Failed to fetch users');
-      const data = await response.json();
-      return data.map(mapUser);
-    } catch (error) {
-      console.error('Error fetching users:', error);
-      return [];
-    }
-  },
+  getUsers: async (min_age: number): Promise<User[]> => {
+  try {
+    const { data } = await axios.get(`${API_URL}/users?min_age=${min_age}`, {});
+    return data.map(mapUser);
+  } catch (error) {
+    console.error('Error fetching users by min age:', error);
+    return [];
+  }
+},
 
   // Get available collections
   getCollections: async (): Promise<string[]> => {
     try {
-      const response = await fetch(`${API_URL}/collections`);
-      if (!response.ok) throw new Error('Failed to fetch collections');
-      return await response.json();
+      const { data } = await axios.get(`${API_URL}/collections`);
+      return data;
     } catch (error) {
       console.error('Error fetching collections:', error);
       return [];
     }
   },
-  
+
   // Get raw database contents from a collection (debug endpoint)
   getDebugCollection: async (collection: string): Promise<any[]> => {
     try {
-      const response = await fetch(`${API_URL}/debug/${collection}`);
-      if (!response.ok) throw new Error(`Failed to fetch from ${collection}`);
-      return await response.json();
+      const { data } = await axios.get(`${API_URL}/debug/${collection}`);
+      return data;
     } catch (error) {
       console.error(`Error fetching from ${collection}:`, error);
       return [];
@@ -55,9 +53,7 @@ export const userService = {
   // Get user by ID
   getUserById: async (id: string): Promise<User | null> => {
     try {
-      const response = await fetch(`${API_URL}/users/${id}`);
-      if (!response.ok) return null;
-      const data = await response.json();
+      const { data } = await axios.get(`${API_URL}/users/${id}`);
       return mapUser(data);
     } catch (error) {
       console.error('Error fetching user:', error);
@@ -68,14 +64,7 @@ export const userService = {
   // Create user
   createUser: async (userData: UserFormData): Promise<User> => {
     try {
-      const response = await fetch(`${API_URL}/users`, {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(userData)
-      });
-      
-      if (!response.ok) throw new Error('Failed to create user');
-      const data = await response.json();
+      const { data } = await axios.post(`${API_URL}/users`, userData);
       return mapUser(data);
     } catch (error) {
       console.error('Error creating user:', error);
@@ -86,14 +75,7 @@ export const userService = {
   // Update user
   updateUser: async (id: string, userData: UserFormData): Promise<User | null> => {
     try {
-      const response = await fetch(`${API_URL}/users/${id}`, {
-        method: 'PUT',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(userData)
-      });
-      
-      if (!response.ok) return null;
-      const data = await response.json();
+      const { data } = await axios.put(`${API_URL}/users/${id}`, userData);
       return mapUser(data);
     } catch (error) {
       console.error('Error updating user:', error);
@@ -104,11 +86,8 @@ export const userService = {
   // Delete user
   deleteUser: async (id: string): Promise<boolean> => {
     try {
-      const response = await fetch(`${API_URL}/users/${id}`, {
-        method: 'DELETE'
-      });
-      
-      return response.ok;
+      await axios.delete(`${API_URL}/users/${id}`);
+      return true;
     } catch (error) {
       console.error('Error deleting user:', error);
       return false;

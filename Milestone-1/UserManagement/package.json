@@ -12,6 +12,7 @@
     "seed": "node seedData.js"
   },
   "dependencies": {
+    "axios": "^1.11.0",
     "express": "^5.1.0",
     "lucide-react": "^0.344.0",
     "moment": "^2.30.1",
