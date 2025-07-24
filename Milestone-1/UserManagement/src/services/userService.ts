@@ -17,14 +17,17 @@ const mapUser = (user: any): User => ({
 
 export const userService = {
   // Get all users from MongoDB
-  getUsers: async (filters: any): Promise<User[]> => {
-    console.log(filters, 'fil')
+  getUsers: async (filters: any): Promise<{ users: User[]; stats: { averageAge: number; totalCount: number } }> => {
   try {
     const { data } = await axios.get(`${API_URL}/users?page=1&${filters || ''}`, {});
-    return data.map(mapUser);
+    const mappedUsers = data.users.map(mapUser);
+    return {
+      users: mappedUsers,
+      stats: data.stats
+    };
   } catch (error) {
-    console.error('Error fetching users by min age:', error);
-    return [];
+    console.error('Error fetching users:', error);
+    return { users: [], stats: { averageAge: 0, totalCount: 0 } };
   }
 },
 

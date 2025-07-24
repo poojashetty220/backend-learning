@@ -5,16 +5,23 @@ const router = express.Router();
 
 router.get('/', async (req, res) => {
   try {
-    const { min_age, search = '', sort_by = 'created_at', sort_order = 'desc' } = req.query;
+    const {
+      min_age,
+      search = '',
+      sort_by = 'created_at',
+      sort_order = 'desc'
+    } = req.query;
 
     const filter = {};
 
-    // Filter by min age
+    // Filter by minimum age (age is stored as string, so we need to cast)
     if (min_age) {
-      filter.age = { $gte: Number(min_age) };
+      filter.$expr = {
+        $gte: [{ $toInt: '$age' }, Number(min_age)]
+      };
     }
 
-    // Case-insensitive search by name/email/gender
+    // Case-insensitive search
     if (search) {
       const regex = new RegExp(search.toString(), 'i');
       filter.$or = [
@@ -24,18 +31,49 @@ router.get('/', async (req, res) => {
       ];
     }
 
-    // Sort logic
-    const sortField = sort_by === 'name' ? 'name' : 'created_at';
+    const sortField = ['name', 'email', 'created_at'].includes(sort_by)
+      ? sort_by
+      : 'created_at';
     const sortDirection = sort_order === 'asc' ? 1 : -1;
-    const sort = { [sortField]: sortDirection };
 
-    const users = await User.find(filter).sort(sort);
-    res.json(users);
+    const pipeline = [
+      { $match: filter },
+      {
+        $facet: {
+          users: [
+            { $sort: { [sortField]: sortDirection } }
+          ],
+          stats: [
+            {
+              $group: {
+                _id: null,
+                averageAge: {
+                  $avg: {
+                    $cond: [
+                      { $ne: ['$age', null] },
+                      { $toInt: '$age' },
+                      null
+                    ]
+                  }
+                },
+                totalCount: { $sum: 1 }
+              }
+            }
+          ]
+        }
+      }
+    ];
+
+    const result = await User.aggregate(pipeline);
+
+    const users = result[0].users;
+    const stats = result[0].stats[0] || { averageAge: 0, totalCount: 0 };
+
+    res.json({ users, stats });
   } catch (error) {
     res.status(500).json({ message: error.message });
   }
 });
-
 
 // Create user
 router.post('/', async (req, res) => {

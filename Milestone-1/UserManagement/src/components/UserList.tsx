@@ -38,6 +38,7 @@ const UserList: React.FC<UserListProps> = ({
   const [ageInput, setAgeInput] = useState('');
 
   const [searchInput, setSearchInput] = useState('');
+  const [stats, setStats] = useState({ averageAge: 0, totalCount: 0 });
 
 const fetchUsers = async () => {
   setTableLoading(true);
@@ -48,8 +49,9 @@ const fetchUsers = async () => {
     if (filters.sort_by) params.append('sort_by', filters.sort_by);
     if (filters.sort_order) params.append('sort_order', filters.sort_order);
 
-    const data = await userService.getUsers(`${params.toString()}`);
-    setUsers(data);
+    const { users: fetchedUsers, stats } = await userService.getUsers(`${params.toString()}`);
+    setUsers(fetchedUsers);
+    setStats(stats);
   } catch (error) {
     console.error('Error fetching users:', error);
   } finally {
@@ -148,9 +150,9 @@ const handleSearchKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
       </div>
 
       {/* Count */}
-      <div className="text-sm text-gray-600">
-        Showing {filteredAndSortedUsers.length} users
-      </div>
+      {stats && <div className="text-sm text-gray-600">
+        Showing {stats.totalCount} users | Avg Age: {stats?.averageAge?.toFixed(1)}
+      </div>}
 
       {/* Table */}
       <div className="bg-white border border-gray-200 rounded-lg shadow-sm overflow-hidden">
@@ -158,25 +160,25 @@ const handleSearchKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
           <table className="w-full text-sm">
             <thead className="bg-gray-50">
               <tr>
-                <th className="px-6 py-4 text-left font-medium text-gray-500 uppercase tracking-wider">
+                <th className="px-6 py-4 text-left font-medium text-gray-500 tracking-wider">
                   <button onClick={() => handleSort('name')} className="flex items-center gap-1 hover:text-gray-700">
                     Name <ArrowUpDown size={14} />
                   </button>
                 </th>
-                <th className="px-6 py-4 text-left font-medium text-gray-500 uppercase tracking-wider">Age</th>
-                <th className="px-6 py-4 text-left font-medium text-gray-500 uppercase tracking-wider">
+                <th className="px-6 py-4 text-left font-medium text-gray-500  tracking-wider">Age</th>
+                <th className="px-6 py-4 text-left font-medium text-gray-500 tracking-wider">
                   <button onClick={() => handleSort('email')} className="flex items-center gap-1 hover:text-gray-700">
                     Email <ArrowUpDown size={14} />
                   </button>
                 </th>
-                <th className="px-6 py-4 text-left font-medium text-gray-500 uppercase tracking-wider">Gender</th>
-                 <th className="px-6 py-4 text-left font-medium text-gray-500 uppercase tracking-wider">Phone Number</th>
-                <th className="px-6 py-4 text-left font-medium text-gray-500 uppercase tracking-wider">
+                <th className="px-6 py-4 text-left font-medium text-gray-500 tracking-wider">Gender</th>
+                 <th className="px-6 py-4 text-left font-medium text-gray-500 tracking-wider">Phone Number</th>
+                <th className="px-6 py-4 text-left font-medium text-gray-500 tracking-wider">
                   <button onClick={() => handleSort('created_at')} className="flex items-center gap-1 hover:text-gray-700">
                     Created <ArrowUpDown size={14} />
                   </button>
                 </th>
-                <th className="px-6 py-4 text-left font-medium text-gray-500 uppercase tracking-wider">Actions</th>
+                <th className="px-6 py-4 text-left font-medium text-gray-500 tracking-wider">Actions</th>
               </tr>
             </thead>
             <tbody className="divide-y divide-gray-200">
