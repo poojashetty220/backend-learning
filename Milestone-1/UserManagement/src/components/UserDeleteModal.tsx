@@ -7,16 +7,18 @@ interface UserDeleteModalProps {
   user: User;
   onConfirm: () => void;
   onCancel: () => void;
+  setRefreshList?: () => void;
+  refreshList?: boolean;
 }
 
-const UserDeleteModal: React.FC<UserDeleteModalProps> = ({ user, onConfirm, onCancel }) => {
+const UserDeleteModal: React.FC<UserDeleteModalProps> = ({ user, onConfirm, onCancel, setRefreshList, refreshList }) => {
   const [loading, setLoading] = useState(false);
-  const [confirmText, setConfirmText] = useState('');
 
   const handleDelete = async () => {
     setLoading(true);
     try {
       await userService.deleteUser(user.id);
+      setRefreshList(!refreshList); // Notify parent to refresh the user list
       onConfirm();
     } catch (error) {
       console.error('Error deleting user:', error);
@@ -24,8 +26,6 @@ const UserDeleteModal: React.FC<UserDeleteModalProps> = ({ user, onConfirm, onCa
       setLoading(false);
     }
   };
-
-  const isConfirmValid = confirmText === 'DELETE';
 
   return (
     <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center p-4 z-50">
@@ -57,37 +57,17 @@ const UserDeleteModal: React.FC<UserDeleteModalProps> = ({ user, onConfirm, onCa
             <div className="bg-gray-50 rounded-lg p-4 mb-4">
               <div className="flex items-center gap-3">
                 <div className="h-12 w-12 rounded-full bg-gray-300 flex items-center justify-center overflow-hidden">
-                  {user.avatar ? (
-                    <img src={user.avatar} alt={user.firstName} className="h-full w-full object-cover" />
-                  ) : (
-                    <span className="text-gray-600 font-medium">
-                      {user.firstName.charAt(0)}{user.lastName.charAt(0)}
+                  <span className="text-gray-600 font-medium">
+                      {user?.name?.charAt(0)}
                     </span>
-                  )}
                 </div>
                 <div>
                   <p className="font-medium text-gray-900">
-                    {user.firstName} {user.lastName}
+                    {user.name}
                   </p>
                   <p className="text-sm text-gray-600">{user.email}</p>
-                  <p className="text-sm text-gray-600">{user.department}</p>
                 </div>
               </div>
-            </div>
-
-            {/* Confirmation Input */}
-            <div>
-              <label htmlFor="confirmText" className="block text-sm font-medium text-gray-700 mb-2">
-                To confirm deletion, type <span className="font-bold text-red-600">DELETE</span> in the box below:
-              </label>
-              <input
-                type="text"
-                id="confirmText"
-                value={confirmText}
-                onChange={(e) => setConfirmText(e.target.value)}
-                className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-red-500 focus:border-transparent"
-                placeholder="Type DELETE to confirm"
-              />
             </div>
           </div>
 
@@ -102,7 +82,7 @@ const UserDeleteModal: React.FC<UserDeleteModalProps> = ({ user, onConfirm, onCa
             </button>
             <button
               onClick={handleDelete}
-              disabled={loading || !isConfirmValid}
+              disabled={loading}
               className="bg-red-600 hover:bg-red-700 disabled:opacity-50 disabled:cursor-not-allowed text-white px-4 py-2 rounded-lg flex items-center gap-2 transition-colors"
             >
               {loading ? (

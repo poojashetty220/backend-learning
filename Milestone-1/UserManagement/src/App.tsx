@@ -3,7 +3,6 @@ import UserList from './components/UserList';
 import UserForm from './components/UserForm';
 import UserViewModal from './components/UserViewModal';
 import UserDeleteModal from './components/UserDeleteModal';
-import UserDebug from './components/UserDebug';
 import { User } from './types/user';
 
 type View = 'list' | 'create' | 'edit' | 'debug';
@@ -13,6 +12,7 @@ function App() {
   const [selectedUser, setSelectedUser] = useState<User | null>(null);
   const [viewUser, setViewUser] = useState<User | null>(null);
   const [deleteUser, setDeleteUser] = useState<User | null>(null);
+  const [refreshList, setRefreshList] = useState(false);
 
   const handleCreateUser = () => {
     setSelectedUser(null);
@@ -32,7 +32,7 @@ function App() {
     setDeleteUser(user);
   };
 
-  const handleFormSave = (user: User) => {
+  const handleFormSave = () => {
     setCurrentView('list');
     setSelectedUser(null);
     // In a real app, you would refresh the user list here
@@ -45,6 +45,7 @@ function App() {
 
   const handleDeleteConfirm = () => {
     setDeleteUser(null);
+    setRefreshList(true);
     // In a real app, you would refresh the user list here
   };
 
@@ -65,6 +66,7 @@ function App() {
             onEditUser={handleEditUser}
             onViewUser={handleViewUser}
             onDeleteUser={handleDeleteUser}
+            refreshList={refreshList}
           />
         )}
 
@@ -88,6 +90,8 @@ function App() {
             user={deleteUser}
             onConfirm={handleDeleteConfirm}
             onCancel={handleDeleteCancel}
+            refreshList={refreshList}
+            setRefreshList={setRefreshList}
           />
         )}
       </div>

@@ -1,3 +1,5 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
+
 export interface User {
   id: string;
   name: string;
@@ -6,7 +8,6 @@ export interface User {
   gender: string;
   phone: string;
   created_at: string;
-  avatar?: string;
 }
 
 export interface UserFormData {

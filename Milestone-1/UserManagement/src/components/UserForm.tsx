@@ -1,8 +1,7 @@
 import React, { useState, useEffect } from 'react';
-import { X, Save, ArrowLeft } from 'lucide-react';
+import { Save, ArrowLeft } from 'lucide-react';
 import { User, UserFormData } from '../types/user';
 import { userService } from '../services/userService';
-import { departments, roles, statuses } from '../data/mockUsers';
 
 interface UserFormProps {
   user?: User | null;
@@ -214,9 +213,9 @@ const UserForm: React.FC<UserFormProps> = ({ user, onSave, onCancel }) => {
                 }`}
               >
                 <option value="">Select gender</option>
-                <option value="male">Male</option>
-                <option value="female">Female</option>
-                <option value="other">Other</option>
+                <option value="Male">Male</option>
+                <option value="Female">Female</option>
+                <option value="Other">Other</option>
               </select>
               {errors.gender && (
                 <p className="mt-1 text-sm text-red-600">{errors.gender}</p>

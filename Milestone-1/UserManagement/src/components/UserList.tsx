@@ -1,5 +1,6 @@
-import React, { useState, useEffect, useMemo, useRef } from 'react';
-import { Search, Plus, Edit, Trash2, Eye, ArrowUpDown, Grid, List } from 'lucide-react';
+/* eslint-disable react-hooks/exhaustive-deps */
+import React, { useState, useEffect, useMemo } from 'react';
+import { Search, Plus, Edit, Trash2, Eye, ArrowUpDown } from 'lucide-react';
 import { User, SortField, SortDirection } from '../types/user';
 import { userService } from '../services/userService';
 import moment from 'moment';
@@ -9,81 +10,87 @@ interface UserListProps {
   onEditUser: (user: User) => void;
   onViewUser: (user: User) => void;
   onDeleteUser: (user: User) => void;
+  refreshList?: boolean;
 }
 
-const UserList: React.FC<UserListProps> = ({ onCreateUser, onEditUser, onViewUser, onDeleteUser }) => {
+const UserList: React.FC<UserListProps> = ({
+  onCreateUser,
+  onEditUser,
+  onViewUser,
+  onDeleteUser,
+  refreshList
+}) => {
   const [users, setUsers] = useState<User[]>([]);
-  const [loading, setLoading] = useState(true);
-  const [searchTerm, setSearchTerm] = useState('');
-  const [sortField, setSortField] = useState<SortField>('name');
-  const [sortDirection, setSortDirection] = useState<SortDirection>('asc');
-  const [viewMode, setViewMode] = useState<'grid' | 'table'>('table');
+  const [tableLoading, setTableLoading] = useState(true);
 
-  // Prevent duplicate API calls in React 18 Strict Mode (dev only)
-  const fetchedOnceRef = useRef(false);
+  const [filters, setFilters] = useState<{
+    search: string;
+    min_age: string;
+    sort_by: SortField;
+    sort_order: SortDirection;
+  }>({
+    search: '',
+    min_age: '',
+    sort_by: 'created_at',
+    sort_order: 'desc'
+  });
 
-  useEffect(() => {
-    // In production (where Strict Mode double‑invoke is disabled), this guard is harmless
-    if (fetchedOnceRef.current) return;
-    fetchedOnceRef.current = true;
+  const [ageInput, setAgeInput] = useState('');
 
-    const loadUsers = async () => {
-      try {
-        const data = await userService.getUsers();
-        setUsers(data);
-      } catch (error) {
-        console.error('Error loading users:', error);
-      } finally {
-        setLoading(false);
-      }
-    };
+  const [searchInput, setSearchInput] = useState('');
 
-    loadUsers();
-  }, []);
+const fetchUsers = async () => {
+  setTableLoading(true);
+  try {
+    const params = new URLSearchParams();
+    if (filters.search) params.append('search', filters.search); // ← use filters.search directly now
+    if (filters.min_age) params.append('min_age', filters.min_age);
+    if (filters.sort_by) params.append('sort_by', filters.sort_by);
+    if (filters.sort_order) params.append('sort_order', filters.sort_order);
 
-  const filteredAndSortedUsers = useMemo(() => {
-    const filtered = users.filter(user =>
-      searchTerm === '' ||
-      user.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
-      user.email.toLowerCase().includes(searchTerm.toLowerCase()) ||
-      user.gender.toLowerCase().includes(searchTerm.toLowerCase())
-    );
+    const data = await userService.getUsers(`${params.toString()}`);
+    setUsers(data);
+  } catch (error) {
+    console.error('Error fetching users:', error);
+  } finally {
+    setTableLoading(false);
+  }
+};
 
-    filtered.sort((a, b) => {
-      let aValue = a[sortField];
-      let bValue = b[sortField];
+// Initial load & on filter change (not search input anymore)
+useEffect(() => {
+  fetchUsers();
+}, [filters, refreshList]);
 
-      if (sortField === 'created_at') {
-        aValue = new Date(aValue).getTime();
-        bValue = new Date(bValue).getTime();
-      } else {
-        aValue = (aValue as string).toLowerCase();
-        bValue = (bValue as string).toLowerCase();
-      }
+const handleSearchKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
+  if (e.key === 'Enter') {
+    setFilters(prev => ({ ...prev, search: searchInput }));
+  }
+};
 
-      if (sortDirection === 'asc') return aValue < bValue ? -1 : aValue > bValue ? 1 : 0;
-      return aValue > bValue ? -1 : aValue < bValue ? 1 : 0;
-    });
-
-    return filtered;
-  }, [users, searchTerm, sortField, sortDirection]);
-
-  const handleSort = (field: SortField) => {
-    if (sortField === field) {
-      setSortDirection(prev => (prev === 'asc' ? 'desc' : 'asc'));
-    } else {
-      setSortField(field);
-      setSortDirection('asc');
-    }
+  const handleApplyAgeFilter = () => {
+    setFilters(prev => ({ ...prev, min_age: ageInput }));
   };
 
-  if (loading) {
-    return (
-      <div className="flex justify-center items-center h-64">
-        <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-blue-600" />
-      </div>
-    );
-  }
+  const handleClearFilter = () => {
+    setFilters(prev => ({ ...prev, min_age: '' }));
+    setAgeInput('');
+  };
+
+  const handleSort = (field: SortField) => {
+    setFilters(prev => ({
+      ...prev,
+      sort_by: field,
+      sort_order:
+        prev.sort_by === field
+          ? prev.sort_order === 'asc'
+            ? 'desc'
+            : 'asc'
+          : 'asc'
+    }));
+  };
+
+  const filteredAndSortedUsers = useMemo(() => users, [users]);
 
   return (
     <div className="space-y-6">
@@ -98,77 +105,105 @@ const UserList: React.FC<UserListProps> = ({ onCreateUser, onEditUser, onViewUse
         </button>
       </div>
 
-      {/* Search */}
-      <div className="bg-white p-6 border border-gray-200 rounded-lg shadow-sm">
+      {/* Filters */}
+      <div className="bg-white p-6 border border-gray-200 rounded-lg shadow-sm space-y-4">
         <div className="flex flex-col md:flex-row gap-4">
           <div className="flex-1 relative">
             <Search size={20} className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-400" />
             <input
               type="text"
               placeholder="Search users..."
-              value={searchTerm}
-              onChange={e => setSearchTerm(e.target.value)}
+              value={searchInput}
+              onChange={e => setSearchInput(e.target.value)}
+              onKeyDown={handleSearchKeyDown}
               className="w-full pl-10 pr-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500"
-            />
+              />
           </div>
+        </div>
 
-          {/* View toggle */}
-          <div className="flex items-center bg-gray-100 rounded-lg p-1">
+        <div className="flex flex-col md:flex-row items-center gap-4">
+          <input
+            type="text"
+            value={ageInput}
+            maxLength={2}
+            onChange={e => setAgeInput(e.target.value)}
+            placeholder="Enter minimum age"
+            className="w-full md:w-64 px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500"
+          />
+          <button
+            onClick={handleApplyAgeFilter}
+            className="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-lg"
+          >
+            Apply Age Filter
+          </button>
+          {filters.min_age && (
             <button
-              onClick={() => setViewMode('grid')}
-              className={`p-2 rounded-md ${viewMode === 'grid' ? 'bg-white shadow-sm text-blue-600' : 'text-gray-600 hover:text-gray-800'}`}
+              onClick={handleClearFilter}
+              className="text-sm text-blue-600 underline"
             >
-              <Grid size={18} />
+              Clear Filter
             </button>
-            <button
-              onClick={() => setViewMode('table')}
-              className={`p-2 rounded-md ${viewMode === 'table' ? 'bg-white shadow-sm text-blue-600' : 'text-gray-600 hover:text-gray-800'}`}
-            >
-              <List size={18} />
-            </button>
-          </div>
+          )}
         </div>
       </div>
 
       {/* Count */}
-      <div className="text-sm text-gray-600">Showing {filteredAndSortedUsers.length} of {users.length} users</div>
+      <div className="text-sm text-gray-600">
+        Showing {filteredAndSortedUsers.length} users
+      </div>
 
-      {/* Table View */}
-      {viewMode === 'table' ? (
-        <div className="bg-white border border-gray-200 rounded-lg shadow-sm overflow-hidden">
-          <div className="overflow-x-auto">
-            <table className="w-full text-sm">
-              <thead className="bg-gray-50">
+      {/* Table */}
+      <div className="bg-white border border-gray-200 rounded-lg shadow-sm overflow-hidden">
+        <div className="overflow-x-auto">
+          <table className="w-full text-sm">
+            <thead className="bg-gray-50">
+              <tr>
+                <th className="px-6 py-4 text-left font-medium text-gray-500 uppercase tracking-wider">
+                  <button onClick={() => handleSort('name')} className="flex items-center gap-1 hover:text-gray-700">
+                    Name <ArrowUpDown size={14} />
+                  </button>
+                </th>
+                <th className="px-6 py-4 text-left font-medium text-gray-500 uppercase tracking-wider">Age</th>
+                <th className="px-6 py-4 text-left font-medium text-gray-500 uppercase tracking-wider">
+                  <button onClick={() => handleSort('email')} className="flex items-center gap-1 hover:text-gray-700">
+                    Email <ArrowUpDown size={14} />
+                  </button>
+                </th>
+                <th className="px-6 py-4 text-left font-medium text-gray-500 uppercase tracking-wider">Gender</th>
+                 <th className="px-6 py-4 text-left font-medium text-gray-500 uppercase tracking-wider">Phone Number</th>
+                <th className="px-6 py-4 text-left font-medium text-gray-500 uppercase tracking-wider">
+                  <button onClick={() => handleSort('created_at')} className="flex items-center gap-1 hover:text-gray-700">
+                    Created <ArrowUpDown size={14} />
+                  </button>
+                </th>
+                <th className="px-6 py-4 text-left font-medium text-gray-500 uppercase tracking-wider">Actions</th>
+              </tr>
+            </thead>
+            <tbody className="divide-y divide-gray-200">
+              {tableLoading ? (
+                Array.from({ length: 6 }).map((_, i) => (
+                  <tr key={i} className="animate-pulse">
+                    {Array(6).fill('').map((_, j) => (
+                      <td key={j} className="px-6 py-4">
+                        <div className="h-4 bg-gray-200 rounded w-3/4"></div>
+                      </td>
+                    ))}
+                  </tr>
+                ))
+              ) : filteredAndSortedUsers.length === 0 ? (
                 <tr>
-                  <th className="px-6 py-4 text-left font-medium text-gray-500 uppercase tracking-wider">
-                    <button onClick={() => handleSort('name')} className="flex items-center gap-1 hover:text-gray-700">
-                      Name <ArrowUpDown size={14} />
-                    </button>
-                  </th>
-                  <th className="px-6 py-4 text-left font-medium text-gray-500 uppercase tracking-wider">
-                    Age
-                  </th>
-                  <th className="px-6 py-4 text-left font-medium text-gray-500 uppercase tracking-wider">
-                    <button onClick={() => handleSort('email')} className="flex items-center gap-1 hover:text-gray-700">
-                      Email <ArrowUpDown size={14} />
-                    </button>
-                  </th>
-                  <th className="px-6 py-4 text-left font-medium text-gray-500 uppercase tracking-wider">Gender</th>
-                  <th className="px-6 py-4 text-left font-medium text-gray-500 uppercase tracking-wider">
-                    <button onClick={() => handleSort('created_at')} className="flex items-center gap-1 hover:text-gray-700">
-                      Created <ArrowUpDown size={14} />
-                    </button>
-                  </th>
-                  <th className="px-6 py-4 text-left font-medium text-gray-500 uppercase tracking-wider">Actions</th>
+                  <td colSpan={6} className="px-6 py-4 text-center text-gray-500">
+                    No users found.
+                  </td>
                 </tr>
-              </thead>
-              <tbody className="divide-y divide-gray-200">
-                {filteredAndSortedUsers.map(user => (
+              ) : (
+                filteredAndSortedUsers.map(user => (
                   <tr key={user.id} className="hover:bg-gray-50">
                     <td className="px-6 py-4 whitespace-nowrap">{user.name}</td>
                     <td className="px-6 py-4 whitespace-nowrap">{user.age}</td>
                     <td className="px-6 py-4 whitespace-nowrap">{user.email}</td>
                     <td className="px-6 py-4 whitespace-nowrap capitalize">{user.gender}</td>
+                    <td className="px-6 py-4 whitespace-nowrap capitalize">{user.phone}</td>
                     <td className="px-6 py-4 whitespace-nowrap">{moment(user.created_at).format('MMM D, YYYY')}</td>
                     <td className="px-6 py-4 whitespace-nowrap">
                       <div className="flex items-center gap-2">
@@ -184,40 +219,12 @@ const UserList: React.FC<UserListProps> = ({ onCreateUser, onEditUser, onViewUse
                       </div>
                     </td>
                   </tr>
-                ))}
-              </tbody>
-            </table>
-          </div>
+                ))
+              )}
+            </tbody>
+          </table>
         </div>
-      ) : (
-        /* Grid View */
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
-          {filteredAndSortedUsers.map(user => (
-            <div key={user.id} className="bg-white border border-gray-200 rounded-lg shadow-sm p-6 hover:shadow-md transition-all">
-              <div className="flex flex-col items-center text-center mb-4">
-                <div className="h-16 w-16 rounded-full bg-gray-300 flex items-center justify-center overflow-hidden mb-3">
-                  <img src={user.avatar} alt={user.name} className="h-full w-full object-cover" />
-                </div>
-                <h3 className="text-lg font-semibold text-gray-900 mb-1">{user.name}</h3>
-                <p className="text-sm text-gray-600 mb-1">{user.email}</p>
-                <p className="text-sm text-gray-600 capitalize">Gender: {user.gender}</p>
-              </div>
-              <p className="text-sm text-gray-600 mb-4">Joined: {moment(user.created_at).format('MMM D, YYYY')}</p>
-              <div className="flex justify-center gap-2">
-                <button onClick={() => onViewUser(user)} className="p-2 text-blue-600 hover:bg-blue-50 rounded-lg">
-                  <Eye size={16} />
-                </button>
-                <button onClick={() => onEditUser(user)} className="p-2 text-green-600 hover:bg-green-50 rounded-lg">
-                  <Edit size={16} />
-                </button>
-                <button onClick={() => onDeleteUser(user)} className="p-2 text-red-600 hover:bg-red-50 rounded-lg">
-                  <Trash2 size={16} />
-                </button>
-              </div>
-            </div>
-          ))}
-        </div>
-      )}
+      </div>
     </div>
   );
 };

@@ -13,14 +13,14 @@ const mapUser = (user: any): User => ({
   gender: user.gender,
   phone: user.phone,
   created_at: user.created_at,
-  avatar: user.avatar || 'https://images.pexels.com/photos/1222271/pexels-photo-1222271.jpeg?auto=compress&cs=tinysrgb&w=150&h=150&dpr=1'
 });
 
 export const userService = {
   // Get all users from MongoDB
-  getUsers: async (min_age: number): Promise<User[]> => {
+  getUsers: async (filters: any): Promise<User[]> => {
+    console.log(filters, 'fil')
   try {
-    const { data } = await axios.get(`${API_URL}/users?min_age=${min_age}`, {});
+    const { data } = await axios.get(`${API_URL}/users?page=1&${filters || ''}`, {});
     return data.map(mapUser);
   } catch (error) {
     console.error('Error fetching users by min age:', error);
