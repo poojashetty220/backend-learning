@@ -1,8 +1,8 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import React, { useState, useEffect, useMemo } from 'react';
 import { Search, Plus, Edit, Trash2, Eye, ArrowUpDown } from 'lucide-react';
-import { User, SortField, SortDirection } from '../types/user';
-import { userService } from '../services/userService';
+import { User, SortField, SortDirection } from '../../types/user';
+import { userService } from '../../services/userService';
 import moment from 'moment';
 
 interface UserListProps {

@@ -6,20 +6,21 @@ const API_URL = 'http://localhost:3001/api';
 
 // Map MongoDB _id to id for frontend compatibility
 const mapUser = (user: any): User => ({
-  id: user._id,
   name: user.name,
   email: user.email,
   age: user.age,
   gender: user.gender,
   phone: user.phone,
   created_at: user.created_at,
+  _id: undefined,
+  id: ''
 });
 
 export const userService = {
   // Get all users from MongoDB
   getUsers: async (filters: any): Promise<{ users: User[]; stats: { averageAge: number; totalCount: number } }> => {
   try {
-    const { data } = await axios.get(`${API_URL}/users?page=1&${filters || ''}`, {});
+    const { data } = await axios.get(`${API_URL}/users?page=1${filters ? `&${filters}` : ''}`, {});
     const mappedUsers = data.users.map(mapUser);
     return {
       users: mappedUsers,
@@ -39,28 +40,6 @@ export const userService = {
     } catch (error) {
       console.error('Error fetching collections:', error);
       return [];
-    }
-  },
-
-  // Get raw database contents from a collection (debug endpoint)
-  getDebugCollection: async (collection: string): Promise<any[]> => {
-    try {
-      const { data } = await axios.get(`${API_URL}/debug/${collection}`);
-      return data;
-    } catch (error) {
-      console.error(`Error fetching from ${collection}:`, error);
-      return [];
-    }
-  },
-
-  // Get user by ID
-  getUserById: async (id: string): Promise<User | null> => {
-    try {
-      const { data } = await axios.get(`${API_URL}/users/${id}`);
-      return mapUser(data);
-    } catch (error) {
-      console.error('Error fetching user:', error);
-      return null;
     }
   },
 

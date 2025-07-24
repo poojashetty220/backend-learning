@@ -1,6 +1,7 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 
 export interface User {
+  _id: any;
   id: string;
   name: string;
   email: string;

@@ -1,6 +1,6 @@
 import React from 'react';
 import { X, Mail, Phone } from 'lucide-react';
-import { User } from '../types/user';
+import { User } from '../../types/user';
 
 interface UserViewModalProps {
   user: User;

@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { Save, ArrowLeft } from 'lucide-react';
-import { User, UserFormData } from '../types/user';
-import { userService } from '../services/userService';
+import { User, UserFormData } from '../../types/user';
+import { userService } from '../../services/userService';
 
 interface UserFormProps {
   user?: User | null;

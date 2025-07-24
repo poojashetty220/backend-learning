@@ -1,13 +1,13 @@
 import React, { useState } from 'react';
 import { X, Trash2, AlertTriangle } from 'lucide-react';
-import { User } from '../types/user';
-import { userService } from '../services/userService';
+import { User } from '../../types/user';
+import { userService } from '../../services/userService';
 
 interface UserDeleteModalProps {
   user: User;
   onConfirm: () => void;
   onCancel: () => void;
-  setRefreshList?: () => void;
+  setRefreshList?: React.Dispatch<React.SetStateAction<boolean>>;
   refreshList?: boolean;
 }
 
@@ -18,7 +18,9 @@ const UserDeleteModal: React.FC<UserDeleteModalProps> = ({ user, onConfirm, onCa
     setLoading(true);
     try {
       await userService.deleteUser(user.id);
-      setRefreshList(!refreshList); // Notify parent to refresh the user list
+      if (setRefreshList) {
+        setRefreshList(!refreshList); // Notify parent to refresh the user list
+      }
       onConfirm();
     } catch (error) {
       console.error('Error deleting user:', error);
