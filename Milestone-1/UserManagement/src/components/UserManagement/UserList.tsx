@@ -1,9 +1,11 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import React, { useState, useEffect, useMemo } from 'react';
 import { Search, Plus, Edit, Trash2, Eye, ArrowUpDown } from 'lucide-react';
-import { User, SortField, SortDirection } from '../../types/user';
+import { User, SortField, SortDirection, Address } from '../../types/user';
 import { userService } from '../../services/userService';
 import moment from 'moment';
+import AddressModal from './AddressModal';
+import MultipleAddressesModal from './MultipleAddressesModal';
 
 interface UserListProps {
   onCreateUser: () => void;
@@ -26,57 +28,85 @@ const UserList: React.FC<UserListProps> = ({
   const [filters, setFilters] = useState<{
     search: string;
     min_age: string;
+    city: string;
     sort_by: SortField;
     sort_order: SortDirection;
   }>({
     search: '',
     min_age: '',
+    city: '',
     sort_by: 'created_at',
     sort_order: 'desc'
   });
 
   const [ageInput, setAgeInput] = useState('');
+  const [cityInput, setCityInput] = useState('');
 
   const [searchInput, setSearchInput] = useState('');
   const [stats, setStats] = useState({ averageAge: 0, totalCount: 0 });
 
-const fetchUsers = async () => {
-  setTableLoading(true);
-  try {
-    const params = new URLSearchParams();
-    if (filters.search) params.append('search', filters.search); // ← use filters.search directly now
-    if (filters.min_age) params.append('min_age', filters.min_age);
-    if (filters.sort_by) params.append('sort_by', filters.sort_by);
-    if (filters.sort_order) params.append('sort_order', filters.sort_order);
+  const [addressModalOpen, setAddressModalOpen] = useState(false);
+  const [selectedUser, setSelectedUser] = useState<User | null>(null);
 
-    const { users: fetchedUsers, stats } = await userService.getUsers(`${params.toString()}`);
-    setUsers(fetchedUsers);
-    setStats(stats);
-  } catch (error) {
-    console.error('Error fetching users:', error);
-  } finally {
-    setTableLoading(false);
-  }
-};
+  // New state for multiple addresses modal
+  const [multipleAddressesModalOpen, setMultipleAddressesModalOpen] = useState(false);
+  const [usersWithMultipleAddresses, setUsersWithMultipleAddresses] = useState<User[]>([]);
 
-// Initial load & on filter change (not search input anymore)
-useEffect(() => {
-  fetchUsers();
-}, [filters, refreshList]);
+  // Removed duplicate states
+  // const [multiAddressModalOpen, setMultiAddressModalOpen] = useState(false);
+  // const [usersWithMultipleAddresses, setUsersWithMultipleAddresses] = useState<User[]>([]);
 
-const handleSearchKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
-  if (e.key === 'Enter') {
-    setFilters(prev => ({ ...prev, search: searchInput }));
-  }
-};
+  const fetchUsers = async () => {
+    setTableLoading(true);
+    try {
+      const params = new URLSearchParams();
+      if (filters.search) params.append('search', filters.search);
+      if (filters.min_age) params.append('min_age', filters.min_age);
+      if (filters.city) params.append('city', filters.city);
+      if (filters.sort_by) params.append('sort_by', filters.sort_by);
+      if (filters.sort_order) params.append('sort_order', filters.sort_order);
 
-  const handleApplyAgeFilter = () => {
-    setFilters(prev => ({ ...prev, min_age: ageInput }));
+      const { users: fetchedUsers, stats } = await userService.getUsers(`${params.toString()}`);
+      setUsers(fetchedUsers);
+      setStats(stats);
+    } catch (error) {
+      console.error('Error fetching users:', error);
+    } finally {
+      setTableLoading(false);
+    }
+  };
+
+  // Handler to open multiple addresses modal
+  const openMultipleAddressesModal = () => {
+    const filteredUsers = users.filter(user => user.addresses && user.addresses.length > 1);
+    setUsersWithMultipleAddresses(filteredUsers);
+    setMultipleAddressesModalOpen(true);
+  };
+
+  // Handler to close multiple addresses modal
+  const closeMultipleAddressesModal = () => {
+    setUsersWithMultipleAddresses([]);
+    setMultipleAddressesModalOpen(false);
+  };
+
+  useEffect(() => {
+    fetchUsers();
+  }, [filters, refreshList]);
+
+  const handleSearchKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
+    if (e.key === 'Enter') {
+      setFilters(prev => ({ ...prev, search: searchInput }));
+    }
+  };
+
+  const handleApplyFilter = () => {
+    setFilters(prev => ({ ...prev, min_age: ageInput, city: cityInput }));
   };
 
   const handleClearFilter = () => {
-    setFilters(prev => ({ ...prev, min_age: '' }));
+    setFilters(prev => ({ ...prev, min_age: '', city: '' }));
     setAgeInput('');
+    setCityInput('');
   };
 
   const handleSort = (field: SortField) => {
@@ -94,17 +124,53 @@ const handleSearchKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
 
   const filteredAndSortedUsers = useMemo(() => users, [users]);
 
+  const openAddressModal = (user: User) => {
+    setSelectedUser(user);
+    setAddressModalOpen(true);
+  };
+
+  const closeAddressModal = () => {
+    setSelectedUser(null);
+    setAddressModalOpen(false);
+  };
+
+  const handleSaveAddresses = async (addresses: Address[]) => {
+    if (!selectedUser) return;
+    try {
+      const updatedUser = await userService.updateUser(selectedUser._id, {
+        addresses
+      });
+      if (updatedUser) {
+        setUsers(prevUsers =>
+          prevUsers.map(u => (u._id === updatedUser._id ? updatedUser : u))
+        );
+      }
+      closeAddressModal();
+    } catch (error) {
+      console.error('Failed to update addresses:', error);
+      alert('Failed to update addresses. Please try again.');
+    }
+  };
+
   return (
     <div className="space-y-6">
       {/* Header */}
       <div className="flex justify-between items-center">
         <h1 className="text-3xl font-bold text-gray-900">User Management</h1>
-        <button
-          onClick={onCreateUser}
-          className="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-lg flex items-center gap-2"
-        >
-          <Plus size={20} /> Add User
-        </button>
+        <div className="flex gap-4">
+          <button
+            onClick={openMultipleAddressesModal}
+            className="bg-purple-600 hover:bg-purple-700 text-white px-4 py-2 rounded-lg flex items-center gap-2"
+          >
+            View Users with Multiple Addresses
+          </button>
+          <button
+            onClick={onCreateUser}
+            className="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-lg flex items-center gap-2"
+          >
+            <Plus size={20} /> Add User
+          </button>
+        </div>
       </div>
 
       {/* Filters */}
@@ -119,7 +185,7 @@ const handleSearchKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
               onChange={e => setSearchInput(e.target.value)}
               onKeyDown={handleSearchKeyDown}
               className="w-full pl-10 pr-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500"
-              />
+            />
           </div>
         </div>
 
@@ -132,13 +198,20 @@ const handleSearchKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
             placeholder="Enter minimum age"
             className="w-full md:w-64 px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500"
           />
+          <input
+            type="text"
+            value={cityInput}
+            onChange={e => setCityInput(e.target.value)}
+            placeholder="Enter city"
+            className="w-full md:w-64 px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500"
+          />
           <button
-            onClick={handleApplyAgeFilter}
+            onClick={handleApplyFilter}
             className="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-lg"
           >
-            Apply Age Filter
+            Apply Filter
           </button>
-          {filters.min_age && (
+          {(filters.min_age || filters.city) && (
             <button
               onClick={handleClearFilter}
               className="text-sm text-blue-600 underline"
@@ -150,9 +223,11 @@ const handleSearchKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
       </div>
 
       {/* Count */}
-      {stats && <div className="text-sm text-gray-600">
-        Showing {stats.totalCount} users | Avg Age: {stats?.averageAge?.toFixed(1)}
-      </div>}
+      {stats && (
+        <div className="text-sm text-gray-600">
+          Showing {stats.totalCount} users | Avg Age: {stats?.averageAge?.toFixed(1)}
+        </div>
+      )}
 
       {/* Table */}
       <div className="bg-white border border-gray-200 rounded-lg shadow-sm overflow-hidden">
@@ -161,40 +236,62 @@ const handleSearchKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
             <thead className="bg-gray-50">
               <tr>
                 <th className="px-6 py-4 text-left font-medium text-gray-500 tracking-wider">
-                  <button onClick={() => handleSort('name')} className="flex items-center gap-1 hover:text-gray-700">
+                  <button
+                    onClick={() => handleSort('name')}
+                    className="flex items-center gap-1 hover:text-gray-700"
+                  >
                     Name <ArrowUpDown size={14} />
                   </button>
                 </th>
-                <th className="px-6 py-4 text-left font-medium text-gray-500  tracking-wider">Age</th>
+                <th className="px-6 py-4 text-left font-medium text-gray-500  tracking-wider">
+                  Age
+                </th>
                 <th className="px-6 py-4 text-left font-medium text-gray-500 tracking-wider">
-                  <button onClick={() => handleSort('email')} className="flex items-center gap-1 hover:text-gray-700">
+                  <button
+                    onClick={() => handleSort('email')}
+                    className="flex items-center gap-1 hover:text-gray-700"
+                  >
                     Email <ArrowUpDown size={14} />
                   </button>
                 </th>
-                <th className="px-6 py-4 text-left font-medium text-gray-500 tracking-wider">Gender</th>
-                 <th className="px-6 py-4 text-left font-medium text-gray-500 tracking-wider">Phone Number</th>
                 <th className="px-6 py-4 text-left font-medium text-gray-500 tracking-wider">
-                  <button onClick={() => handleSort('created_at')} className="flex items-center gap-1 hover:text-gray-700">
+                  Gender
+                </th>
+                <th className="px-6 py-4 text-left font-medium text-gray-500 tracking-wider">
+                  Phone Number
+                </th>
+                <th className="px-6 py-4 text-left font-medium text-gray-500 tracking-wider">
+                  <button
+                    onClick={() => handleSort('created_at')}
+                    className="flex items-center gap-1 hover:text-gray-700"
+                  >
                     Created <ArrowUpDown size={14} />
                   </button>
                 </th>
-                <th className="px-6 py-4 text-left font-medium text-gray-500 tracking-wider">Actions</th>
+                <th className="px-6 py-4 text-left font-medium text-gray-500 tracking-wider">
+                  Addresses
+                </th>
+                <th className="px-6 py-4 text-left font-medium text-gray-500 tracking-wider">
+                  Actions
+                </th>
               </tr>
             </thead>
             <tbody className="divide-y divide-gray-200">
               {tableLoading ? (
                 Array.from({ length: 6 }).map((_, i) => (
                   <tr key={i} className="animate-pulse">
-                    {Array(6).fill('').map((_, j) => (
-                      <td key={j} className="px-6 py-4">
-                        <div className="h-4 bg-gray-200 rounded w-3/4"></div>
-                      </td>
-                    ))}
+                    {Array(8)
+                      .fill('')
+                      .map((_, j) => (
+                        <td key={j} className="px-6 py-4">
+                          <div className="h-4 bg-gray-200 rounded w-3/4"></div>
+                        </td>
+                      ))}
                   </tr>
                 ))
               ) : filteredAndSortedUsers.length === 0 ? (
                 <tr>
-                  <td colSpan={6} className="px-6 py-4 text-center text-gray-500">
+                  <td colSpan={8} className="px-6 py-4 text-center text-gray-500">
                     No users found.
                   </td>
                 </tr>
@@ -206,16 +303,40 @@ const handleSearchKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
                     <td className="px-6 py-4 whitespace-nowrap">{user.email}</td>
                     <td className="px-6 py-4 whitespace-nowrap capitalize">{user.gender}</td>
                     <td className="px-6 py-4 whitespace-nowrap capitalize">{user.phone}</td>
-                    <td className="px-6 py-4 whitespace-nowrap">{moment(user.created_at).format('MMM D, YYYY')}</td>
+                    <td className="px-6 py-4 whitespace-nowrap">
+                      {moment(user.created_at).format('MMM D, YYYY')}
+                    </td>
+                    <td className="px-6 py-4 whitespace-nowrap">
+                    {user.addresses && user.addresses.length > 0
+                      ? user.addresses.length
+                      : 0}
+                      &nbsp;
+                      <button
+                        onClick={() => openAddressModal(user)}
+                        className="text-purple-600 hover:text-purple-900 underline text-sm"
+                        title="View Addresses"
+                      >
+                        View
+                      </button>
+                    </td>
                     <td className="px-6 py-4 whitespace-nowrap">
                       <div className="flex items-center gap-2">
-                        <button onClick={() => onViewUser(user)} className="text-blue-600 hover:text-blue-900">
+                        <button
+                          onClick={() => onViewUser(user)}
+                          className="text-blue-600 hover:text-blue-900"
+                        >
                           <Eye size={16} />
                         </button>
-                        <button onClick={() => onEditUser(user)} className="text-green-600 hover:text-green-900">
+                        <button
+                          onClick={() => onEditUser(user)}
+                          className="text-green-600 hover:text-green-900"
+                        >
                           <Edit size={16} />
                         </button>
-                        <button onClick={() => onDeleteUser(user)} className="text-red-600 hover:text-red-900">
+                        <button
+                          onClick={() => onDeleteUser(user)}
+                          className="text-red-600 hover:text-red-900"
+                        >
                           <Trash2 size={16} />
                         </button>
                       </div>
@@ -227,6 +348,19 @@ const handleSearchKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
           </table>
         </div>
       </div>
+
+      <AddressModal
+        isOpen={addressModalOpen}
+        onClose={closeAddressModal}
+        addresses={selectedUser?.addresses || []}
+        onSave={handleSaveAddresses}
+      />
+
+      <MultipleAddressesModal
+        isOpen={multipleAddressesModalOpen}
+        onClose={closeMultipleAddressesModal}
+        users={usersWithMultipleAddresses}
+      />
     </div>
   );
 };

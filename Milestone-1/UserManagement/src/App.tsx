@@ -14,6 +14,11 @@ import { User } from './types/user';
 import { Post } from './types/post'; 
 import CategoryList from './components/CategoryManagement/CategoryList';
 import CategoryForm from './components/CategoryManagement/CategoryForm';
+import OrderList from './components/OrderManagement/OrderList';
+import OrderForm from './components/OrderManagement/OrderForm';
+import OrderViewModal from './components/OrderManagement/OrderViewModal';
+import OrderDeleteModal from './components/OrderManagement/OrderDeleteModal';
+import { Category } from './types/category';
 
 function AppWrapper() {
   return (
@@ -25,10 +30,13 @@ function App() {
   const [selectedUser, setSelectedUser] = useState<User | null>(null);
   const [selectedPost, setSelectedPost] = useState<Post | null>(null);
   const [selectedCategory, setSelectedCategory] = useState<Category | null>(null);
+  const [selectedOrder, setSelectedOrder] = useState<any | null>(null);
   const [viewUser, setViewUser] = useState<User | null>(null);
-  const [viewPost, setViewPost] = useState<any | null>(null);
+  const [viewPost, setViewPost] = useState<Post | null>(null);
+  const [viewOrder, setViewOrder] = useState<any | null>(null);
   const [deleteUser, setDeleteUser] = useState<User | null>(null);
   const [deletePost, setDeletePost] = useState<Post | null>(null);
+  const [deleteOrder, setDeleteOrder] = useState<any | null>(null);
   const [refreshList, setRefreshList] = useState(false);
   const [isAuthenticated, setIsAuthenticated] = useState(false);
 
@@ -78,6 +86,12 @@ function App() {
           className="text-left px-4 py-2 rounded hover:bg-gray-100 transition"
         >
           Posts with Users
+        </button>
+        <button
+          onClick={() => navigate('/orders')}
+          className="text-left px-4 py-2 rounded hover:bg-gray-100 transition"
+        >
+          Orders
         </button>
         <button
           onClick={handleLogout}
@@ -181,7 +195,6 @@ function App() {
           } />
           <Route path="/posts-with-users" element={
             <PostsWithUserList
-              onViewPost={setViewPost}
               refreshList={refreshList}
             />
           } />
@@ -199,7 +212,30 @@ function App() {
               onCancel={() => { setSelectedPost(null); navigate('/posts'); }}
             />
           } />
-
+          {/* Order Routes */}
+          <Route path="/orders" element={
+            <OrderList
+              onCreateOrder={() => { setSelectedOrder(null); navigate('/orders/create'); }}
+              onEditOrder={(order) => { setSelectedOrder(order); navigate(`/orders/edit/${order.id}`); }}
+              onViewOrder={setViewOrder}
+              onDeleteOrder={setDeleteOrder}
+              refreshList={refreshList}
+            />
+          } />
+          <Route path="/orders/create" element={
+            <OrderForm
+              order={null}
+              onSave={() => { setSelectedOrder(null); navigate('/orders'); }}
+              onCancel={() => { setSelectedOrder(null); navigate('/orders'); }}
+            />
+          } />
+          <Route path="/orders/edit/:id" element={
+            <OrderForm
+              order={selectedOrder}
+              onSave={() => { setSelectedOrder(null); navigate('/orders'); }}
+              onCancel={() => { setSelectedOrder(null); navigate('/orders'); }}
+            />
+          } />
         </Routes>
       </div>
     </div>

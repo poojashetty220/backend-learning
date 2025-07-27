@@ -3,6 +3,7 @@ import { connect } from './lib/connect.js';
 import routes from './services/user-management/app.js';
 import postRoutes from './services/post-management/app.js';
 import categoryManagementRoutes from './services/category-management/app.js';
+import orderManagementRoutes from './services/order-management/app.js';
 
 // For CORS support
 const cors = (req, res, next) => {
@@ -36,6 +37,7 @@ app.get('/', (req, res) => {
 app.use('/api', routes);
 app.use('/api/posts', postRoutes);
 app.use('/api/categories', categoryManagementRoutes);
+app.use('/api/orders', orderManagementRoutes);
 
 
 // Global error handling middleware

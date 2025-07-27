@@ -12,7 +12,8 @@ const mapUser = (user: any): User => ({
   phone: user.phone,
   created_at: user.created_at,
   _id: user._id,
-  id: ''
+  id: '',
+  addresses: user.addresses || []
 });
 
 const token = localStorage.getItem('token');

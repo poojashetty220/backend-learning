@@ -23,8 +23,13 @@ const CategoryList: React.FC<CategoryListProps> = ({
     setTableLoading(true);
     try {
       const response = await categoryService.getCategories();
-      const fetchCategories = response?.categories ?? [];
-      setCategories(fetchCategories);
+      if (Array.isArray(response)) {
+        setCategories(response);
+      } else if (response && Array.isArray(response.categories)) {
+        setCategories(response.categories);
+      } else {
+        setCategories([]);
+      }
     } catch (error) {
       console.error('Error fetching categories:', error);
       setCategories([]);

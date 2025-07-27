@@ -23,7 +23,6 @@ interface PostWithUser {
 }
 
 interface PostsWithUserListProps {
-  onViewPost: (post: PostWithUser) => void;
   refreshList?: boolean;
 }
 

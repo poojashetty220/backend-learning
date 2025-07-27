@@ -50,13 +50,28 @@ router.post('/login', async (req, res) => {
   }
 });
 
-// Protect all routes below this middleware
-router.use(authenticateToken);
+  
+// New route to get users with multiple addresses
+router.get('/multiple-addresses', async (req, res) => {
+  try {
+    const users = await User.aggregate([
+      {
+        $match: {
+          $expr: { $gt: [{ $size: '$addresses' }, 1] }
+        }
+      }
+    ]);
+    res.json({ users });
+  } catch (error) {
+    res.status(500).json({ message: error.message });
+  }
+});
 
 router.get('/', async (req, res) => {
   try {
     const {
       min_age,
+      city = '',
       search = '',
       sort_by = 'created_at',
       sort_order = 'desc'
@@ -79,6 +94,11 @@ router.get('/', async (req, res) => {
           Number(min_age)
         ]
       };
+    }
+
+    // Filter by city (case-insensitive)
+    if (city) {
+      filter['addresses.city'] = { $regex: new RegExp(city.toString(), 'i') };
     }
 
     // Case-insensitive search
@@ -208,7 +228,12 @@ router.get('/:id', async (req, res) => {
 
 router.put('/:id', async (req, res) => {
   try {
-    const user = await User.findByIdAndUpdate(req.params.id, req.body, { new: true });
+    const updateData = { ...req.body };
+    // Ensure addresses field is handled properly
+    if (updateData.addresses && !Array.isArray(updateData.addresses)) {
+      return res.status(400).json({ message: 'Addresses must be an array' });
+    }
+    const user = await User.findByIdAndUpdate(req.params.id, updateData, { new: true });
     if (!user) return res.status(404).json({ message: 'User not found' });
     res.json(user);
   } catch (error) {
