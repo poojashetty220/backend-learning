@@ -1,13 +1,31 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { User } from '../../types/user';
 
 interface MultipleAddressesModalProps {
   isOpen: boolean;
   onClose: () => void;
-  users: User[];
 }
 
-const MultipleAddressesModal: React.FC<MultipleAddressesModalProps> = ({ isOpen, onClose, users }) => {
+const MultipleAddressesModal: React.FC<MultipleAddressesModalProps> = ({ isOpen, onClose }) => {
+  const [users, setUsers] = useState<User[]>([]);
+
+  useEffect(() => {
+    if (isOpen) {
+      fetchUsersWithMultipleAddresses();
+    }
+  }, [isOpen]);
+
+  const fetchUsersWithMultipleAddresses = async () => {
+    try {
+      const response = await fetch('http://localhost:3001/api/users/multiple-addresses');
+      const data = await response.json();
+      setUsers(data.users || []);
+    } catch (error) {
+      console.error('Error fetching users with multiple addresses:', error);
+      setUsers([]);
+    }
+  };
+
   if (!isOpen) return null;
 
   return (
@@ -22,11 +40,11 @@ const MultipleAddressesModal: React.FC<MultipleAddressesModalProps> = ({ isOpen,
               <div key={user._id} className="border p-4 rounded">
                 <h3 className="font-semibold mb-2">{user.name} ({user.email})</h3>
                 <ul className="list-disc list-inside">
-{user.addresses && user.addresses.map((address, index) => (
-  <li key={index}>
-    {address.street}, {address.city}, {address.state} {address.zip}
-  </li>
-))}
+                  {user.addresses && user.addresses.map((address, index) => (
+                    <li key={index}>
+                      {address.street}, {address.city}, {address.state} {address.zip}
+                    </li>
+                  ))}
                 </ul>
               </div>
             ))}

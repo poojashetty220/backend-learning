@@ -29,12 +29,22 @@ router.get('/', async (req, res) => {
     // Use populate to get category details
     const posts = await Post.find(filter)
       .populate('categories', 'name')
+      .populate('user_id')  // populate user data
       .sort({ [sortField]: sortDirection })
       .exec();
 
     const totalCount = await Post.countDocuments(filter);
 
-    res.json({ posts, stats: { totalCount } });
+    // Map posts to add user_info key with populated user data and keep user_id as string
+    const postsWithUserInfo = posts.map(post => {
+      const postObj = post.toObject();
+      postObj.user_info = postObj.user_id;
+      // Keep user_id as string (ObjectId)
+      postObj.user_id = postObj.user_id._id.toString();
+      return postObj;
+    });
+
+    res.json({ posts: postsWithUserInfo, stats: { totalCount } });
   } catch (error) {
     res.status(500).json({ message: error.message });
   }

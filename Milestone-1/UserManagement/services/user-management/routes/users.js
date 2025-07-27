@@ -51,16 +51,17 @@ router.post('/login', async (req, res) => {
 });
 
   
-// New route to get users with multiple addresses
+/**
+ * New route to get users with multiple addresses
+ * Modified to filter out documents where addresses field is missing or not an array
+ */
 router.get('/multiple-addresses', async (req, res) => {
   try {
-    const users = await User.aggregate([
-      {
-        $match: {
-          $expr: { $gt: [{ $size: '$addresses' }, 1] }
-        }
-      }
-    ]);
+    // Find users where addresses is an array with length > 1
+    const users = await User.find({
+      addresses: { $exists: true, $type: 'array' },
+      $expr: { $gt: [{ $size: '$addresses' }, 1] }
+    });
     res.json({ users });
   } catch (error) {
     res.status(500).json({ message: error.message });

@@ -20,6 +20,23 @@ router.get('/', async (req, res) => {
   }
 });
 
+// Get orders by user ID
+router.get('/user/:userId', async (req, res) => {
+  try {
+    const userId = req.params.userId;
+    let orders = await Order.find({ user_id: userId }).populate('user_id');
+    orders = orders.map(order => {
+      const orderObj = order.toObject();
+      orderObj.user_info = orderObj.user_id;
+      orderObj.user_id = orderObj.user_id._id.toString();
+      return orderObj;
+    });
+    res.json(orders);
+  } catch (error) {
+    res.status(500).json({ message: 'Error fetching orders for user', error });
+  }
+});
+
 // Get order by ID
 router.get('/:id', async (req, res) => {
   try {

@@ -59,7 +59,7 @@ const UserForm: React.FC<UserFormProps> = ({ user, onSave, onCancel }) => {
       newErrors.phone = 'Phone number is required';
     }
 
-    if (!formData.password.trim()) {
+    if (!user && !(formData.password && formData.password.trim())) {
       newErrors.password = 'Password is required';
     }
 
@@ -87,8 +87,9 @@ const UserForm: React.FC<UserFormProps> = ({ user, onSave, onCancel }) => {
       if (savedUser) {
         onSave(savedUser);
       }
-    } catch (error) {
-      alert(error?.response?.data?.message || 'Failed');
+    } catch (error: unknown) {
+      const err = error as { response?: { data?: { message?: string } } };
+      alert(err?.response?.data?.message || 'Failed');
     } finally {
       setLoading(false);
     }
@@ -227,7 +228,7 @@ const UserForm: React.FC<UserFormProps> = ({ user, onSave, onCancel }) => {
                 <p className="mt-1 text-sm text-red-600">{errors.gender}</p>
               )}
             </div>
-            <div>
+            {!user && <div>
               <label htmlFor="password" className="block text-sm font-medium text-gray-700 mb-2">
                 Password *
               </label>
@@ -245,7 +246,7 @@ const UserForm: React.FC<UserFormProps> = ({ user, onSave, onCancel }) => {
               {errors.password && (
                 <p className="mt-1 text-sm text-red-600">{errors.password}</p>
               )}
-            </div>
+            </div>}
           </div>
 
           {/* Action Buttons */}

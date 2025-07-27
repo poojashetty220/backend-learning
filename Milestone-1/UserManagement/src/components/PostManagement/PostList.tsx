@@ -80,6 +80,8 @@ const handleSearchKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
 
   const filteredAndSortedPosts = useMemo(() => posts, [posts]);
 
+  console.log(filteredAndSortedPosts, 'filteredAndSortedPosts');
+
   return (
     <div className="space-y-6">
       {/* Header */}
@@ -128,6 +130,8 @@ const handleSearchKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
                 </th>
                 <th className="px-6 py-4 text-left font-medium text-gray-500  tracking-wider">Content</th>
                 <th className="px-6 py-4 text-left font-medium text-gray-500 tracking-wider">Author</th>
+                <th className="px-6 py-4 text-left font-medium text-gray-500 tracking-wider">Author Email</th>
+                <th className="px-6 py-4 text-left font-medium text-gray-500 tracking-wider">Author Phone</th>
                  <th className="px-6 py-4 text-left font-medium text-gray-500 tracking-wider">Category</th>
                 <th className="px-6 py-4 text-left font-medium text-gray-500 tracking-wider">
                   <button onClick={() => handleSort('created_at')} className="flex items-center gap-1 hover:text-gray-700">
@@ -162,6 +166,8 @@ const handleSearchKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
                       {post.content}
                     </td>
                     <td className="px-6 py-4 whitespace-nowrap">{post.user_name}</td>
+                    <td className="px-6 py-4 whitespace-nowrap">{post.user_info?.email}</td>
+                    <td className="px-6 py-4 whitespace-nowrap">{post.user_info?.phone}</td>
                     <td className="px-6 py-4 whitespace-nowrap">
                       {post.categories && post.categories.length > 0
                         ? post.categories.map((cat) => cat.name).join(', ')

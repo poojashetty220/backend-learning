@@ -1,10 +1,5 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { categoryService } from '../../services/categoryService';
-
-interface Category {
-  id: string;
-  name: string;
-}
 
 interface CategorySelectorProps {
   selectedCategories: string[];
@@ -12,28 +7,39 @@ interface CategorySelectorProps {
 }
 
 const CategorySelector: React.FC<CategorySelectorProps> = ({ selectedCategories, onChange }) => {
-  const [categories, setCategories] = useState<Category[]>([]);
-  const [loading, setLoading] = useState(false);
+  const [categories, setCategories] = useState<{ id: string; name: string }[]>([]);
+  const [selected, setSelected] = useState<string[]>(selectedCategories);
 
   useEffect(() => {
     const fetchCategories = async () => {
-      setLoading(true);
-      const cats = await categoryService.getCategories();
-      setCategories(cats);
-      setLoading(false);
+      try {
+        const response = await categoryService.getCategories();
+        if (response && 'categories' in response) {
+          setCategories(response.categories);
+        } else {
+          setCategories([]);
+        }
+      } catch (error) {
+        console.error('Error fetching categories:', error);
+      }
     };
     fetchCategories();
   }, []);
 
-  const handleToggle = (id: string) => {
-    if (selectedCategories.includes(id)) {
-      onChange(selectedCategories.filter(catId => catId !== id));
-    } else {
-      onChange([...selectedCategories, id]);
-    }
-  };
+  useEffect(() => {
+    setSelected(selectedCategories);
+  }, [selectedCategories]);
 
-  if (loading) return <div>Loading categories...</div>;
+  const toggleCategory = (id: string) => {
+    let updatedSelected: string[];
+    if (selected.includes(id)) {
+      updatedSelected = selected.filter(catId => catId !== id);
+    } else {
+      updatedSelected = [...selected, id];
+    }
+    setSelected(updatedSelected);
+    onChange(updatedSelected);
+  };
 
   return (
     <div className="flex flex-wrap gap-2">
@@ -41,9 +47,9 @@ const CategorySelector: React.FC<CategorySelectorProps> = ({ selectedCategories,
         <button
           key={category.id}
           type="button"
-          onClick={() => handleToggle(category.id)}
+          onClick={() => toggleCategory(category.id)}
           className={`px-3 py-1 rounded-full border ${
-            selectedCategories.includes(category.id)
+            selected.includes(category.id)
               ? 'bg-blue-600 text-white border-blue-600'
               : 'bg-white text-gray-700 border-gray-300'
           }`}

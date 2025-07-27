@@ -6,14 +6,15 @@ const API_URL = 'http://localhost:3001/api';
 
 // Map MongoDB _id to id for frontend compatibility
 const mapPost = (post: any): Post => ({
-    id: post._id,
-    title: post.title,
-    content: post.content,
-    categories: post.categories || [],
-    created_at: post.created_at,
-    user_id: post.user_id,
-    user_name: post.user_name || '',
-    _id: undefined
+  id: post._id,
+  title: post.title,
+  content: post.content,
+  categories: post.categories || [],
+  created_at: post.created_at,
+  user_id: post.user_id,
+  user_name: post.user_name || '',
+  _id: post._id || '',
+  user_info: post.user_info || {}
 });
 
 const token = localStorage.getItem('token');
@@ -79,15 +80,4 @@ export const postService = {
       return false;
     }
   },
-
-  // New method to get posts with user info joined
-  getPostsWithUsers: async (): Promise<{ posts: any[] }> => {
-    try {
-      const { data } = await axios.get(`${API_URL}/users/posts-with-users`, config);
-      return data;
-    } catch (error) {
-      console.error('Error fetching posts with users:', error);
-      return { posts: [] };
-    }
-  }
 };

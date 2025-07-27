@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import React, { useState, useEffect } from 'react';
 import { Routes, Route, Navigate, useNavigate } from 'react-router-dom';
 import UserList from './components/UserManagement/UserList';
@@ -8,7 +9,6 @@ import PostForm from './components/PostManagement/PostForm';
 import PostViewModal from './components/PostManagement/PostViewModal';
 import PostDeleteModal from './components/PostManagement/PostDeleteModal';
 import PostList from './components/PostManagement/PostList';
-import PostsWithUserList from './components/PostManagement/PostsWithUserList';
 import Login from './components/UserManagement/Login';
 import { User } from './types/user';
 import { Post } from './types/post'; 
@@ -16,8 +16,6 @@ import CategoryList from './components/CategoryManagement/CategoryList';
 import CategoryForm from './components/CategoryManagement/CategoryForm';
 import OrderList from './components/OrderManagement/OrderList';
 import OrderForm from './components/OrderManagement/OrderForm';
-import OrderViewModal from './components/OrderManagement/OrderViewModal';
-import OrderDeleteModal from './components/OrderManagement/OrderDeleteModal';
 import { Category } from './types/category';
 
 function AppWrapper() {
@@ -33,10 +31,8 @@ function App() {
   const [selectedOrder, setSelectedOrder] = useState<any | null>(null);
   const [viewUser, setViewUser] = useState<User | null>(null);
   const [viewPost, setViewPost] = useState<Post | null>(null);
-  const [viewOrder, setViewOrder] = useState<any | null>(null);
   const [deleteUser, setDeleteUser] = useState<User | null>(null);
   const [deletePost, setDeletePost] = useState<Post | null>(null);
-  const [deleteOrder, setDeleteOrder] = useState<any | null>(null);
   const [refreshList, setRefreshList] = useState(false);
   const [isAuthenticated, setIsAuthenticated] = useState(false);
 
@@ -193,11 +189,6 @@ function App() {
               refreshList={refreshList}
             />
           } />
-          <Route path="/posts-with-users" element={
-            <PostsWithUserList
-              refreshList={refreshList}
-            />
-          } />
           <Route path="/posts/create" element={
             <PostForm
               post={null}
@@ -217,8 +208,6 @@ function App() {
             <OrderList
               onCreateOrder={() => { setSelectedOrder(null); navigate('/orders/create'); }}
               onEditOrder={(order) => { setSelectedOrder(order); navigate(`/orders/edit/${order.id}`); }}
-              onViewOrder={setViewOrder}
-              onDeleteOrder={setDeleteOrder}
               refreshList={refreshList}
             />
           } />

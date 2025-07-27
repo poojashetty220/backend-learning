@@ -9,7 +9,7 @@ export interface Address {
 
 export interface User {
   [x: string]: string | number | readonly string[] | Address[] | undefined;
-  _id: any;
+  _id: string;  // changed from any to string for consistency
   id: string;
   name: string;
   email: string;
@@ -22,12 +22,12 @@ export interface User {
 }
 
 export interface UserFormData {
-  password?: string | number | readonly string[] | undefined;
-  name?: string;
-  email?: string;
-  age?: string;
-  gender?: string;
-  phone?: string;
+  password?: string;  // changed to string only and optional
+  name: string;
+  email: string;
+  age: string;
+  gender: string;
+  phone: string;
   addresses?: Address[];
 }
 
