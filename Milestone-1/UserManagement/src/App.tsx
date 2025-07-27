@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Routes, Route, Navigate, useNavigate } from 'react-router-dom';
 import UserList from './components/UserManagement/UserList';
 import UserForm from './components/UserManagement/UserForm';
@@ -8,8 +8,12 @@ import PostForm from './components/PostManagement/PostForm';
 import PostViewModal from './components/PostManagement/PostViewModal';
 import PostDeleteModal from './components/PostManagement/PostDeleteModal';
 import PostList from './components/PostManagement/PostList';
+import PostsWithUserList from './components/PostManagement/PostsWithUserList';
+import Login from './components/UserManagement/Login';
 import { User } from './types/user';
-import { Post } from './types/post'; // create this if you haven't
+import { Post } from './types/post'; 
+import CategoryList from './components/CategoryManagement/CategoryList';
+import CategoryForm from './components/CategoryManagement/CategoryForm';
 
 function AppWrapper() {
   return (
@@ -20,13 +24,31 @@ function AppWrapper() {
 function App() {
   const [selectedUser, setSelectedUser] = useState<User | null>(null);
   const [selectedPost, setSelectedPost] = useState<Post | null>(null);
+  const [selectedCategory, setSelectedCategory] = useState<Category | null>(null);
   const [viewUser, setViewUser] = useState<User | null>(null);
-  const [viewPost, setViewPost] = useState<Post | null>(null);
+  const [viewPost, setViewPost] = useState<any | null>(null);
   const [deleteUser, setDeleteUser] = useState<User | null>(null);
   const [deletePost, setDeletePost] = useState<Post | null>(null);
   const [refreshList, setRefreshList] = useState(false);
+  const [isAuthenticated, setIsAuthenticated] = useState(false);
 
   const navigate = useNavigate();
+
+  useEffect(() => {
+    const token = localStorage.getItem('token');
+    setIsAuthenticated(!!token);
+  }, []);
+
+  const handleLogout = () => {
+    localStorage.removeItem('token');
+    localStorage.removeItem('user');
+    setIsAuthenticated(false);
+    navigate('/login');
+  };
+
+  if (!isAuthenticated) {
+    return <Login />;
+  }
 
   return (
     <div className="min-h-screen flex bg-gray-50">
@@ -40,10 +62,28 @@ function App() {
           Users
         </button>
         <button
+          onClick={() => navigate('/categories')}
+          className="text-left px-4 py-2 rounded hover:bg-gray-100 transition"
+        >
+          Categories
+        </button>
+        <button
           onClick={() => navigate('/posts')}
           className="text-left px-4 py-2 rounded hover:bg-gray-100 transition"
         >
           Posts
+        </button>
+        <button
+          onClick={() => navigate('/posts-with-users')}
+          className="text-left px-4 py-2 rounded hover:bg-gray-100 transition"
+        >
+          Posts with Users
+        </button>
+        <button
+          onClick={handleLogout}
+          className="text-left px-4 py-2 rounded hover:bg-gray-100 transition"
+        >
+          Logout
         </button>
       </div>
 
@@ -86,7 +126,7 @@ function App() {
           <Route path="/users" element={
             <UserList
               onCreateUser={() => { setSelectedUser(null); navigate('/users/create'); }}
-              onEditUser={(user) => { setSelectedUser(user); navigate(`/users/edit/${user.id}`); }}
+              onEditUser={(user) => { setSelectedUser(user); navigate(`/users/edit/${user._id}`); }}
               onViewUser={setViewUser}
               onDeleteUser={setDeleteUser}
               refreshList={refreshList}
@@ -107,6 +147,28 @@ function App() {
             />
           } />
 
+          {/* Category Routes */}
+          <Route path="/categories" element={
+            <CategoryList
+              onCreateCategory={() => { setSelectedCategory(null); navigate('/categories/create'); }}
+              onEditCategory={(category) => { setSelectedCategory(category); navigate(`/categories/edit/${category._id}`); }}
+              refreshList={refreshList}
+            />
+          } />
+          <Route path="/categories/create" element={
+            <CategoryForm
+              category={null}
+              onSave={() => { setSelectedCategory(null); navigate('/categories'); }}
+              onCancel={() => { setSelectedCategory(null); navigate('/categories'); }}
+            />
+          } />
+          <Route path="/categories/edit/:id" element={
+            <CategoryForm
+              category={selectedCategory}
+              onSave={() => { setSelectedCategory(null); navigate('/categories'); }}
+              onCancel={() => { setSelectedCategory(null); navigate('/categories'); }}
+            />
+          } />
           {/* Post Routes */}
           <Route path="/posts" element={
             <PostList
@@ -114,6 +176,12 @@ function App() {
               onEditPost={(post) => { setSelectedPost(post); navigate(`/posts/edit/${post.id}`); }}
               onViewPost={setViewPost}
               onDeletePost={setDeletePost}
+              refreshList={refreshList}
+            />
+          } />
+          <Route path="/posts-with-users" element={
+            <PostsWithUserList
+              onViewPost={setViewPost}
               refreshList={refreshList}
             />
           } />
@@ -131,6 +199,7 @@ function App() {
               onCancel={() => { setSelectedPost(null); navigate('/posts'); }}
             />
           } />
+
         </Routes>
       </div>
     </div>

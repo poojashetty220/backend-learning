@@ -67,16 +67,16 @@ const UserViewModal: React.FC<UserViewModalProps> = ({ user, onClose }) => {
             <h4 className="text-lg font-semibold text-gray-900 mb-3">Additional Details</h4>
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4 text-sm">
               <div>
-                <span className="text-gray-600">User ID:</span>
-                <span className="ml-2 font-medium text-gray-900">{user.id}</span>
-              </div>
-              <div>
                 <span className="text-gray-600">Full Name:</span>
                 <span className="ml-2 font-medium text-gray-900">{user.name}</span>
               </div>
               <div>
                 <span className="text-gray-600">Gender:</span>
                 <span className="ml-2 font-medium text-gray-900">{user.gender}</span>
+              </div>
+              <div>
+                <span className="text-gray-600">Age:</span>
+                <span className="ml-2 font-medium text-gray-900">{user.age}</span>
               </div>
             </div>
           </div>

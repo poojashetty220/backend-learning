@@ -158,9 +158,15 @@ const handleSearchKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
                 filteredAndSortedPosts.map(post => (
                   <tr key={post.id} className="hover:bg-gray-50">
                     <td className="px-6 py-4 whitespace-nowrap">{post.title}</td>
-                    <td className="px-6 py-4 whitespace-nowrap">{post.content}</td>
+                    <td className="px-6 py-4 max-w-[200px] overflow-hidden text-ellipsis whitespace-nowrap">
+                      {post.content}
+                    </td>
                     <td className="px-6 py-4 whitespace-nowrap">{post.user_name}</td>
-                    <td className="px-6 py-4 whitespace-nowrap capitalize">{post.category}</td>
+                    <td className="px-6 py-4 whitespace-nowrap">
+                      {post.categories && post.categories.length > 0
+                        ? post.categories.map((cat) => cat.name).join(', ')
+                        : 'No categories'}
+                    </td>
                     <td className="px-6 py-4 whitespace-nowrap">{moment(post.created_at).format('MMM D, YYYY')}</td>
                     <td className="px-6 py-4 whitespace-nowrap">
                       <div className="flex items-center gap-2">

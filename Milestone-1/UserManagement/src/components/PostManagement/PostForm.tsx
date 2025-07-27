@@ -3,6 +3,7 @@ import { Save, ArrowLeft } from 'lucide-react';
 import { Post, PostFormData } from '../../types/post';
 import { postService } from '../../services/postService';
 import { userService } from '../../services/userService';
+import CategorySelector from './CategorySelector';
 
 interface PostFormProps {
   post?: Post | null;
@@ -14,32 +15,34 @@ const PostForm: React.FC<PostFormProps> = ({ post, onSave, onCancel }) => {
   const [formData, setFormData] = useState<PostFormData>({
     title: '',
     content: '',
-    category: '',
+    categories: [],
     user_id: '',
     user_name: '',
   });
+
   const [errors, setErrors] = useState<Partial<PostFormData>>({});
   const [loading, setLoading] = useState(false);
-  const [users, setUsers] = useState<{ id: string; name: string }[]>([]);
+  const [users, setUsers] = useState<{ _id: string; name: string }[]>([]);
 
   const fetchUsers = async () => {
     try {
       const { users: fetchedUsers } = await userService.getUsers('');
       setUsers(fetchedUsers);
     } catch (error) {
-      console.error('Error fetching users:', error);  
+      console.error('Error fetching users:', error);
     }
-  }
+  };
 
   useEffect(() => {
-  fetchUsers();
+    fetchUsers();
+
     if (post) {
       setFormData({
         title: post.title,
         content: post.content,
-        category: post.category,
+        categories: post.categories.map((cat) => cat.id),
         user_id: post.user_id,
-        user_name: post.user_name, 
+        user_name: post.user_name,
       });
     }
   }, [post]);
@@ -50,15 +53,12 @@ const PostForm: React.FC<PostFormProps> = ({ post, onSave, onCancel }) => {
     if (!formData.title.trim()) {
       newErrors.title = 'Title is required';
     }
-
     if (!formData.content.trim()) {
-      newErrors.content = 'content is required';
+      newErrors.content = 'Content is required';
     }
-
-    if (!formData.category.trim()) {
-      newErrors.category = 'category is required';
+    if (formData.categories.length === 0) {
+      newErrors.categories = 'At least one category is required';
     }
-
     if (!formData.user_id.trim()) {
       newErrors.user_id = 'Author is required';
     }
@@ -69,15 +69,13 @@ const PostForm: React.FC<PostFormProps> = ({ post, onSave, onCancel }) => {
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    
-    if (!validateForm()) {
-      return;
-    }
+
+    if (!validateForm()) return;
 
     setLoading(true);
     try {
       let savedPost: Post | null;
-      
+
       if (post) {
         savedPost = await postService.updatePost(post.id, formData);
       } else {
@@ -94,17 +92,15 @@ const PostForm: React.FC<PostFormProps> = ({ post, onSave, onCancel }) => {
     }
   };
 
-  const handleInputChange = (field: keyof PostFormData, value: string) => {
+  const handleInputChange = (field: keyof PostFormData, value: any) => {
     setFormData(prev => ({ ...prev, [field]: value }));
     if (errors[field]) {
       setErrors(prev => ({ ...prev, [field]: undefined }));
     }
   };
-  console.log(users, 'form')
 
   return (
     <div className="space-y-6">
-      {/* Header */}
       <div className="flex items-center justify-between">
         <div className="flex items-center gap-4">
           <button
@@ -119,10 +115,8 @@ const PostForm: React.FC<PostFormProps> = ({ post, onSave, onCancel }) => {
         </div>
       </div>
 
-      {/* Form */}
       <div className="bg-white rounded-lg shadow-sm border border-gray-200 p-6">
         <form onSubmit={handleSubmit} className="space-y-6">
-          {/* Personal Information */}
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
             <div>
               <label htmlFor="title" className="block text-sm font-medium text-gray-700 mb-2">
@@ -138,59 +132,37 @@ const PostForm: React.FC<PostFormProps> = ({ post, onSave, onCancel }) => {
                 }`}
                 placeholder="Enter full title"
               />
-              {errors.title && (
-                <p className="mt-1 text-sm text-red-600">{errors.title}</p>
-              )}
+              {errors.title && <p className="mt-1 text-sm text-red-600">{errors.title}</p>}
             </div>
           </div>
+
           <div>
-              <label htmlFor="content" className="block text-sm font-medium text-gray-700 mb-2">
-                Content *
-              </label>
-              <textarea
-                rows={4}
-                id="content"
-                title='content'
-                value={formData.content}
-                onChange={(e) => handleInputChange('content', e.target.value)}
-                className={`w-full px-3 py-2 border rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent ${
-                  errors.content ? 'border-red-500' : 'border-gray-300'
-                }`}
-                placeholder="Enter content"
-              />
-              {errors.content && (
-                <p className="mt-1 text-sm text-red-600">{errors.content}</p>
-              )}
-            </div>
+            <label htmlFor="content" className="block text-sm font-medium text-gray-700 mb-2">
+              Content *
+            </label>
+            <textarea
+              rows={4}
+              id="content"
+              value={formData.content}
+              onChange={(e) => handleInputChange('content', e.target.value)}
+              className={`w-full px-3 py-2 border rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent ${
+                errors.content ? 'border-red-500' : 'border-gray-300'
+              }`}
+              placeholder="Enter content"
+            />
+            {errors.content && <p className="mt-1 text-sm text-red-600">{errors.content}</p>}
+          </div>
 
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
             <div>
-              <label htmlFor="category" className="block text-sm font-medium text-gray-700 mb-2">
-                Category *
+              <label className="block text-sm font-medium text-gray-700 mb-2">
+                Categories *
               </label>
-              <select
-                id="category"
-                value={formData.category}
-                onChange={(e) => handleInputChange('category', e.target.value)}
-                className={`w-full px-3 py-2 border rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent ${
-                  errors.category ? 'border-red-500' : 'border-gray-300'
-                }`}
-              >
-                <option value="">Select category</option>
-                <option value="Technology">Technology</option>
-                <option value="Literature">Literature</option>
-                <option value="Health">Health</option>
-                <option value="Science">Science</option>
-                <option value="Business">Business</option>
-                <option value="Education">Education</option>
-                <option value="Entertainment">Entertainment</option>
-                <option value="Lifestyle">Lifestyle</option>
-                <option value="Sports">Sports</option>
-                <option value="Politics">Politics</option>
-              </select>
-              {errors.category && (
-                <p className="mt-1 text-sm text-red-600">{errors.category}</p>
-              )}
+              <CategorySelector
+                selectedCategories={formData.categories}
+                onChange={(selected) => handleInputChange('categories', selected)}
+              />
+              {errors.categories && <p className="mt-1 text-sm text-red-600">{errors.categories}</p>}
             </div>
 
             <div>
@@ -199,9 +171,8 @@ const PostForm: React.FC<PostFormProps> = ({ post, onSave, onCancel }) => {
               </label>
               <select
                 id="author"
-                value={formData.user_name}
+                value={formData.user_id}
                 onChange={(e) => {
-                  console.log(e.target.value, 'ee')
                   const selectedUserId = e.target.value;
                   const selectedUser = users.find((user) => user._id === selectedUserId);
                   handleInputChange('user_id', selectedUserId);
@@ -218,13 +189,10 @@ const PostForm: React.FC<PostFormProps> = ({ post, onSave, onCancel }) => {
                   </option>
                 ))}
               </select>
-              {errors.user_id && (
-                <p className="mt-1 text-sm text-red-600">{errors.user_id}</p>
-              )}
+              {errors.user_id && <p className="mt-1 text-sm text-red-600">{errors.user_id}</p>}
             </div>
           </div>
 
-          {/* Action Buttons */}
           <div className="flex justify-end gap-4 pt-6 border-t border-gray-200">
             <button
               type="button"
@@ -243,7 +211,7 @@ const PostForm: React.FC<PostFormProps> = ({ post, onSave, onCancel }) => {
               ) : (
                 <Save size={16} />
               )}
-              {loading ? 'Saving...' : (post ? 'Update Post' : 'Create Post')}
+              {loading ? 'Saving...' : post ? 'Update Post' : 'Create Post'}
             </button>
           </div>
         </form>

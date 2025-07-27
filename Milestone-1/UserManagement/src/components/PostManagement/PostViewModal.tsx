@@ -1,5 +1,5 @@
 import React from 'react';
-import { X, Mail, LucideCaptions } from 'lucide-react';
+import { X, LucideCaptions } from 'lucide-react';
 import { Post } from '../../types/post';
 
 interface PostViewModalProps {
@@ -36,13 +36,6 @@ const PostViewModal: React.FC<PostViewModalProps> = ({ post, onClose }) => {
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8">
             <div className="space-y-4">
               <div className="flex items-center gap-3">
-                <Mail size={20} className="text-gray-500" />
-                <div>
-                  <p className="font-medium text-gray-900">{post.content}</p>
-                </div>
-              </div>
-
-              <div className="flex items-center gap-3">
                 <LucideCaptions size={20} className="text-gray-500" />
                 <div>
                   <p className="text-sm text-gray-600">Category</p>
@@ -50,6 +43,9 @@ const PostViewModal: React.FC<PostViewModalProps> = ({ post, onClose }) => {
                 </div>
               </div>
             </div>
+          </div>
+          <div className='w-full h-80 overflow-auto'>
+            <p className="font-medium text-gray-900 break-all">{post.content}</p>
           </div>
         </div>
 

@@ -1,8 +1,19 @@
 import mongoose from 'mongoose';
 
-export const connect = () => {
+const {
+  MONGO_USERNAME,
+  MONGO_PASSWORD,
+  MONGO_HOST = 'localhost',
+  MONGO_PORT = '27017',
+  MONGO_DB = 'userManagement'
+} = process.env;
 
-  mongoose.connect('mongodb://localhost:27017/userManagement', {
+const authPart = MONGO_USERNAME && MONGO_PASSWORD ? `${MONGO_USERNAME}:${MONGO_PASSWORD}@` : '';
+
+const connectionString = `mongodb://${authPart}${MONGO_HOST}:${MONGO_PORT}/${MONGO_DB}`;
+
+export const connect = () => {
+  mongoose.connect(connectionString, {
     useNewUrlParser: true,
     useUnifiedTopology: true,
   })

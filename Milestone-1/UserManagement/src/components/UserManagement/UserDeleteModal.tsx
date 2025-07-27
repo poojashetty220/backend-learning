@@ -17,7 +17,7 @@ const UserDeleteModal: React.FC<UserDeleteModalProps> = ({ user, onConfirm, onCa
   const handleDelete = async () => {
     setLoading(true);
     try {
-      await userService.deleteUser(user.id);
+      await userService.deleteUser(user._id);
       if (setRefreshList) {
         setRefreshList(!refreshList); // Notify parent to refresh the user list
       }

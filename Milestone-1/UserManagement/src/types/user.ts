@@ -1,6 +1,7 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 
 export interface User {
+  [x: string]: string | number | readonly string[] | undefined;
   _id: any;
   id: string;
   name: string;
@@ -9,9 +10,11 @@ export interface User {
   gender: string;
   phone: string;
   created_at: string;
+  password?: string; // Optional for edit scenarios
 }
 
 export interface UserFormData {
+  password: string | number | readonly string[] | undefined;
   name: string;
   email: string;
   age: string;

@@ -26,31 +26,15 @@ router.get('/', async (req, res) => {
       : 'created_at';
     const sortDirection = sort_order === 'asc' ? 1 : -1;
 
-    const pipeline = [
-      { $match: filter },
-      {
-        $facet: {
-          posts: [
-            { $sort: { [sortField]: sortDirection } }
-          ],
-          stats: [
-            {
-              $group: {
-                _id: null,
-                totalCount: { $sum: 1 }
-              }
-            }
-          ]
-        }
-      }
-    ];
+    // Use populate to get category details
+    const posts = await Post.find(filter)
+      .populate('categories', 'name')
+      .sort({ [sortField]: sortDirection })
+      .exec();
 
-    const result = await Post.aggregate(pipeline);
+    const totalCount = await Post.countDocuments(filter);
 
-    const posts = result[0].posts;
-    const stats = result[0].stats[0] || { totalCount: 0 };
-
-    res.json({ posts, stats });
+    res.json({ posts, stats: { totalCount } });
   } catch (error) {
     res.status(500).json({ message: error.message });
   }
@@ -80,7 +64,7 @@ router.delete('/:id', async (req, res) => {
 
 router.get('/:id', async (req, res) => {
   try {
-    const post = await Post.findById(req.params.id);
+    const post = await Post.findById(req.params.id).populate('categories', 'name');
     if (!post) return res.status(404).json({ message: 'Post not found' });
     res.json(post);
   } catch (error) {

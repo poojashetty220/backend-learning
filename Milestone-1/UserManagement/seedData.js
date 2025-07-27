@@ -1,64 +1,39 @@
 import mongoose from 'mongoose';
-import User from './models/User.js';
+import bcrypt from 'bcrypt';
+import User from './entities/User.js';
 
-// MongoDB connection string
-const mongoURI = 'mongodb://localhost:27017/userManagement';
-
-// Sample user data
-const users = [
-  {
-    firstName: 'John',
-    lastName: 'Doe',
-    email: 'john.doe@example.com',
-    phone: '555-123-4567',
-    role: 'admin',
-    status: 'active',
-    department: 'Engineering',
-    avatar: 'https://images.pexels.com/photos/1222271/pexels-photo-1222271.jpeg?auto=compress&cs=tinysrgb&w=150&h=150&dpr=1'
-  },
-  {
-    firstName: 'Jane',
-    lastName: 'Smith',
-    email: 'jane.smith@example.com',
-    phone: '555-987-6543',
-    role: 'manager',
-    status: 'active',
-    department: 'Product'
-  },
-  {
-    firstName: 'Bob',
-    lastName: 'Johnson',
-    email: 'bob.johnson@example.com',
-    phone: '555-555-5555',
-    role: 'user',
-    status: 'inactive',
-    department: 'Marketing'
-  }
-];
-
-// Connect to MongoDB and seed data
-mongoose.connect(mongoURI, {
-  useNewUrlParser: true,
-  useUnifiedTopology: true,
-})
-.then(async () => {
-  console.log('✅ Connected to MongoDB');
-  
+async function seed() {
   try {
-    // Clear existing users
-    await User.deleteMany({});
-    console.log('Cleared existing users');
-    
-    // Insert new users
-    const result = await User.insertMany(users);
-    console.log(`✅ Added ${result.length} users to the database`);
-    
-    // Close connection
-    mongoose.connection.close();
+    await mongoose.connect('mongodb://localhost:27017/userManagement', {
+      useNewUrlParser: true,
+      useUnifiedTopology: true,
+    });
+
+    const existingUser = await User.findOne({ email: 'testuser@example.com' });
+    if (existingUser) {
+      console.log('Test user already exists');
+      return;
+    }
+
+    const hashedPassword = await bcrypt.hash('TestPassword123', 10);
+
+    const user = new User({
+      name: 'Test User',
+      email: 'testuser@example.com',
+      password: hashedPassword,
+      age: '30',
+      gender: 'Other',
+      phone: '1234567890',
+      created_at: new Date(),
+    });
+
+    await user.save();
+    console.log('Test user created successfully');
   } catch (error) {
-    console.error('❌ Error seeding data:', error);
+    console.error('Error seeding test user:', error);
+  } finally {
+    await mongoose.connection.close();
   }
-})
-.catch((err) => {
-  console.error('❌ MongoDB connection error:', err);
-});
+}
+
+seed();

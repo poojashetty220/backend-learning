@@ -15,7 +15,8 @@ const UserForm: React.FC<UserFormProps> = ({ user, onSave, onCancel }) => {
     email: '',
     age: '',
     gender: '',
-    phone: ''
+    phone: '',
+    password: '',
   });
   const [errors, setErrors] = useState<Partial<UserFormData>>({});
   const [loading, setLoading] = useState(false);
@@ -27,7 +28,8 @@ const UserForm: React.FC<UserFormProps> = ({ user, onSave, onCancel }) => {
         email: user.email,
         age: user.age,
         gender: user.gender,
-        phone: user.phone
+        phone: user.phone,
+        password: user.password || '',
       });
     }
   }, [user]);
@@ -57,6 +59,10 @@ const UserForm: React.FC<UserFormProps> = ({ user, onSave, onCancel }) => {
       newErrors.phone = 'Phone number is required';
     }
 
+    if (!formData.password.trim()) {
+      newErrors.password = 'Password is required';
+    }
+
     setErrors(newErrors);
     return Object.keys(newErrors).length === 0;
   };
@@ -73,7 +79,7 @@ const UserForm: React.FC<UserFormProps> = ({ user, onSave, onCancel }) => {
       let savedUser: User | null;
       
       if (user) {
-        savedUser = await userService.updateUser(user.id, formData);
+        savedUser = await userService.updateUser(user._id, formData);
       } else {
         savedUser = await userService.createUser(formData);
       }
@@ -82,7 +88,7 @@ const UserForm: React.FC<UserFormProps> = ({ user, onSave, onCancel }) => {
         onSave(savedUser);
       }
     } catch (error) {
-      console.error('Error saving user:', error);
+      alert(error?.response?.data?.message || 'Failed');
     } finally {
       setLoading(false);
     }
@@ -199,7 +205,7 @@ const UserForm: React.FC<UserFormProps> = ({ user, onSave, onCancel }) => {
           </div>
 
           {/* Gender */}
-          <div className="grid grid-cols-1 md:grid-cols-1 gap-6">
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
             <div>
               <label htmlFor="gender" className="block text-sm font-medium text-gray-700 mb-2">
                 Gender *
@@ -219,6 +225,25 @@ const UserForm: React.FC<UserFormProps> = ({ user, onSave, onCancel }) => {
               </select>
               {errors.gender && (
                 <p className="mt-1 text-sm text-red-600">{errors.gender}</p>
+              )}
+            </div>
+            <div>
+              <label htmlFor="password" className="block text-sm font-medium text-gray-700 mb-2">
+                Password *
+              </label>
+              <input
+                type="password"
+                id="password"
+                name='password'
+                value={formData.password}
+                onChange={(e) => handleInputChange('password', e.target.value)}
+                className={`w-full px-3 py-2 border rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent ${
+                  errors.password ? 'border-red-500' : 'border-gray-300'
+                }`}
+                placeholder="Enter password"
+              />
+              {errors.password && (
+                <p className="mt-1 text-sm text-red-600">{errors.password}</p>
               )}
             </div>
           </div>

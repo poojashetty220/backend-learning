@@ -1,9 +1,9 @@
 // app.js (as ES Module)
 import express from 'express';
-import posts from './routes/posts.js';
+import categories from './routes/categories.js';
 
 const router = express.Router();
 
-router.use('/', posts);
+router.use('/', categories);
 
 export default router;

@@ -1,5 +1,10 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 
+export interface Category {
+  id: string;
+  name: string;
+}
+
 export interface Post {
   _id: any;
   id: string;
@@ -7,16 +12,16 @@ export interface Post {
   user_id: string;
   user_name: string;
   content: string;
-  category: string;
+  categories: Category[];
   created_at: string;
 }
 
 export interface PostFormData {
   title: string;
   user_id: string;
-  user_name: string;
+  user_name?: string;
   content: string;
-  category: string;
+  categories: string[]; // array of category IDs
 }
 
 export type SortField = 'title' | 'created_at';
