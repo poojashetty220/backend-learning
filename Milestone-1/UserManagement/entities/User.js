@@ -15,7 +15,8 @@ const userSchema = new mongoose.Schema({
   gender: { type: String, required: true },
   phone: { type: String, required: true },
   created_at: { type: Date, default: Date.now },
-  addresses: { type: [addressSchema], default: [] }
+  addresses: { type: [addressSchema], default: [] },
+  pageAccess: [{ type: String }],
 });
 
 const User = mongoose.model('User', userSchema);

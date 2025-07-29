@@ -10,6 +10,7 @@ interface UserFormProps {
 }
 
 const UserForm: React.FC<UserFormProps> = ({ user, onSave, onCancel }) => {
+  const PAGE_OPTIONS = ['users', 'posts', 'categories', 'orders'];
   const [formData, setFormData] = useState<UserFormData>({
     name: '',
     email: '',
@@ -17,6 +18,7 @@ const UserForm: React.FC<UserFormProps> = ({ user, onSave, onCancel }) => {
     gender: '',
     phone: '',
     password: '',
+    pageAccess: [],
   });
   const [errors, setErrors] = useState<Partial<UserFormData>>({});
   const [loading, setLoading] = useState(false);
@@ -30,6 +32,7 @@ const UserForm: React.FC<UserFormProps> = ({ user, onSave, onCancel }) => {
         gender: user.gender,
         phone: user.phone,
         password: user.password || '',
+        pageAccess: user.pageAccess || [],
       });
     }
   }, [user]);
@@ -66,6 +69,16 @@ const UserForm: React.FC<UserFormProps> = ({ user, onSave, onCancel }) => {
     setErrors(newErrors);
     return Object.keys(newErrors).length === 0;
   };
+
+  const handlepageAccessChange = (page: string) => {
+  setFormData(prev => {
+    const access = prev.pageAccess || [];
+    const updatedAccess = access.includes(page)
+      ? access.filter(p => p !== page)
+      : [...access, page];
+    return { ...prev, pageAccess: updatedAccess };
+  });
+};
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -247,6 +260,24 @@ const UserForm: React.FC<UserFormProps> = ({ user, onSave, onCancel }) => {
                 <p className="mt-1 text-sm text-red-600">{errors.password}</p>
               )}
             </div>}
+          </div>
+
+          <div>
+            <label className="block text-sm font-medium text-gray-700 mb-2">
+            Page Access Permissions
+            </label>
+            <div>
+            {PAGE_OPTIONS.map((page) => (
+              <label key={page} className="flex items-center gap-2 capitalize">
+                <input
+                  type="checkbox"
+                  checked={formData.pageAccess?.includes(page)}
+                  onChange={() => handlepageAccessChange(page)}
+                />
+                {page}
+              </label>
+            ))}
+            </div>
           </div>
 
           {/* Action Buttons */}

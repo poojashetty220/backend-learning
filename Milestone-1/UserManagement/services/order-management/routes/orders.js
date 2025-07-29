@@ -10,12 +10,18 @@ router.get('/', async (req, res) => {
     // Add user_info key with full user data, keep user_id and user_name unchanged
     orders = orders.map(order => {
       const orderObj = order.toObject();
-      orderObj.user_info = orderObj.user_id;
-      orderObj.user_id = orderObj.user_id._id.toString();
+      if (orderObj.user_id) {
+        orderObj.user_info = orderObj.user_id;
+        orderObj.user_id = orderObj.user_id._id.toString();
+      } else {
+        orderObj.user_info = null;
+        orderObj.user_id = null;
+      }
       return orderObj;
     });
     res.json(orders);
   } catch (error) {
+    console.error('Error in GET /api/orders:', error);
     res.status(500).json({ message: 'Error fetching orders', error });
   }
 });
@@ -38,15 +44,15 @@ router.get('/user/:userId', async (req, res) => {
 });
 
 // Get order by ID
-router.get('/:id', async (req, res) => {
-  try {
-    const order = await Order.findById(req.params.id).populate('user_id', 'name email');
-    if (!order) return res.status(404).json({ message: 'Order not found' });
-    res.json(order);
-  } catch (error) {
-    res.status(500).json({ message: 'Error fetching order', error });
-  }
-});
+// router.get('/:id', async (req, res) => {
+//   try {
+//     const order = await Order.findById(req.params.id).populate('user_id', 'name email');
+//     if (!order) return res.status(404).json({ message: 'Order not found' });
+//     res.json(order);
+//   } catch (error) {
+//     res.status(500).json({ message: 'Error fetching order', error });
+//   }
+// });
 
 // Create new order
 router.post('/', async (req, res) => {
@@ -74,17 +80,6 @@ router.put('/:id', async (req, res) => {
     res.json(updatedOrder);
   } catch (error) {
     res.status(500).json({ message: 'Error updating order', error });
-  }
-});
-
-// Delete order
-router.delete('/:id', async (req, res) => {
-  try {
-    const deletedOrder = await Order.findByIdAndDelete(req.params.id);
-    if (!deletedOrder) return res.status(404).json({ message: 'Order not found' });
-    res.json({ message: 'Order deleted' });
-  } catch (error) {
-    res.status(500).json({ message: 'Error deleting order', error });
   }
 });
 

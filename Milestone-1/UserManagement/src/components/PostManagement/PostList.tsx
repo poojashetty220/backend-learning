@@ -132,7 +132,7 @@ const handleSearchKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
                 <th className="px-6 py-4 text-left font-medium text-gray-500 tracking-wider">Author</th>
                 <th className="px-6 py-4 text-left font-medium text-gray-500 tracking-wider">Author Email</th>
                 <th className="px-6 py-4 text-left font-medium text-gray-500 tracking-wider">Author Phone</th>
-                 <th className="px-6 py-4 text-left font-medium text-gray-500 tracking-wider">Category</th>
+                 <th className="px-6 py-4 text-left font-medium text-gray-500 tracking-wider">Categories</th>
                 <th className="px-6 py-4 text-left font-medium text-gray-500 tracking-wider">
                   <button onClick={() => handleSort('created_at')} className="flex items-center gap-1 hover:text-gray-700">
                     Created <ArrowUpDown size={14} />

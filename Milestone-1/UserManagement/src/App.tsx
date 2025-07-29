@@ -43,6 +43,22 @@ function App() {
     setIsAuthenticated(!!token);
   }, []);
 
+  const getpageAccess = (): string[] => {
+    const userStr = localStorage.getItem('user');
+    if (!userStr) return [];
+    try {
+      const user = JSON.parse(userStr);
+      return user.pageAccess || [];
+    } catch {
+      return [];
+    }
+  };
+
+  const hasAccess = (page: string): boolean => {
+    const pageAccess = getpageAccess();
+    return pageAccess.includes(page);
+  };
+
   const handleLogout = () => {
     localStorage.removeItem('token');
     localStorage.removeItem('user');
@@ -59,36 +75,38 @@ function App() {
       
       {/* Sidebar */}
       <div className="w-64 bg-white shadow-md h-screen p-4 sticky top-0 flex flex-col space-y-4">
-        <button
-          onClick={() => navigate('/users')}
-          className="text-left px-4 py-2 rounded hover:bg-gray-100 transition"
-        >
-          Users
-        </button>
-        <button
-          onClick={() => navigate('/categories')}
-          className="text-left px-4 py-2 rounded hover:bg-gray-100 transition"
-        >
-          Categories
-        </button>
-        <button
-          onClick={() => navigate('/posts')}
-          className="text-left px-4 py-2 rounded hover:bg-gray-100 transition"
-        >
-          Posts
-        </button>
-        <button
-          onClick={() => navigate('/posts-with-users')}
-          className="text-left px-4 py-2 rounded hover:bg-gray-100 transition"
-        >
-          Posts with Users
-        </button>
-        <button
-          onClick={() => navigate('/orders')}
-          className="text-left px-4 py-2 rounded hover:bg-gray-100 transition"
-        >
-          Orders
-        </button>
+        {hasAccess('users') && (
+          <button
+            onClick={() => navigate('/users')}
+            className="text-left px-4 py-2 rounded hover:bg-gray-100 transition"
+          >
+            Users
+          </button>
+        )}
+        {hasAccess('categories') && (
+          <button
+            onClick={() => navigate('/categories')}
+            className="text-left px-4 py-2 rounded hover:bg-gray-100 transition"
+          >
+            Categories
+          </button>
+        )}
+        {hasAccess('posts') && (
+          <button
+            onClick={() => navigate('/posts')}
+            className="text-left px-4 py-2 rounded hover:bg-gray-100 transition"
+          >
+            Posts
+          </button>
+        )}
+        {hasAccess('orders') && (
+          <button
+            onClick={() => navigate('/orders')}
+            className="text-left px-4 py-2 rounded hover:bg-gray-100 transition"
+          >
+            Orders
+          </button>
+        )}
         <button
           onClick={handleLogout}
           className="text-left px-4 py-2 rounded hover:bg-gray-100 transition"
@@ -133,98 +151,116 @@ function App() {
           <Route path="/" element={<Navigate to="/users" />} />
 
           {/* User Routes */}
-          <Route path="/users" element={
-            <UserList
-              onCreateUser={() => { setSelectedUser(null); navigate('/users/create'); }}
-              onEditUser={(user) => { setSelectedUser(user); navigate(`/users/edit/${user._id}`); }}
-              onViewUser={setViewUser}
-              onDeleteUser={setDeleteUser}
-              refreshList={refreshList}
-            />
-          } />
-          <Route path="/users/create" element={
-            <UserForm
-              user={null}
-              onSave={() => { setSelectedUser(null); navigate('/users'); }}
-              onCancel={() => { setSelectedUser(null); navigate('/users'); }}
-            />
-          } />
-          <Route path="/users/edit/:id" element={
-            <UserForm
-              user={selectedUser}
-              onSave={() => { setSelectedUser(null); navigate('/users'); }}
-              onCancel={() => { setSelectedUser(null); navigate('/users'); }}
-            />
-          } />
+          {hasAccess('users') && (
+            <>
+              <Route path="/users" element={
+                <UserList
+                  onCreateUser={() => { setSelectedUser(null); navigate('/users/create'); }}
+                  onEditUser={(user) => { setSelectedUser(user); navigate(`/users/edit/${user._id}`); }}
+                  onViewUser={setViewUser}
+                  onDeleteUser={setDeleteUser}
+                  refreshList={refreshList}
+                />
+              } />
+              <Route path="/users/create" element={
+                <UserForm
+                  user={null}
+                  onSave={() => { setSelectedUser(null); navigate('/users'); }}
+                  onCancel={() => { setSelectedUser(null); navigate('/users'); }}
+                />
+              } />
+              <Route path="/users/edit/:id" element={
+                <UserForm
+                  user={selectedUser}
+                  onSave={() => { setSelectedUser(null); navigate('/users'); }}
+                  onCancel={() => { setSelectedUser(null); navigate('/users'); }}
+                />
+              } />
+            </>
+          )}
 
           {/* Category Routes */}
-          <Route path="/categories" element={
-            <CategoryList
-              onCreateCategory={() => { setSelectedCategory(null); navigate('/categories/create'); }}
-              onEditCategory={(category) => { setSelectedCategory(category); navigate(`/categories/edit/${category._id}`); }}
-              refreshList={refreshList}
-            />
-          } />
-          <Route path="/categories/create" element={
-            <CategoryForm
-              category={null}
-              onSave={() => { setSelectedCategory(null); navigate('/categories'); }}
-              onCancel={() => { setSelectedCategory(null); navigate('/categories'); }}
-            />
-          } />
-          <Route path="/categories/edit/:id" element={
-            <CategoryForm
-              category={selectedCategory}
-              onSave={() => { setSelectedCategory(null); navigate('/categories'); }}
-              onCancel={() => { setSelectedCategory(null); navigate('/categories'); }}
-            />
-          } />
+          {hasAccess('categories') && (
+            <>
+              <Route path="/categories" element={
+                <CategoryList
+                  onCreateCategory={() => { setSelectedCategory(null); navigate('/categories/create'); }}
+                  onEditCategory={(category) => { setSelectedCategory(category); navigate(`/categories/edit/${category._id}`); }}
+                  refreshList={refreshList}
+                />
+              } />
+              <Route path="/categories/create" element={
+                <CategoryForm
+                  category={null}
+                  onSave={() => { setSelectedCategory(null); navigate('/categories'); }}
+                  onCancel={() => { setSelectedCategory(null); navigate('/categories'); }}
+                />
+              } />
+              <Route path="/categories/edit/:id" element={
+                <CategoryForm
+                  category={selectedCategory}
+                  onSave={() => { setSelectedCategory(null); navigate('/categories'); }}
+                  onCancel={() => { setSelectedCategory(null); navigate('/categories'); }}
+                />
+              } />
+            </>
+          )}
+
           {/* Post Routes */}
-          <Route path="/posts" element={
-            <PostList
-              onCreatePost={() => { setSelectedPost(null); navigate('/posts/create'); }}
-              onEditPost={(post) => { setSelectedPost(post); navigate(`/posts/edit/${post.id}`); }}
-              onViewPost={setViewPost}
-              onDeletePost={setDeletePost}
-              refreshList={refreshList}
-            />
-          } />
-          <Route path="/posts/create" element={
-            <PostForm
-              post={null}
-              onSave={() => { setSelectedPost(null); navigate('/posts'); }}
-              onCancel={() => { setSelectedPost(null); navigate('/posts'); }}
-            />
-          } />
-          <Route path="/posts/edit/:id" element={
-            <PostForm
-              post={selectedPost}
-              onSave={() => { setSelectedPost(null); navigate('/posts'); }}
-              onCancel={() => { setSelectedPost(null); navigate('/posts'); }}
-            />
-          } />
+          {hasAccess('posts') && (
+            <>
+              <Route path="/posts" element={
+                <PostList
+                  onCreatePost={() => { setSelectedPost(null); navigate('/posts/create'); }}
+                  onEditPost={(post) => { setSelectedPost(post); navigate(`/posts/edit/${post.id}`); }}
+                  onViewPost={setViewPost}
+                  onDeletePost={setDeletePost}
+                  refreshList={refreshList}
+                />
+              } />
+              <Route path="/posts/create" element={
+                <PostForm
+                  post={null}
+                  onSave={() => { setSelectedPost(null); navigate('/posts'); }}
+                  onCancel={() => { setSelectedPost(null); navigate('/posts'); }}
+                />
+              } />
+              <Route path="/posts/edit/:id" element={
+                <PostForm
+                  post={selectedPost}
+                  onSave={() => { setSelectedPost(null); navigate('/posts'); }}
+                  onCancel={() => { setSelectedPost(null); navigate('/posts'); }}
+                />
+              } />
+            </>
+          )}
+
           {/* Order Routes */}
-          <Route path="/orders" element={
-            <OrderList
-              onCreateOrder={() => { setSelectedOrder(null); navigate('/orders/create'); }}
-              onEditOrder={(order) => { setSelectedOrder(order); navigate(`/orders/edit/${order.id}`); }}
-              refreshList={refreshList}
-            />
-          } />
-          <Route path="/orders/create" element={
-            <OrderForm
-              order={null}
-              onSave={() => { setSelectedOrder(null); navigate('/orders'); }}
-              onCancel={() => { setSelectedOrder(null); navigate('/orders'); }}
-            />
-          } />
-          <Route path="/orders/edit/:id" element={
-            <OrderForm
-              order={selectedOrder}
-              onSave={() => { setSelectedOrder(null); navigate('/orders'); }}
-              onCancel={() => { setSelectedOrder(null); navigate('/orders'); }}
-            />
-          } />
+          {hasAccess('orders') && (
+            <>
+              <Route path="/orders" element={
+                <OrderList
+                  onCreateOrder={() => { setSelectedOrder(null); navigate('/orders/create'); }}
+                  onEditOrder={(order) => { setSelectedOrder(order); navigate(`/orders/edit/${order.id}`); }}
+                  refreshList={refreshList}
+                />
+              } />
+              <Route path="/orders/create" element={
+                <OrderForm
+                  order={null}
+                  onSave={() => { setSelectedOrder(null); navigate('/orders'); }}
+                  onCancel={() => { setSelectedOrder(null); navigate('/orders'); }}
+                />
+              } />
+              <Route path="/orders/edit/:id" element={
+                <OrderForm
+                  order={selectedOrder}
+                  onSave={() => { setSelectedOrder(null); navigate('/orders'); }}
+                  onCancel={() => { setSelectedOrder(null); navigate('/orders'); }}
+                />
+              } />
+            </>
+          )}
         </Routes>
       </div>
     </div>

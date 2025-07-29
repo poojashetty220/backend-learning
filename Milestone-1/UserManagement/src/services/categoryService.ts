@@ -47,13 +47,4 @@ export const categoryService = {
       throw error;
     }
   },
-
-  deleteCategory: async (id: string) => {
-    try {
-      await axios.delete(`${API_URL}/categories/${id}`, config);
-    } catch (error) {
-      console.error('Error deleting category:', error);
-      throw error;
-    }
-  },
 };

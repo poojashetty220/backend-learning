@@ -4,6 +4,8 @@ import { Plus, Edit } from 'lucide-react';
 import { Category } from '../../types/category';
 import moment from 'moment';
 import { categoryService } from '../../services/categoryService';
+import { postService } from '../../services/postService';
+import CategoryPostsModal from './CategoryPostsModal';
 
 interface CategoryListProps {
   onCreateCategory: () => void;
@@ -18,6 +20,11 @@ const CategoryList: React.FC<CategoryListProps> = ({
 }) => {
   const [categories, setCategories] = useState<Category[]>([]);
   const [tableLoading, setTableLoading] = useState(true);
+
+  // New state for posts modal and posts data
+  const [postsModalOpen, setPostsModalOpen] = useState(false);
+  const [selectedCategoryPosts, setSelectedCategoryPosts] = useState<any[]>([]);
+  const [selectedCategoryName, setSelectedCategoryName] = useState<string>('');
 
   const fetchCategories = async () => {
     setTableLoading(true);
@@ -36,6 +43,26 @@ const CategoryList: React.FC<CategoryListProps> = ({
     } finally {
       setTableLoading(false);
     }
+  };
+
+  // Handler to open posts modal and fetch posts for category
+  const openPostsModal = async (category: Category) => {
+    try {
+      const { posts } = await postService.getPostsByCategoryId(category.id);
+      setSelectedCategoryPosts(posts);
+      setSelectedCategoryName(category.name);
+      setPostsModalOpen(true);
+    } catch (error) {
+      console.error('Error fetching posts for category:', error);
+      alert('Failed to fetch posts for category. Please try again.');
+    }
+  };
+
+  // Handler to close posts modal
+  const closePostsModal = () => {
+    setSelectedCategoryPosts([]);
+    setSelectedCategoryName('');
+    setPostsModalOpen(false);
   };
 
   useEffect(() => {
@@ -102,6 +129,13 @@ const CategoryList: React.FC<CategoryListProps> = ({
                     <td className="px-6 py-4 whitespace-nowrap">
                       <div className="flex items-center gap-2">
                         <button
+                          onClick={() => openPostsModal(category)}
+                          className="text-indigo-600 hover:text-indigo-900"
+                          title="View Posts"
+                        >
+                          📄
+                        </button>
+                        <button
                           onClick={() => onEditCategory(category)}
                           className="text-green-600 hover:text-green-900"
                         >
@@ -116,6 +150,13 @@ const CategoryList: React.FC<CategoryListProps> = ({
           </table>
         </div>
       </div>
+
+      <CategoryPostsModal
+        isOpen={postsModalOpen}
+        onClose={closePostsModal}
+        categoryName={selectedCategoryName}
+        posts={selectedCategoryPosts}
+      />
     </div>
   );
 };

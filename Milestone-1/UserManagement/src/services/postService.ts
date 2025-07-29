@@ -37,16 +37,6 @@ export const postService = {
     return { posts: [], stats: { totalCount: 0 } };
   }
 },
-  // Get post by ID
-  getPostById: async (id: string): Promise<Post | null> => {
-    try {
-      const { data } = await axios.get(`${API_URL}/posts/${id}`, config);
-      return mapPost(data);
-    } catch (error) {
-      console.error('Error fetching post:', error);
-      return null;
-    }
-  },
 
   // Create post
   createPost: async (userData: PostFormData): Promise<Post> => {
@@ -80,4 +70,16 @@ export const postService = {
       return false;
     }
   },
+
+  // Get posts by category ID
+  getPostsByCategoryId: async (categoryId: string): Promise<{ posts: Post[] }> => {
+    try {
+      const { data } = await axios.get(`${API_URL}/posts/category/${categoryId}`, config);
+      const mappedPosts = data.posts.map(mapPost);
+      return { posts: mappedPosts };
+    } catch (error) {
+      console.error('Error fetching posts by category:', error);
+      return { posts: [] };
+    }
+  }
 };

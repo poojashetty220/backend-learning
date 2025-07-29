@@ -29,16 +29,6 @@ export const orderService = {
     }
   },
 
-  getOrderById: async (id: string): Promise<any | null> => {
-    try {
-      const { data } = await axios.get(`${API_URL}/orders/${id}`, getAuthConfig());
-      return data;
-    } catch (error) {
-      console.error(`❌ Error fetching order ${id}:`, error);
-      return null;
-    }
-  },
-
   createOrder: async (orderData: any): Promise<any> => {
     try {
       const { data } = await axios.post(`${API_URL}/orders`, orderData, getAuthConfig());
@@ -59,13 +49,13 @@ export const orderService = {
     }
   },
 
-  deleteOrder: async (id: string): Promise<boolean> => {
+  getOrdersByUserId: async (userId: string): Promise<any[]> => {
     try {
-      await axios.delete(`${API_URL}/orders/${id}`, getAuthConfig());
-      return true;
+      const { data } = await axios.get(`${API_URL}/orders/user/${userId}`, getAuthConfig());
+      return data;
     } catch (error) {
-      console.error(`❌ Error deleting order ${id}:`, error);
-      return false;
+      console.error(`❌ Error fetching orders for user ${userId}:`, error);
+      return [];
     }
   }
 };

@@ -1,34 +1,11 @@
 import express from 'express';
 import User from '../../../entities/User.js';
-import Post from '../../../entities/Posts.js';
-import mongoose from 'mongoose';
-import { exec } from 'child_process';
-import path from 'path';
 import jwt from 'jsonwebtoken';
 import bcrypt from 'bcrypt';
 
 const router = express.Router();
 
 const JWT_SECRET = process.env.JWT_SECRET || 'your_jwt_secret';
-
-// Middleware to verify JWT token
-const authenticateToken = (req, res, next) => {
-  const authHeader = req.headers['authorization'];
-  const token = authHeader && authHeader.split(' ')[1];
-  if (!token) return res.status(401).json({ message: 'Access token missing' });
-
-  jwt.verify(token, JWT_SECRET, (err, user) => {
-    if (err) {
-      console.log('JWT verification error:', err);
-      if (err.name === 'TokenExpiredError') {
-        return res.status(401).json({ message: 'Access token expired' });
-      }
-      return res.status(403).json({ message: 'Invalid access token' });
-    }
-    req.user = user;
-    next();
-  });
-};
 
 // Login route
 router.post('/login', async (req, res) => {
@@ -44,12 +21,29 @@ router.post('/login', async (req, res) => {
     // Add expiration time of 1 hour to the token
     const token = jwt.sign(payload, JWT_SECRET, { expiresIn: '1h' });
 
-    res.json({ token, user: { id: user._id, email: user.email, name: user.name } });
+    res.json({ token, user: { id: user._id, email: user.email, name: user.name, pageAccess: user.pageAccess } });
   } catch (error) {
     res.status(500).json({ message: error.message });
   }
 });
 
+  
+/**
+ * New route to get users with multiple addresses
+ * Modified to filter out documents where addresses field is missing or not an array
+ */
+router.get('/multiple-addresses', async (req, res) => {
+  try {
+    // Find users where addresses is an array with length > 1
+    const users = await User.find({
+      addresses: { $exists: true, $type: 'array' },
+      $expr: { $gt: [{ $size: '$addresses' }, 1] }
+    });
+    res.json({ users });
+  } catch (error) {
+    res.status(500).json({ message: error.message });
+  }
+});
   
 /**
  * New route to get users with multiple addresses
@@ -163,49 +157,6 @@ router.get('/', async (req, res) => {
   }
 });
 
-// New route to get posts with user info joined
-router.get('/posts-with-users', async (req, res, next) => {
-  try {
-    const postsWithUsers = await Post.aggregate([
-      {
-        $lookup: {
-          from: 'users',
-          localField: 'user_id',
-          foreignField: '_id',
-          as: 'user_info'
-        }
-      },
-      {
-        $unwind: '$user_info'
-      },
-      {
-        $sort: { created_at: -1 }
-      }
-    ]);
-    res.json({ posts: postsWithUsers });
-  } catch (error) {
-    next(error);
-  }
-});
-
-// Create user
-router.post('/', async (req, res) => {
-  try {
-    // Hash password before saving
-    const hashedPassword = await bcrypt.hash(req.body.password, 10);
-    const userData = { ...req.body, password: hashedPassword };
-    const user = new User(userData);
-    const savedUser = await user.save();
-    res.status(201).json(savedUser);
-  } catch (error) {
-    if (error.code === 11000 && error.keyPattern && error.keyPattern.email) {
-      // Duplicate email error
-      return res.status(409).json({ message: 'Email already exists' });
-    }
-    res.status(400).json({ message: error.message });
-  }
-});
-
 // Delete user
 router.delete('/:id', async (req, res) => {
   try {
@@ -239,66 +190,6 @@ router.put('/:id', async (req, res) => {
     res.json(user);
   } catch (error) {
     res.status(400).json({ message: error.message });
-  }
-});
-
-// New route for backup, drop, and restore
-router.post('/backup-restore', async (req, res) => {
-  try {
-    const dbName = mongoose.connection.name;
-    const dumpPath = path.resolve(__dirname, '../../../backup');
-
-    console.log('Starting backup for DB:', dbName);
-
-    // Step 1: Backup the database using mongodump with timeout
-    await new Promise((resolve, reject) => {
-      const backupProcess = exec(`mongodump --db=${dbName} --out=${dumpPath}`, { timeout: 60000 }, (error, stdout, stderr) => {
-        if (error) {
-          console.error('Backup failed:', stderr);
-          reject(new Error(`Backup failed: ${stderr}`));
-        } else {
-          console.log('Backup stdout:', stdout);
-          resolve(stdout);
-        }
-      });
-      backupProcess.on('error', (err) => {
-        console.error('Backup process error:', err);
-        reject(err);
-      });
-    });
-
-    console.log('Backup completed. Dropping database:', dbName);
-
-    // Step 2: Drop the database
-    await mongoose.connection.dropDatabase();
-
-    console.log('Database dropped. Starting restore from:', `${dumpPath}/${dbName}`);
-
-    // Step 3: Restore the database using mongorestore with timeout
-    await new Promise((resolve, reject) => {
-      const restoreProcess = exec(`mongorestore --db=${dbName} ${dumpPath}/${dbName}`, { timeout: 60000 }, (error, stdout, stderr) => {
-        if (error) {
-          console.error('Restore failed:', stderr);
-          reject(new Error(`Restore failed: ${stderr}`));
-        } else {
-          console.log('Restore stdout:', stdout);
-          resolve(stdout);
-        }
-      });
-      restoreProcess.on('error', (err) => {
-        console.error('Restore process error:', err);
-        reject(err);
-      });
-    });
-
-    console.log('Restore completed successfully.');
-
-    res.json({ message: 'Backup, drop, and restore completed successfully' });
-  } catch (error) {
-    console.error('Backup-Restore error:', error);
-    if (!res.headersSent) {
-      res.status(500).json({ message: error.message || 'Unknown error' });
-    }
   }
 });
 

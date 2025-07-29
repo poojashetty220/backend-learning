@@ -1,6 +1,6 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import axios from 'axios';
-import { User, UserFormData } from '../types/user';
+import { User, UserFormData, Address } from '../types/user';
 
 const API_URL = 'http://localhost:3001/api';
 
@@ -13,7 +13,9 @@ const mapUser = (user: any): User => ({
   created_at: user.created_at,
   _id: user._id,
   id: '',
-  addresses: user.addresses || []
+  addresses: user.addresses || [],
+  pageAccess: user.pageAccess || [],
+
 });
 
 const token = localStorage.getItem('token');
@@ -69,17 +71,6 @@ export const userService = {
     }
   },
 
-  // Backup and restore database
-  backupRestoreDB: async (): Promise<any> => {
-    try {
-      const { data } = await axios.post(`${API_URL}/users/backup-restore`);
-      return data;
-    } catch (error) {
-      console.error('Error during backup and restore:', error);
-      throw error;
-    }
-  },
-
   // Login user
   login: async (email: string, password: string): Promise<{ token: string; user: User }> => {
     try {
@@ -88,6 +79,17 @@ export const userService = {
     } catch (error) {
       console.error('Error logging in:', error);
       throw error;
+    }
+  },
+
+  // New method to get addresses for a user
+  getUserAddresses: async (userId: string): Promise<Address[]> => {
+    try {
+      const { data } = await axios.get(`${API_URL}/users/${userId}/addresses`, config);
+      return data.addresses || [];
+    } catch (error) {
+      console.error('Error fetching user addresses:', error);
+      return [];
     }
   }
 };

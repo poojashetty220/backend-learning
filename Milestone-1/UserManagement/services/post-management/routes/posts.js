@@ -39,8 +39,8 @@ router.get('/', async (req, res) => {
     const postsWithUserInfo = posts.map(post => {
       const postObj = post.toObject();
       postObj.user_info = postObj.user_id;
-      // Keep user_id as string (ObjectId)
-      postObj.user_id = postObj.user_id._id.toString();
+      // Keep user_id as string (ObjectId) if user_id exists
+      postObj.user_id = postObj.user_id ? postObj.user_id._id.toString() : null;
       return postObj;
     });
 
@@ -72,16 +72,6 @@ router.delete('/:id', async (req, res) => {
   }
 });
 
-router.get('/:id', async (req, res) => {
-  try {
-    const post = await Post.findById(req.params.id).populate('categories', 'name');
-    if (!post) return res.status(404).json({ message: 'Post not found' });
-    res.json(post);
-  } catch (error) {
-    res.status(500).json({ message: error.message });
-  }
-});
-
 router.put('/:id', async (req, res) => {
   try {
     const post = await Post.findByIdAndUpdate(req.params.id, req.body, { new: true });
@@ -89,6 +79,27 @@ router.put('/:id', async (req, res) => {
     res.json(post);
   } catch (error) {
     res.status(400).json({ message: error.message });
+  }
+});
+
+router.get('/category/:categoryId', async (req, res) => {
+  try {
+    const categoryId = req.params.categoryId;
+    const posts = await Post.find({ categories: categoryId })
+      .populate('categories', 'name')
+      .populate('user_id')
+      .exec();
+
+    const postsWithUserInfo = posts.map(post => {
+      const postObj = post.toObject();
+      postObj.user_info = postObj.user_id;
+      postObj.user_id = postObj.user_id ? postObj.user_id._id.toString() : null;
+      return postObj;
+    });
+
+    res.json({ posts: postsWithUserInfo });
+  } catch (error) {
+    res.status(500).json({ message: error.message });
   }
 });
 
