@@ -7,7 +7,6 @@ const router = express.Router();
 router.get('/', async (req, res) => {
   try {
     let orders = await Order.find().populate('user_id');
-    // Add user_info key with full user data, keep user_id and user_name unchanged
     orders = orders.map(order => {
       const orderObj = order.toObject();
       if (orderObj.user_id) {
@@ -43,20 +42,8 @@ router.get('/user/:userId', async (req, res) => {
   }
 });
 
-// Get order by ID
-// router.get('/:id', async (req, res) => {
-//   try {
-//     const order = await Order.findById(req.params.id).populate('user_id', 'name email');
-//     if (!order) return res.status(404).json({ message: 'Order not found' });
-//     res.json(order);
-//   } catch (error) {
-//     res.status(500).json({ message: 'Error fetching order', error });
-//   }
-// });
-
 // Create new order
 router.post('/', async (req, res) => {
-  console.log('Request body:', req.body);
   try {
     const { order_number, total_amount, user_id, user_name } = req.body;
     const newOrder = new Order({ order_number, total_amount, user_id, user_name });

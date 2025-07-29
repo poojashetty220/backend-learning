@@ -27,11 +27,14 @@ router.get('/', async (req, res) => {
     const sortDirection = sort_order === 'asc' ? 1 : -1;
 
     // Use populate to get category details
+    console.time('query');
     const posts = await Post.find(filter)
       .populate('categories', 'name')
       .populate('user_id')  // populate user data
       .sort({ [sortField]: sortDirection })
-      .exec();
+    //   .explain( {"verbose": true })
+    // console.timeEnd('query');
+    // console.log(posts)
 
     const totalCount = await Post.countDocuments(filter);
 

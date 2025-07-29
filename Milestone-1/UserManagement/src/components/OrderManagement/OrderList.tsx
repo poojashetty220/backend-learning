@@ -119,7 +119,7 @@ const OrderList: React.FC<OrderListProps> = ({
                   <tr key={order._id} className="hover:bg-gray-50">
                     <td className="px-6 py-4 whitespace-nowrap">{order.order_number}</td>
                     <td className="px-6 py-4 whitespace-nowrap">{order.total_amount}</td>
-                    <td className="px-6 py-4 whitespace-nowrap">{order.user_name}</td>
+                    <td className="px-6 py-4 whitespace-nowrap">{(order.user_info as any)?.name}</td>
                     <td className="px-6 py-4 whitespace-nowrap">{(order.user_info as any)?.email}</td>
                     <td className="px-6 py-4 whitespace-nowrap">{(order.user_info as any)?.phone}</td>
                     <td className="px-6 py-4 whitespace-nowrap">

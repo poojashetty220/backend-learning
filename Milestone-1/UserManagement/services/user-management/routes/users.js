@@ -30,24 +30,6 @@ router.post('/login', async (req, res) => {
   
 /**
  * New route to get users with multiple addresses
- * Modified to filter out documents where addresses field is missing or not an array
- */
-router.get('/multiple-addresses', async (req, res) => {
-  try {
-    // Find users where addresses is an array with length > 1
-    const users = await User.find({
-      addresses: { $exists: true, $type: 'array' },
-      $expr: { $gt: [{ $size: '$addresses' }, 1] }
-    });
-    res.json({ users });
-  } catch (error) {
-    res.status(500).json({ message: error.message });
-  }
-});
-  
-/**
- * New route to get users with multiple addresses
- * Modified to filter out documents where addresses field is missing or not an array
  */
 router.get('/multiple-addresses', async (req, res) => {
   try {
@@ -146,7 +128,8 @@ router.get('/', async (req, res) => {
       }
     ];
 
-    const result = await User.aggregate(pipeline);
+    const result = await User.aggregate(pipeline)
+    console.log(result)
 
     const users = result[0].users;
     const stats = result[0].stats[0] || { averageAge: 0, totalCount: 0 };
@@ -173,6 +156,17 @@ router.get('/:id', async (req, res) => {
     const user = await User.findById(req.params.id);
     if (!user) return res.status(404).json({ message: 'User not found' });
     res.json(user);
+  } catch (error) {
+    res.status(500).json({ message: error.message });
+  }
+});
+
+// route to get only addresses of a user by id
+router.get('/:id/addresses', async (req, res) => {
+  try {
+    const user = await User.findById(req.params.id, { addresses: 1 });
+    if (!user) return res.status(404).json({ message: 'User not found' });
+    res.json({ addresses: user.addresses || [] });
   } catch (error) {
     res.status(500).json({ message: error.message });
   }

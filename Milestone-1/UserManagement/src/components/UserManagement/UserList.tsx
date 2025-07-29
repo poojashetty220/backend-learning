@@ -6,6 +6,9 @@ import { userService } from '../../services/userService';
 import moment from 'moment';
 import AddressModal from './AddressModal';
 import MultipleAddressesModal from './MultipleAddressesModal';
+import UserOrdersModal from './UserOrdersModal';
+import { orderService } from '../../services/orderService';
+ 
 
 interface UserListProps {
   onCreateUser: () => void;
@@ -52,6 +55,10 @@ const UserList: React.FC<UserListProps> = ({
   const [multipleAddressesModalOpen, setMultipleAddressesModalOpen] = useState(false);
   const [usersWithMultipleAddresses, setUsersWithMultipleAddresses] = useState<User[]>([]);
 
+  const [ordersModalOpen, setOrdersModalOpen] = useState(false);
+  const [selectedUserOrders, setSelectedUserOrders] = useState<any[]>([]);
+  const [selectedUserName, setSelectedUserName] = useState<string>('');
+
   // Removed duplicate states
   // const [multiAddressModalOpen, setMultiAddressModalOpen] = useState(false);
   // const [usersWithMultipleAddresses, setUsersWithMultipleAddresses] = useState<User[]>([]);
@@ -89,6 +96,25 @@ const UserList: React.FC<UserListProps> = ({
     setMultipleAddressesModalOpen(false);
   };
 
+   const openOrdersModal = async (user: User) => {
+    try {
+      const orders = await orderService.getOrdersByUserId(user._id);
+      setSelectedUserOrders(orders);
+      setSelectedUserName(user.name);
+      setOrdersModalOpen(true);
+    } catch (error) {
+      console.error('Error fetching orders for user:', error);
+      alert('Failed to fetch orders for user. Please try again.');
+    }
+  };
+
+   // Handler to close orders modal
+ const closeOrdersModal = () => {
+   setSelectedUserOrders([]);
+   setSelectedUserName('');
+   setOrdersModalOpen(false);
+ };
+
   useEffect(() => {
     fetchUsers();
   }, [filters, refreshList]);
@@ -124,9 +150,15 @@ const UserList: React.FC<UserListProps> = ({
 
   const filteredAndSortedUsers = useMemo(() => users, [users]);
 
-  const openAddressModal = (user: User) => {
-    setSelectedUser(user);
-    setAddressModalOpen(true);
+  const openAddressModal = async (user: User) => {
+    try {
+      const addresses = await userService.getUserAddresses(user._id);
+      setSelectedUser({ ...user, addresses });
+      setAddressModalOpen(true);
+    } catch (error) {
+      console.error('Failed to fetch addresses:', error);
+      alert('Failed to fetch addresses. Please try again.');
+    }
   };
 
   const closeAddressModal = () => {
@@ -339,6 +371,13 @@ const UserList: React.FC<UserListProps> = ({
                         >
                           <Trash2 size={16} />
                         </button>
+                        <button
+                          onClick={() => openOrdersModal(user)}
+                          className="text-indigo-600 hover:text-indigo-900"
+                          title="View Orders"
+                        >
+                          🛒
+                        </button>
                       </div>
                     </td>
                   </tr>
@@ -360,6 +399,13 @@ const UserList: React.FC<UserListProps> = ({
         isOpen={multipleAddressesModalOpen}
         onClose={closeMultipleAddressesModal}
         users={usersWithMultipleAddresses}
+      />
+
+      <UserOrdersModal
+        isOpen={ordersModalOpen}
+        onClose={closeOrdersModal}
+        userName={selectedUserName}
+        orders={selectedUserOrders}
       />
     </div>
   );

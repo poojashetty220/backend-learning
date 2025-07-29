@@ -19,7 +19,7 @@ const CategoryPostsModal: React.FC<CategoryPostsModalProps> = ({ isOpen, onClose
   if (!isOpen) return null;
 
   return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-50">
+    <div className="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-50 !m-0">
       <div className="bg-white rounded-lg shadow-lg w-11/12 max-w-2xl p-6">
         <div className="flex justify-between items-center mb-4">
           <h2 className="text-xl font-semibold">Posts in {categoryName}</h2>
