@@ -1,0 +1,12 @@
+{
+  "name": "category-management",
+  "version": "1.0.0",
+  "description": "Category management service",
+  "main": "handlers/list.js",
+  "dependencies": {
+    "mongoose": "^8.17.0",
+    "serverless-dotenv-plugin": "^6.0.0",
+    "aws-sdk": "^2.1692.0",
+    "hooks": "^0.3.2"
+  }
+}
