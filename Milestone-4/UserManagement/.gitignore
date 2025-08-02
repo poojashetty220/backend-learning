@@ -3,3 +3,4 @@
 awscliv2.zip
 aws
 dredd-venv
+/services/category-managent/node_modules
