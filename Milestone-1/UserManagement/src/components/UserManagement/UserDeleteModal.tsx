@@ -1,0 +1,104 @@
+import React, { useState } from 'react';
+import { X, Trash2, AlertTriangle } from 'lucide-react';
+import { User } from '../../types/user';
+import { userService } from '../../services/userService';
+
+interface UserDeleteModalProps {
+  user: User;
+  onConfirm: () => void;
+  onCancel: () => void;
+  setRefreshList?: React.Dispatch<React.SetStateAction<boolean>>;
+  refreshList?: boolean;
+}
+
+const UserDeleteModal: React.FC<UserDeleteModalProps> = ({ user, onConfirm, onCancel, setRefreshList, refreshList }) => {
+  const [loading, setLoading] = useState(false);
+
+  const handleDelete = async () => {
+    setLoading(true);
+    try {
+      await userService.deleteUser(user._id);
+      if (setRefreshList) {
+        setRefreshList(!refreshList); // Notify parent to refresh the user list
+      }
+      onConfirm();
+    } catch (error) {
+      console.error('Error deleting user:', error);
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  return (
+    <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center p-4 z-50">
+      <div className="bg-white rounded-lg shadow-xl max-w-md w-full">
+        {/* Header */}
+        <div className="flex items-center justify-between p-6 border-b border-gray-200">
+          <div className="flex items-center gap-3">
+            <div className="p-2 bg-red-100 rounded-lg">
+              <AlertTriangle size={24} className="text-red-600" />
+            </div>
+            <h2 className="text-xl font-bold text-gray-900">Delete User</h2>
+          </div>
+          <button
+            onClick={onCancel}
+            className="text-gray-400 hover:text-gray-600 transition-colors"
+          >
+            <X size={24} />
+          </button>
+        </div>
+
+        {/* Content */}
+        <div className="p-6">
+          <div className="mb-6">
+            <p className="text-gray-600 mb-4">
+              Are you sure you want to delete this user? This action cannot be undone.
+            </p>
+            
+            {/* User Info */}
+            <div className="bg-gray-50 rounded-lg p-4 mb-4">
+              <div className="flex items-center gap-3">
+                <div className="h-12 w-12 rounded-full bg-gray-300 flex items-center justify-center overflow-hidden">
+                  <span className="text-gray-600 font-medium">
+                      {user?.name?.charAt(0)}
+                    </span>
+                </div>
+                <div>
+                  <p className="font-medium text-gray-900">
+                    {user.name}
+                  </p>
+                  <p className="text-sm text-gray-600">{user.email}</p>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          {/* Action Buttons */}
+          <div className="flex justify-end gap-3">
+            <button
+              type="button"
+              onClick={onCancel}
+              className="px-4 py-2 text-gray-700 border border-gray-300 rounded-lg hover:bg-gray-50 transition-colors"
+            >
+              Cancel
+            </button>
+            <button
+              onClick={handleDelete}
+              disabled={loading}
+              className="bg-red-600 hover:bg-red-700 disabled:opacity-50 disabled:cursor-not-allowed text-white px-4 py-2 rounded-lg flex items-center gap-2 transition-colors"
+            >
+              {loading ? (
+                <div className="animate-spin rounded-full h-4 w-4 border-b-2 border-white"></div>
+              ) : (
+                <Trash2 size={16} />
+              )}
+              {loading ? 'Deleting...' : 'Delete User'}
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+};
+
+export default UserDeleteModal;
