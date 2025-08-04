@@ -1,0 +1,43 @@
+service: categories
+frameworkVersion: '3'
+useDotenv: true
+
+provider:
+  name: aws
+  runtime: nodejs22.x
+  region: ap-south-1
+  environment:
+    MONGODB_CONNECTION_STRING: ${env:MONGODB_CONNECTION_STRING}
+
+  iam:
+    role:
+      statements:
+        - Effect: "Allow"
+          Action:
+             - lambda:*
+          Resource: "*"
+
+functions:
+  categories:
+    handler: handlers/list.handler
+    events:
+      - http:
+          path: /categories
+          method: get
+          cors:
+            origin: '*'
+            headers:
+              - Content-Type
+  createCategory:
+    handler: handlers/create.handler
+    events:
+      - http:
+          path: /categories
+          method: post
+          cors:
+            origin: '*'
+            headers:
+              - Content-Type
+
+plugins:
+  - serverless-dotenv-plugin

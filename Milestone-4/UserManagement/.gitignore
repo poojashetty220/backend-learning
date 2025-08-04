@@ -1,0 +1,9 @@
+/node_modules
+.env
+awscliv2.zip
+/aws
+/dredd-venv
+.serverless
+UserManagement/test-results
+package-lock.json
+
