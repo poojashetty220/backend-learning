@@ -24,9 +24,9 @@ const config = token
 
 export const postService = {
   // Get all posts from MongoDB
-  getPosts: async (filters: any): Promise<{ posts: Post[]; stats: { totalCount: number } }> => {
+  getPosts: async (filters: any, page = 1, limit = 10): Promise<{ posts: Post[]; stats: any }> => {
   try {
-    const { data } = await axios.get(`${API_URL}/posts?page=1&${filters || ''}`, config);
+    const { data } = await axios.get(`${API_URL}/posts?page=${page}&limit=${limit}&${filters || ''}`, config);
     const mappedPosts = data.posts.map(mapPost);
     return {
       posts: mappedPosts,
@@ -34,7 +34,7 @@ export const postService = {
     };
   } catch (error) {
     console.error('Error fetching posts:', error);
-    return { posts: [], stats: { totalCount: 0 } };
+    return { posts: [], stats: { totalCount: 0, currentPage: 1, totalPages: 0, hasNextPage: false, hasPrevPage: false } };
   }
 },
 
@@ -52,7 +52,7 @@ export const postService = {
   // Update post
   updatePost: async (id: string, userData: PostFormData): Promise<Post | null> => {
     try {
-      const { data } = await axios.put(`${API_URL}/posts/${id}`, userData, config);
+      const { data } = await axios.patch(`${API_URL}/posts/${id}`, userData, config);
       return mapPost(data);
     } catch (error) {
       console.error('Error updating post:', error);

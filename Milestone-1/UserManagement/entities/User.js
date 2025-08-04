@@ -16,7 +16,7 @@ const userSchema = new mongoose.Schema({
   phone: { type: String, required: true },
   created_at: { type: Date, default: Date.now },
   addresses: { type: [addressSchema], default: [] },
-  pageAccess: [{ type: String }],
+  page_access: [{ type: String }],
 });
 
 const User = mongoose.model('User', userSchema);

@@ -15,16 +15,17 @@ const config = token
   : {};
 
 export const categoryService = {
-  getCategories: async () => {
+  getCategories: async (page = 1, limit = 10) => {
     try {
-      const { data } = await axios.get(`${API_URL}/categories`, config);
-      const mappedCategories = data.map(mapCategory);
+      const { data } = await axios.get(`${API_URL}/categories?page=${page}&limit=${limit}`, config);
+      const mappedCategories = data.categories.map(mapCategory);
       return {
         categories: mappedCategories,
+        stats: data.stats
       };
     } catch (error) {
       console.error('Error fetching categories:', error);
-      return [];
+      return { categories: [], stats: { totalCount: 0, currentPage: 1, totalPages: 0, hasNextPage: false, hasPrevPage: false } };
     }
   },
 
@@ -40,7 +41,7 @@ export const categoryService = {
 
   updateCategory: async (id: string, category: { name: string }) => {
     try {
-      const { data } = await axios.put(`${API_URL}/categories/${id}`, category, config);
+      const { data } = await axios.patch(`${API_URL}/categories/${id}`, category, config);
       return data;
     } catch (error) {
       console.error('Error updating category:', error);

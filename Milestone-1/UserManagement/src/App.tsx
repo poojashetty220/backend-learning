@@ -43,20 +43,20 @@ function App() {
     setIsAuthenticated(!!token);
   }, []);
 
-  const getpageAccess = (): string[] => {
+  const getpage_access = (): string[] => {
     const userStr = localStorage.getItem('user');
     if (!userStr) return [];
     try {
       const user = JSON.parse(userStr);
-      return user.pageAccess || [];
+      return user.page_access || [];
     } catch {
       return [];
     }
   };
 
   const hasAccess = (page: string): boolean => {
-    const pageAccess = getpageAccess();
-    return pageAccess.includes(page);
+    const page_access = getpage_access();
+    return page_access.includes(page);
   };
 
   const handleLogout = () => {

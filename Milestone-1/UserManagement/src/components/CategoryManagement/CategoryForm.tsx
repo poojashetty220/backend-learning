@@ -40,7 +40,7 @@ const CategoryForm: React.FC<CategoryFormProps> = ({ category, onSave, onCancel 
         let savedCategory: Category | null;
         
         if (category) {
-          savedCategory = await categoryService.updateCategory(category._id, { name: name.trim() });
+          savedCategory = await categoryService.updateCategory(category.id!, { name: name.trim() });
         } else {
           savedCategory = await categoryService.createCategory({ name: name.trim() });
         }

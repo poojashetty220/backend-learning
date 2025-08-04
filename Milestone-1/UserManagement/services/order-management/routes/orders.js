@@ -6,7 +6,18 @@ const router = express.Router();
 // Get all orders
 router.get('/', async (req, res) => {
   try {
-    let orders = await Order.find().populate('user_id');
+    const page = parseInt(req.query.page) || 1;
+    const limit = parseInt(req.query.limit) || 10;
+    const skip = (page - 1) * limit;
+
+    let orders = await Order.find()
+      .populate('user_id')
+      .skip(skip)
+      .limit(limit);
+    
+    const totalCount = await Order.countDocuments();
+    const totalPages = Math.ceil(totalCount / limit);
+    
     orders = orders.map(order => {
       const orderObj = order.toObject();
       if (orderObj.user_id) {
@@ -18,7 +29,17 @@ router.get('/', async (req, res) => {
       }
       return orderObj;
     });
-    res.json(orders);
+    
+    res.json({
+      orders,
+      stats: {
+        totalCount,
+        currentPage: page,
+        totalPages,
+        hasNextPage: page < totalPages,
+        hasPrevPage: page > 1
+      }
+    });
   } catch (error) {
     console.error('Error in GET /api/orders:', error);
     res.status(500).json({ message: 'Error fetching orders', error });
@@ -55,7 +76,7 @@ router.post('/', async (req, res) => {
 });
 
 // Update order
-router.put('/:id', async (req, res) => {
+router.patch('/:id', async (req, res) => {
   try {
     const { order_number, total_amount, user_id, user_name } = req.body;
     const updatedOrder = await Order.findByIdAndUpdate(

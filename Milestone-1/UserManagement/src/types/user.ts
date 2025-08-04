@@ -29,7 +29,7 @@ export interface UserFormData {
   gender: string;
   phone: string;
   addresses?: Address[];
-  pageAccess?: string[];
+  page_access?: string[];
 }
 
 export interface UserFilters {

@@ -8,8 +8,14 @@ router.get('/', async (req, res) => {
     const {
       search = '',
       sort_by = 'created_at',
-      sort_order = 'desc'
+      sort_order = 'desc',
+      page = 1,
+      limit = 10
     } = req.query;
+
+    const pageNum = parseInt(page) || 1;
+    const limitNum = parseInt(limit) || 10;
+    const skip = (pageNum - 1) * limitNum;
 
     const filter = {};
 
@@ -26,28 +32,33 @@ router.get('/', async (req, res) => {
       : 'created_at';
     const sortDirection = sort_order === 'asc' ? 1 : -1;
 
-    // Use populate to get category details
-    console.time('query');
     const posts = await Post.find(filter)
       .populate('categories', 'name')
-      .populate('user_id')  // populate user data
+      .populate('user_id')
       .sort({ [sortField]: sortDirection })
-    //   .explain( {"verbose": true })
-    // console.timeEnd('query');
-    // console.log(posts)
+      .skip(skip)
+      .limit(limitNum);
 
     const totalCount = await Post.countDocuments(filter);
+    const totalPages = Math.ceil(totalCount / limitNum);
 
-    // Map posts to add user_info key with populated user data and keep user_id as string
     const postsWithUserInfo = posts.map(post => {
       const postObj = post.toObject();
       postObj.user_info = postObj.user_id;
-      // Keep user_id as string (ObjectId) if user_id exists
       postObj.user_id = postObj.user_id ? postObj.user_id._id.toString() : null;
       return postObj;
     });
 
-    res.json({ posts: postsWithUserInfo, stats: { totalCount } });
+    res.json({ 
+      posts: postsWithUserInfo, 
+      stats: { 
+        totalCount,
+        currentPage: pageNum,
+        totalPages,
+        hasNextPage: pageNum < totalPages,
+        hasPrevPage: pageNum > 1
+      }
+    });
   } catch (error) {
     res.status(500).json({ message: error.message });
   }
@@ -75,7 +86,7 @@ router.delete('/:id', async (req, res) => {
   }
 });
 
-router.put('/:id', async (req, res) => {
+router.patch('/:id', async (req, res) => {
   try {
     const post = await Post.findByIdAndUpdate(req.params.id, req.body, { new: true });
     if (!post) return res.status(404).json({ message: 'Post not found' });

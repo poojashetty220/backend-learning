@@ -4,6 +4,7 @@ import { Search, Plus, Edit, Trash2, Eye, ArrowUpDown } from 'lucide-react';
 import { Post, SortField, SortDirection } from '../../types/post';
 import moment from 'moment';
 import { postService } from '../../services/postService';
+import Pagination from '../Pagination';
 
 interface PostListProps {
   onCreatePost: () => void;
@@ -34,7 +35,9 @@ const PostList: React.FC<PostListProps> = ({
   });
 
   const [searchInput, setSearchInput] = useState('');
-  const [stats, setStats] = useState({ totalCount: 0 });
+  const [stats, setStats] = useState({ totalCount: 0, currentPage: 1, totalPages: 0, hasNextPage: false, hasPrevPage: false });
+  const [currentPage, setCurrentPage] = useState(1);
+  const [limit] = useState(10);
 
 const fetchPosts = async () => {
   setTableLoading(true);
@@ -44,7 +47,7 @@ const fetchPosts = async () => {
     if (filters.sort_by) params.append('sort_by', filters.sort_by);
     if (filters.sort_order) params.append('sort_order', filters.sort_order);
 
-    const { posts: fetchedPOsts, stats } = await postService.getPosts(`${params.toString()}`);
+    const { posts: fetchedPOsts, stats } = await postService.getPosts(`${params.toString()}`, currentPage, limit);
     setPosts(fetchedPOsts);
     setStats(stats);
   } catch (error) {
@@ -57,7 +60,11 @@ const fetchPosts = async () => {
 // Initial load & on filter change (not search input anymore)
 useEffect(() => {
   fetchPosts();
-}, [filters, refreshList]);
+}, [filters, refreshList, currentPage]);
+
+const handlePageChange = (page: number) => {
+  setCurrentPage(page);
+};
 
 const handleSearchKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
   if (e.key === 'Enter') {
@@ -80,7 +87,6 @@ const handleSearchKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
 
   const filteredAndSortedPosts = useMemo(() => posts, [posts]);
 
-  console.log(filteredAndSortedPosts, 'filteredAndSortedPosts');
 
   return (
     <div className="space-y-6">
@@ -194,6 +200,16 @@ const handleSearchKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
           </table>
         </div>
       </div>
+
+      {stats.totalPages > 1 && (
+        <Pagination
+          currentPage={stats.currentPage}
+          totalPages={stats.totalPages}
+          hasNextPage={stats.hasNextPage}
+          hasPrevPage={stats.hasPrevPage}
+          onPageChange={handlePageChange}
+        />
+      )}
     </div>
   );
 };

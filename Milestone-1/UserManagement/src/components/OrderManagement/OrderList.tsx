@@ -5,6 +5,7 @@ import { Plus, Edit } from 'lucide-react';
 import { Order } from '../../types/order';
 import { orderService } from '../../services/orderService';
 import moment from 'moment';
+import Pagination from '../Pagination';
 
 interface OrderListProps {
   onCreateOrder: () => void;
@@ -20,15 +21,17 @@ const OrderList: React.FC<OrderListProps> = ({
   const [orders, setOrders] = useState<Order[]>([]);
   const [tableLoading, setTableLoading] = useState(true);
 
-  const [stats, setStats] = useState({ averageAge: 0, totalCount: 0 });
+  const [stats, setStats] = useState({ totalCount: 0, currentPage: 1, totalPages: 0, hasNextPage: false, hasPrevPage: false });
+  const [currentPage, setCurrentPage] = useState(1);
+  const [limit] = useState(10);
 
   const fetchOrders = async () => {
     setTableLoading(true);
     try {
 
-      const response = await orderService.getOrders();
+      const response = await orderService.getOrders(currentPage, limit);
       const fetchedOrders = response.orders || [];
-      const stats = response.stats || { totalCount: 0, averageAge: 0 };
+      const stats = response.stats || { totalCount: 0, currentPage: 1, totalPages: 0, hasNextPage: false, hasPrevPage: false };
       setOrders(fetchedOrders);
       setStats(stats);
     } catch (error) {
@@ -40,7 +43,11 @@ const OrderList: React.FC<OrderListProps> = ({
 
   useEffect(() => {
     fetchOrders();
-  }, [refreshList]);
+  }, [refreshList, currentPage]);
+
+  const handlePageChange = (page: number) => {
+    setCurrentPage(page);
+  };
 
   const filteredAndSortedOrders = useMemo(() => orders, [orders]);
 
@@ -142,6 +149,16 @@ const OrderList: React.FC<OrderListProps> = ({
           </table>
         </div>
       </div>
+
+      {stats.totalPages > 1 && (
+        <Pagination
+          currentPage={stats.currentPage}
+          totalPages={stats.totalPages}
+          hasNextPage={stats.hasNextPage}
+          hasPrevPage={stats.hasPrevPage}
+          onPageChange={handlePageChange}
+        />
+      )}
     </div>
   );
 };

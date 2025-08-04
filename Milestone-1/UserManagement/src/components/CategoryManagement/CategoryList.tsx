@@ -6,6 +6,7 @@ import moment from 'moment';
 import { categoryService } from '../../services/categoryService';
 import { postService } from '../../services/postService';
 import CategoryPostsModal from './CategoryPostsModal';
+import Pagination from '../Pagination';
 
 interface CategoryListProps {
   onCreateCategory: () => void;
@@ -20,6 +21,9 @@ const CategoryList: React.FC<CategoryListProps> = ({
 }) => {
   const [categories, setCategories] = useState<Category[]>([]);
   const [tableLoading, setTableLoading] = useState(true);
+  const [stats, setStats] = useState({ totalCount: 0, currentPage: 1, totalPages: 0, hasNextPage: false, hasPrevPage: false });
+  const [currentPage, setCurrentPage] = useState(1);
+  const [limit] = useState(10);
 
   // New state for posts modal and posts data
   const [postsModalOpen, setPostsModalOpen] = useState(false);
@@ -29,17 +33,18 @@ const CategoryList: React.FC<CategoryListProps> = ({
   const fetchCategories = async () => {
     setTableLoading(true);
     try {
-      const response = await categoryService.getCategories();
-      if (Array.isArray(response)) {
-        setCategories(response);
-      } else if (response && Array.isArray(response.categories)) {
+      const response = await categoryService.getCategories(currentPage, limit);
+      if (response && response.categories) {
         setCategories(response.categories);
+        setStats(response.stats);
       } else {
         setCategories([]);
+        setStats({ totalCount: 0, currentPage: 1, totalPages: 0, hasNextPage: false, hasPrevPage: false });
       }
     } catch (error) {
       console.error('Error fetching categories:', error);
       setCategories([]);
+      setStats({ totalCount: 0, currentPage: 1, totalPages: 0, hasNextPage: false, hasPrevPage: false });
     } finally {
       setTableLoading(false);
     }
@@ -67,10 +72,13 @@ const CategoryList: React.FC<CategoryListProps> = ({
 
   useEffect(() => {
     fetchCategories();
-  }, [refreshList]);
+  }, [refreshList, currentPage]);
+
+  const handlePageChange = (page: number) => {
+    setCurrentPage(page);
+  };
 
   const filteredAndSortedCategories = useMemo(() => categories ?? [], [categories]);
-  console.log('Filtered and Sorted Categories:', filteredAndSortedCategories, 'cat', categories);
 
   return (
     <div className="space-y-6">
@@ -150,6 +158,16 @@ const CategoryList: React.FC<CategoryListProps> = ({
           </table>
         </div>
       </div>
+
+      {stats.totalPages > 1 && (
+        <Pagination
+          currentPage={stats.currentPage}
+          totalPages={stats.totalPages}
+          hasNextPage={stats.hasNextPage}
+          hasPrevPage={stats.hasPrevPage}
+          onPageChange={handlePageChange}
+        />
+      )}
 
       <CategoryPostsModal
         isOpen={postsModalOpen}

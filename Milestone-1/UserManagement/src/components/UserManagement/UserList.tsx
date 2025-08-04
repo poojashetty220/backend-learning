@@ -8,6 +8,7 @@ import AddressModal from './AddressModal';
 import MultipleAddressesModal from './MultipleAddressesModal';
 import UserOrdersModal from './UserOrdersModal';
 import { orderService } from '../../services/orderService';
+import Pagination from '../Pagination';
  
 
 interface UserListProps {
@@ -46,7 +47,9 @@ const UserList: React.FC<UserListProps> = ({
   const [cityInput, setCityInput] = useState('');
 
   const [searchInput, setSearchInput] = useState('');
-  const [stats, setStats] = useState({ averageAge: 0, totalCount: 0 });
+  const [stats, setStats] = useState({ averageAge: 0, totalCount: 0, currentPage: 1, totalPages: 0, hasNextPage: false, hasPrevPage: false });
+  const [currentPage, setCurrentPage] = useState(1);
+  const [limit] = useState(10);
 
   const [addressModalOpen, setAddressModalOpen] = useState(false);
   const [selectedUser, setSelectedUser] = useState<User | null>(null);
@@ -73,7 +76,7 @@ const UserList: React.FC<UserListProps> = ({
       if (filters.sort_by) params.append('sort_by', filters.sort_by);
       if (filters.sort_order) params.append('sort_order', filters.sort_order);
 
-      const { users: fetchedUsers, stats } = await userService.getUsers(`${params.toString()}`);
+      const { users: fetchedUsers, stats } = await userService.getUsers(`${params.toString()}`, currentPage, limit);
       setUsers(fetchedUsers);
       setStats(stats);
     } catch (error) {
@@ -117,7 +120,11 @@ const UserList: React.FC<UserListProps> = ({
 
   useEffect(() => {
     fetchUsers();
-  }, [filters, refreshList]);
+  }, [filters, refreshList, currentPage]);
+
+  const handlePageChange = (page: number) => {
+    setCurrentPage(page);
+  };
 
   const handleSearchKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
     if (e.key === 'Enter') {
@@ -387,6 +394,16 @@ const UserList: React.FC<UserListProps> = ({
           </table>
         </div>
       </div>
+
+      {stats.totalPages > 1 && (
+        <Pagination
+          currentPage={stats.currentPage}
+          totalPages={stats.totalPages}
+          hasNextPage={stats.hasNextPage}
+          hasPrevPage={stats.hasPrevPage}
+          onPageChange={handlePageChange}
+        />
+      )}
 
       <AddressModal
         isOpen={addressModalOpen}

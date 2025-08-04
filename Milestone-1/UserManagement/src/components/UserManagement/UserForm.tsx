@@ -18,7 +18,7 @@ const UserForm: React.FC<UserFormProps> = ({ user, onSave, onCancel }) => {
     gender: '',
     phone: '',
     password: '',
-    pageAccess: [],
+    page_access: [],
   });
   const [errors, setErrors] = useState<Partial<UserFormData>>({});
   const [loading, setLoading] = useState(false);
@@ -32,7 +32,7 @@ const UserForm: React.FC<UserFormProps> = ({ user, onSave, onCancel }) => {
         gender: user.gender,
         phone: user.phone,
         password: user.password || '',
-        pageAccess: user.pageAccess || [],
+        page_access: user.page_access || [],
       });
     }
   }, [user]);
@@ -70,13 +70,13 @@ const UserForm: React.FC<UserFormProps> = ({ user, onSave, onCancel }) => {
     return Object.keys(newErrors).length === 0;
   };
 
-  const handlepageAccessChange = (page: string) => {
+  const handlepage_accessChange = (page: string) => {
   setFormData(prev => {
-    const access = prev.pageAccess || [];
+    const access = prev.page_access || [];
     const updatedAccess = access.includes(page)
       ? access.filter(p => p !== page)
       : [...access, page];
-    return { ...prev, pageAccess: updatedAccess };
+    return { ...prev, page_access: updatedAccess };
   });
 };
 
@@ -271,8 +271,8 @@ const UserForm: React.FC<UserFormProps> = ({ user, onSave, onCancel }) => {
               <label key={page} className="flex items-center gap-2 capitalize">
                 <input
                   type="checkbox"
-                  checked={formData.pageAccess?.includes(page)}
-                  onChange={() => handlepageAccessChange(page)}
+                  checked={formData.page_access?.includes(page)}
+                  onChange={() => handlepage_accessChange(page)}
                 />
                 {page}
               </label>

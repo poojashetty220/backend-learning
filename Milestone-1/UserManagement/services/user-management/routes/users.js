@@ -21,7 +21,7 @@ router.post('/login', async (req, res) => {
     // Add expiration time of 1 hour to the token
     const token = jwt.sign(payload, JWT_SECRET, { expiresIn: '1h' });
 
-    res.json({ token, user: { id: user._id, email: user.email, name: user.name, pageAccess: user.pageAccess } });
+    res.json({ token, user: { id: user._id, email: user.email, name: user.name, page_access: user.page_access } });
   } catch (error) {
     res.status(500).json({ message: error.message });
   }
@@ -41,6 +41,17 @@ router.get('/multiple-addresses', async (req, res) => {
     res.json({ users });
   } catch (error) {
     res.status(500).json({ message: error.message });
+  }
+});
+
+// Create user
+router.post('/', async (req, res) => {
+  try {
+    const user = new User(req.body);
+    const savedUser = await user.save();
+    res.status(201).json(savedUser);
+  } catch (error) {
+    res.status(400).json({ message: error.message });
   }
 });
 
@@ -93,12 +104,18 @@ router.get('/', async (req, res) => {
       : 'created_at';
     const sortDirection = sort_order === 'asc' ? 1 : -1;
 
+    const pageNum = parseInt(req.query.page) || 1;
+    const limitNum = parseInt(req.query.limit) || 10;
+    const skip = (pageNum - 1) * limitNum;
+
     const pipeline = [
       { $match: filter },
       {
         $facet: {
           users: [
-            { $sort: { [sortField]: sortDirection } }
+            { $sort: { [sortField]: sortDirection } },
+            { $skip: skip },
+            { $limit: limitNum }
           ],
           stats: [
             {
@@ -129,12 +146,20 @@ router.get('/', async (req, res) => {
     ];
 
     const result = await User.aggregate(pipeline)
-    console.log(result)
-
     const users = result[0].users;
     const stats = result[0].stats[0] || { averageAge: 0, totalCount: 0 };
+    const totalPages = Math.ceil(stats.totalCount / limitNum);
 
-    res.json({ users, stats });
+    res.json({ 
+      users, 
+      stats: {
+        ...stats,
+        currentPage: pageNum,
+        totalPages,
+        hasNextPage: pageNum < totalPages,
+        hasPrevPage: pageNum > 1
+      }
+    });
   } catch (error) {
     res.status(500).json({ message: error.message });
   }
@@ -172,7 +197,7 @@ router.get('/:id/addresses', async (req, res) => {
   }
 });
 
-router.put('/:id', async (req, res) => {
+router.patch('/:id', async (req, res) => {
   try {
     const updateData = { ...req.body };
     // Ensure addresses field is handled properly

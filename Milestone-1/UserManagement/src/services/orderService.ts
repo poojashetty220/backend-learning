@@ -12,20 +12,16 @@ const getAuthConfig = () => {
 };
 
 export const orderService = {
-  getOrders: async (): Promise<any> => {
+  getOrders: async (page = 1, limit = 10): Promise<any> => {
     try {
-      const { data } = await axios.get(`${API_URL}/orders`, getAuthConfig());
-      // Return object with orders array and stats
+      const { data } = await axios.get(`${API_URL}/orders?page=${page}&limit=${limit}`, getAuthConfig());
       return {
-        orders: data,
-        stats: {
-          totalCount: data.length,
-          averageAge: 0 // Placeholder, calculate if needed
-        }
+        orders: data.orders,
+        stats: data.stats
       };
     } catch (error) {
       console.error('❌ Error fetching orders:', error);
-      return { orders: [], stats: { totalCount: 0, averageAge: 0 } };
+      return { orders: [], stats: { totalCount: 0, currentPage: 1, totalPages: 0, hasNextPage: false, hasPrevPage: false } };
     }
   },
 
@@ -41,7 +37,7 @@ export const orderService = {
 
   updateOrder: async (id: string, orderData: any): Promise<any> => {
     try {
-      const { data } = await axios.put(`${API_URL}/orders/${id}`, orderData, getAuthConfig());
+      const { data } = await axios.patch(`${API_URL}/orders/${id}`, orderData, getAuthConfig());
       return data;
     } catch (error) {
       console.error(`❌ Error updating order ${id}:`, error);

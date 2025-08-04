@@ -14,7 +14,7 @@ const mapUser = (user: any): User => ({
   _id: user._id,
   id: '',
   addresses: user.addresses || [],
-  pageAccess: user.pageAccess || [],
+  page_access: user.page_access || [],
 
 });
 
@@ -25,9 +25,9 @@ const config = token
 
 export const userService = {
   // Get all users from MongoDB
-  getUsers: async (filters: any): Promise<{ users: User[]; stats: { averageAge: number; totalCount: number } }> => {
+  getUsers: async (filters: any, page = 1, limit = 10): Promise<{ users: User[]; stats: any }> => {
     try {
-      const { data } = await axios.get(`${API_URL}/users?page=1${filters ? `&${filters}` : ''}`, config);
+      const { data } = await axios.get(`${API_URL}/users?page=${page}&limit=${limit}${filters ? `&${filters}` : ''}`, config);
       const mappedUsers = data.users.map(mapUser);
       return {
         users: mappedUsers,
@@ -35,7 +35,7 @@ export const userService = {
       };
     } catch (error) {
       console.error('Error fetching users:', error);
-      return { users: [], stats: { averageAge: 0, totalCount: 0 } };
+      return { users: [], stats: { averageAge: 0, totalCount: 0, currentPage: 1, totalPages: 0, hasNextPage: false, hasPrevPage: false } };
     }
   },
   // Create user
@@ -52,7 +52,7 @@ export const userService = {
   // Update user
   updateUser: async (_id: string, userData: UserFormData): Promise<User | null> => {
     try {
-      const { data } = await axios.put(`${API_URL}/users/${_id}`, userData, config);
+      const { data } = await axios.patch(`${API_URL}/users/${_id}`, userData, config);
       return mapUser(data);
     } catch (error) {
       console.error('Error updating user:', error);
