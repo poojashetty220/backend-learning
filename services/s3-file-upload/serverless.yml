@@ -1,0 +1,30 @@
+service: s3-document-uploader
+
+frameworkVersion: '3'
+
+provider:
+  name: aws
+  runtime: nodejs22.x
+  region: ap-south-1
+  environment:
+    BUCKET_NAME: s3-upload-bucket-pooja
+  iam:
+    role:
+      statements:
+        - Effect: Allow
+          Action:
+            - s3:PutObject
+          Resource:
+            - arn:aws:s3:::s3-upload-bucket-pooja/uploads/*
+
+functions:
+  uploadDocument:
+    handler: handlers/s3-upload.handler
+    layers: 
+      - arn:aws:lambda:ap-south-1:154764642821:layer:ses-email:1
+      - arn:aws:lambda:ap-south-1:154764642821:layer:mime-types:1
+    events:
+      - http:
+          path: upload
+          method: post
+

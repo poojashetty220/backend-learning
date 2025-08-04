@@ -1,0 +1,34 @@
+service: html-to-pdf-lambda
+useDotenv: true
+frameworkVersion: '3'
+
+provider:
+  name: aws
+  runtime: nodejs22.x
+  region: ap-south-1
+  environment:
+    BUCKET_NAME: s3-upload-bucket-pooja
+    PDFSHIFT_API_KEY: ${env:PDFSHIFT_API_KEY}
+  iam:
+    role:
+      statements:
+        - Effect: Allow
+          Action:
+            - s3:PutObject
+          Resource:
+            - arn:aws:s3:::s3-upload-bucket-pooja/uploads/*
+
+functions:
+  htmlToPdf:
+    handler: handlers/html-to-pdf.handler
+    layers: 
+    - arn:aws:lambda:ap-south-1:154764642821:layer:ses-email:1
+    - arn:aws:lambda:ap-south-1:154764642821:layer:node-fetch:2
+    events:
+      - http:
+          path: generate-pdf
+          method: post
+
+plugins:
+  - serverless-dotenv-plugin
+

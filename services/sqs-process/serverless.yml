@@ -1,0 +1,62 @@
+service: async-job-processor
+
+provider:
+  name: aws
+  runtime: nodejs20.x
+  region: ap-south-1
+
+  iamRoleStatements:
+    # SQS permissions
+    - Effect: Allow
+      Action:
+        - sqs:SendMessage
+      Resource:
+        - !GetAtt MyQueue.Arn
+
+    - Effect: Allow
+      Action:
+        - sqs:ReceiveMessage
+        - sqs:DeleteMessage
+        - sqs:GetQueueAttributes
+      Resource:
+        - !GetAtt MyQueue.Arn
+
+    # S3 permissions for upload and list
+    - Effect: Allow
+      Action:
+        - s3:*
+      Resource:
+        - arn:aws:s3:::s3-upload-bucket-pooja/*
+
+functions:
+  sendToQueue:
+    handler: handlers/send-to-queue.handler
+    layers: arn:aws:lambda:ap-south-1:154764642821:layer:ses-email:1
+    events:
+      - http:
+          path: send-job
+          method: post
+          cors: true
+    environment:
+      QUEUE_URL: !Ref MyQueue
+
+  processQueue:
+    handler: handlers/process-queue.handler
+    layers: arn:aws:lambda:ap-south-1:154764642821:layer:ses-email:1
+    events:
+      - sqs:
+          arn:
+            Fn::GetAtt:
+              - MyQueue
+              - Arn
+          batchSize: 5
+          enabled: true
+    environment:
+      UPLOAD_BUCKET: s3-upload-bucket-pooja
+
+resources:
+  Resources:
+    MyQueue:
+      Type: AWS::SQS::Queue
+      Properties:
+        QueueName: my-sqs-queue
