@@ -51,3 +51,9 @@ module.exports.handler = async (event) => {
     };
   }
 };
+
+/*
+Content-Type: application/pdf
+Content-Disposition: inline; filename="document.pdf"
+Content-Disposition: attachment; filename="document.pdf"
+*/

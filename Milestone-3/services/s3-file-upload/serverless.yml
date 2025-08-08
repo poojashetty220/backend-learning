@@ -4,7 +4,7 @@ frameworkVersion: '3'
 
 provider:
   name: aws
-  runtime: nodejs22.x
+  runtime: nodejs20.x
   region: ap-south-1
   environment:
     BUCKET_NAME: s3-upload-bucket-pooja
@@ -14,8 +14,9 @@ provider:
         - Effect: Allow
           Action:
             - s3:PutObject
+            - s3:PutObjectAcl
           Resource:
-            - arn:aws:s3:::s3-upload-bucket-pooja/uploads/*
+            - arn:aws:s3:::s3-upload-bucket-pooja/*
 
 functions:
   uploadDocument:

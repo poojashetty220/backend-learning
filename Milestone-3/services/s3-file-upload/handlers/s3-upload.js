@@ -1,5 +1,7 @@
 const AWS = require('aws-sdk');
 const mime = require('mime-types');
+const fs = require('fs');
+const path = require('path');
 
 const s3 = new AWS.S3({ region: 'ap-south-1' });
 
@@ -9,12 +11,21 @@ const ALLOWED_EXTENSIONS = ['.pdf', '.docx', '.txt'];
 module.exports.handler = async (event) => {
   try {
     const body = JSON.parse(event.body);
-    const { fileName, fileContentBase64 } = body;
+    const { fileName } = body;
 
-    if (!fileName || !fileContentBase64) {
+    if (!fileName) {
       return {
         statusCode: 400,
-        body: JSON.stringify({ message: 'Missing fileName or fileContentBase64' }),
+        body: JSON.stringify({ message: 'Missing fileName' }),
+      };
+    }
+
+    const filePath = path.join(__dirname, fileName);
+    
+    if (!fs.existsSync(filePath)) {
+      return {
+        statusCode: 404,
+        body: JSON.stringify({ message: 'File not found' }),
       };
     }
 
@@ -26,7 +37,7 @@ module.exports.handler = async (event) => {
       };
     }
 
-    const buffer = Buffer.from(fileContentBase64, 'base64');
+    const buffer = fs.readFileSync(filePath);
     const contentType = mime.lookup(fileExt) || 'application/octet-stream';
 
     const key = `uploads/${Date.now()}_${fileName}`;

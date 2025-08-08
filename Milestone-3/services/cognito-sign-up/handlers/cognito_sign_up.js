@@ -39,7 +39,7 @@ module.exports.handler = async (event) => {
     }).promise();
 
     return {
-      statusCode: 200,
+      statusCode: 200,  // 201 for successful user creation, 202 for async jobs processing
       body: JSON.stringify({ message: 'User created and confirmed successfully.' }),
     };
   } catch (error) {

@@ -55,3 +55,5 @@ exports.handler = async (event) => {
     };
   }
 };
+
+// different content type
