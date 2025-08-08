@@ -1,13 +1,17 @@
-/* eslint-disable no-undef */
-const mongoose = require('mongoose')
+const mongoose = require('mongoose');
+
+let connection = null;
 
 module.exports.connect = async () => {
-    mongoose.set('strictQuery', false)
-    try {
-        await mongoose.connect(process.env.MONGODB_CONNECTION_STRING, {})
-        return mongoose
-    } catch (err) {
-        console.log(process.env.MONGODB_CONNECTION_STRING)
-        throw err
+    if (connection && mongoose.connection.readyState === 1) {
+        return connection;
     }
-}
+    
+    try {
+        connection = await mongoose.connect(process.env.MONGODB_CONNECTION_STRING);
+        return connection;
+    } catch (error) {
+        console.error('MongoDB connection error:', error);
+        throw error;
+    }
+};

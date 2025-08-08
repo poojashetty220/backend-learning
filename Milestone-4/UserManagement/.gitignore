@@ -6,4 +6,6 @@ awscliv2.zip
 .serverless
 UserManagement/test-results
 package-lock.json
+Milestone-4/UserManagement/node_modules
+Milestone-4/UserManagement/services/category-management/node_modules
 

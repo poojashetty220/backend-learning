@@ -1,0 +1,181 @@
+{
+  "openapi": "3.0.3",
+  "info": {
+    "title": "E-commerce API",
+    "description": "E-commerce API for registration, products, cart, and orders",
+    "version": "1.0.0"
+  },
+  "paths": {
+    "/api/register": {
+      "post": {
+        "summary": "Register user",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "required": ["name", "email", "password", "shippingAddress"],
+                "properties": {
+                  "name": { "type": "string", "example": "John Doe" },
+                  "email": { "type": "string", "example": "john@example.com" },
+                  "password": { "type": "string", "example": "pass1234" },
+                  "shippingAddress": { "type": "string", "example": "123 Main St" }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": { "description": "User created" }
+        }
+      }
+    },
+    "/api/profile": {
+      "get": {
+        "summary": "Get user profile",
+        "parameters": [
+          {
+            "in": "query",
+            "name": "userId",
+            "required": true,
+            "schema": { "type": "string" },
+            "example": "EXISTING_USER_ID"
+          }
+        ],
+        "responses": {
+          "200": { "description": "Profile found" },
+          "404": { "description": "User not found" }
+        }
+      },
+      "patch": {
+        "summary": "Update user profile",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "required": ["userId"],
+                "properties": {
+                  "userId": { "type": "string", "example": "EXISTING_USER_ID" },
+                  "name": { "type": "string", "example": "Updated Name" },
+                  "email": { "type": "string", "example": "updated@example.com" },
+                  "shippingAddress": { "type": "string", "example": "456 Park Ave" }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": { "description": "Updated successfully" },
+          "404": { "description": "User not found" }
+        }
+      }
+    },
+    "/api/products": {
+      "get": {
+        "summary": "Search products",
+        "parameters": [
+          { "in": "query", "name": "keywords", "schema": { "type": "string", "example": "laptop" } }
+        ],
+        "responses": {
+          "200": { "description": "Products found" }
+        }
+      }
+    },
+    "/api/cart/add": {
+      "post": {
+        "summary": "Add to cart",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "required": ["userId", "productId"],
+                "properties": {
+                  "userId": { "type": "string", "example": "EXISTING_USER_ID" },
+                  "productId": { "type": "string", "example": "PRODUCT123" }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": { "description": "Added to cart" }
+        }
+      }
+    },
+    "/api/cart/remove": {
+      "delete": {
+        "summary": "Remove from cart",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "required": ["userId", "productId"],
+                "properties": {
+                  "userId": { "type": "string", "example": "EXISTING_USER_ID" },
+                  "productId": { "type": "string", "example": "PRODUCT123" }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": { "description": "Removed from cart" }
+        }
+      }
+    },
+    "/api/checkout": {
+      "post": {
+        "summary": "Checkout",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "required": ["userId", "shippingAddress", "paymentMethod"],
+                "properties": {
+                  "userId": { "type": "string", "example": "EXISTING_USER_ID" },
+                  "shippingAddress": { "type": "string", "example": "123 Main St" },
+                  "paymentMethod": { "type": "string", "example": "Credit Card" }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": { "description": "Order placed" }
+        }
+      }
+    },
+    "/api/orders/{orderId}/status": {
+      "get": {
+        "summary": "Get order status",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "orderId",
+            "required": true,
+            "schema": { "type": "string" },
+            "example": "ORDER123"
+          }
+        ],
+        "responses": {
+          "200": { "description": "Order status returned" }
+        }
+      }
+    },
+    "/api/orders": {
+      "get": {
+        "summary": "Get order history",
+        "parameters": [
+          { "in": "query", "name": "userId", "required": true, "schema": { "type": "string" }, "example": "EXISTING_USER_ID" }
+        ],
+        "responses": {
+          "200": { "description": "Order history returned" }
+        }
+      }
+    }
+  }
+}

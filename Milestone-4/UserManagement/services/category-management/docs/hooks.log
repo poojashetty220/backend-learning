@@ -43,3 +43,219 @@
 2025-08-02T16:01:45.048Z Transaction: /categories > Create a new category > 201 > application/json - Expected 201
 2025-08-02T16:01:45.050Z Signed request for /categories > Create a new category > 400 > application/json
 2025-08-02T16:01:45.407Z Transaction: /categories > Create a new category > 400 > application/json - Expected 400
+2025-08-04T08:47:02.827Z Signed request for /categories > Get all categories > 200 > application/json
+2025-08-04T08:47:03.478Z Transaction: /categories > Get all categories > 200 > application/json - Expected 200
+2025-08-04T08:47:03.481Z Signed request for /categories > Get all categories > 500 > application/json
+2025-08-04T08:47:03.831Z Transaction: /categories > Get all categories > 500 > application/json - Expected 500
+2025-08-04T08:47:03.831Z Skipping /categories > Get all categories > 500 > application/json → Expected 500
+2025-08-04T08:47:03.834Z Signed request for /categories > Create a new category > 201 > application/json
+2025-08-04T08:47:04.214Z Transaction: /categories > Create a new category > 201 > application/json - Expected 201
+2025-08-04T08:47:04.216Z Signed request for /categories > Create a new category > 400 > application/json
+2025-08-04T08:47:04.468Z Transaction: /categories > Create a new category > 400 > application/json - Expected 400
+2025-08-04T08:58:15.674Z Signed request for /categories > Get all categories > 200 > application/json
+2025-08-04T08:58:17.679Z Transaction: /categories > Get all categories > 200 > application/json - Expected 200
+2025-08-04T08:58:17.682Z Signed request for /categories > Get all categories > 500 > application/json
+2025-08-04T08:58:17.987Z Transaction: /categories > Get all categories > 500 > application/json - Expected 500
+2025-08-04T08:58:17.987Z Skipping /categories > Get all categories > 500 > application/json → Expected 500
+2025-08-04T08:58:17.991Z Signed request for /categories > Create a new category > 201 > application/json
+2025-08-04T08:58:19.685Z Transaction: /categories > Create a new category > 201 > application/json - Expected 201
+2025-08-04T08:58:19.688Z Signed request for /categories > Create a new category > 400 > application/json
+2025-08-04T08:58:20.185Z Transaction: /categories > Create a new category > 400 > application/json - Expected 400
+2025-08-04T09:02:31.718Z Signed request for /categories > Get all categories > 200 > application/json
+2025-08-04T09:02:32.649Z Transaction: /categories > Get all categories > 200 > application/json - Expected 200
+2025-08-04T09:02:32.652Z Signed request for /categories > Get all categories > 500 > application/json
+2025-08-04T09:02:33.156Z Transaction: /categories > Get all categories > 500 > application/json - Expected 500
+2025-08-04T09:02:33.156Z Skipping /categories > Get all categories > 500 > application/json → Expected 500
+2025-08-04T09:02:33.161Z Signed request for /categories > Create a new category > 201 > application/json
+2025-08-04T09:02:33.702Z Transaction: /categories > Create a new category > 201 > application/json - Expected 201
+2025-08-04T09:02:33.706Z Signed request for /categories > Create a new category > 400 > application/json
+2025-08-04T09:02:34.162Z Transaction: /categories > Create a new category > 400 > application/json - Expected 400
+2025-08-04T09:13:46.325Z Signed request for /categories > Get all categories > 200 > application/json
+2025-08-04T09:13:48.272Z Transaction: /categories > Get all categories > 200 > application/json - Expected 200
+2025-08-04T09:13:48.276Z Signed request for /categories > Get all categories > 500 > application/json
+2025-08-04T09:13:48.686Z Transaction: /categories > Get all categories > 500 > application/json - Expected 500
+2025-08-04T09:13:48.687Z Skipping /categories > Get all categories > 500 > application/json → Expected 500
+2025-08-04T09:13:48.692Z Signed request for /categories > Create a new category > 201 > application/json
+2025-08-04T09:13:50.482Z Transaction: /categories > Create a new category > 201 > application/json - Expected 201
+2025-08-04T09:13:50.485Z Signed request for /categories > Create a new category > 400 > application/json
+2025-08-04T09:13:50.767Z Transaction: /categories > Create a new category > 400 > application/json - Expected 400
+2025-08-04T09:18:45.574Z Signed request for /categories > Get all categories > 200 > application/json
+2025-08-04T09:18:46.273Z Transaction: /categories > Get all categories > 200 > application/json - Expected 200
+2025-08-04T09:18:46.276Z Signed request for /categories > Get all categories > 500 > application/json
+2025-08-04T09:18:46.890Z Transaction: /categories > Get all categories > 500 > application/json - Expected 500
+2025-08-04T09:18:46.891Z Skipping /categories > Get all categories > 500 > application/json → Expected 500
+2025-08-04T09:18:46.896Z Signed request for /categories > Create a new category > 201 > application/json
+2025-08-04T09:18:47.378Z Transaction: /categories > Create a new category > 201 > application/json - Expected 201
+2025-08-04T09:18:47.382Z Signed request for /categories > Create a new category > 400 > application/json
+2025-08-04T09:18:47.696Z Transaction: /categories > Create a new category > 400 > application/json - Expected 400
+2025-08-04T09:20:03.829Z Signed request for /categories > Get all categories > 200 > application/json
+2025-08-04T09:20:04.525Z Transaction: /categories > Get all categories > 200 > application/json - Expected 200
+2025-08-04T09:20:04.527Z Signed request for /categories > Get all categories > 500 > application/json
+2025-08-04T09:20:04.937Z Transaction: /categories > Get all categories > 500 > application/json - Expected 500
+2025-08-04T09:20:04.938Z Skipping /categories > Get all categories > 500 > application/json → Expected 500
+2025-08-04T09:20:04.943Z Signed request for /categories > Create a new category > 201 > application/json
+2025-08-04T09:20:05.309Z Transaction: /categories > Create a new category > 201 > application/json - Expected 201
+2025-08-04T09:20:05.313Z Signed request for /categories > Create a new category > 400 > application/json
+2025-08-04T09:20:05.582Z Transaction: /categories > Create a new category > 400 > application/json - Expected 400
+2025-08-04T09:23:27.459Z Signed request for /categories > Get all categories > 200 > application/json
+2025-08-04T09:23:28.087Z Transaction: /categories > Get all categories > 200 > application/json - Expected 200
+2025-08-04T09:23:28.091Z Signed request for /categories > Get all categories > 500 > application/json
+2025-08-04T09:23:28.419Z Transaction: /categories > Get all categories > 500 > application/json - Expected 500
+2025-08-04T09:23:28.419Z Skipping /categories > Get all categories > 500 > application/json → Expected 500
+2025-08-04T09:23:28.422Z Signed request for /categories > Create a new category > 201 > application/json
+2025-08-04T09:23:28.708Z Transaction: /categories > Create a new category > 201 > application/json - Expected 201
+2025-08-04T09:23:28.711Z Signed request for /categories > Create a new category > 400 > application/json
+2025-08-04T09:23:28.974Z Transaction: /categories > Create a new category > 400 > application/json - Expected 400
+2025-08-04T09:43:40.884Z Signed request for /categories > Get all categories > 200 > application/json
+2025-08-04T09:43:42.833Z Transaction: /categories > Get all categories > 200 > application/json - Expected 200
+2025-08-04T09:43:42.837Z Signed request for /categories > Get all categories > 500 > application/json
+2025-08-04T09:43:43.281Z Transaction: /categories > Get all categories > 500 > application/json - Expected 500
+2025-08-04T09:43:43.281Z Skipping /categories > Get all categories > 500 > application/json → Expected 500
+2025-08-04T09:43:43.286Z Signed request for /categories > Create a new category > 201 > application/json
+2025-08-04T09:43:45.057Z Transaction: /categories > Create a new category > 201 > application/json - Expected 201
+2025-08-04T09:43:45.059Z Signed request for /categories > Create a new category > 400 > application/json
+2025-08-04T09:43:45.370Z Transaction: /categories > Create a new category > 400 > application/json - Expected 400
+2025-08-04T09:46:06.645Z Signed request for /categories > Get all categories > 200 > application/json
+2025-08-04T09:46:07.350Z Transaction: /categories > Get all categories > 200 > application/json - Expected 200
+2025-08-04T09:46:07.352Z Signed request for /categories > Get all categories > 500 > application/json
+2025-08-04T09:46:07.768Z Transaction: /categories > Get all categories > 500 > application/json - Expected 500
+2025-08-04T09:46:07.768Z Skipping /categories > Get all categories > 500 > application/json → Expected 500
+2025-08-04T09:46:07.774Z Signed request for /categories > Create a new category > 201 > application/json
+2025-08-04T09:46:08.111Z Transaction: /categories > Create a new category > 201 > application/json - Expected 201
+2025-08-04T09:46:08.115Z Signed request for /categories > Create a new category > 400 > application/json
+2025-08-04T09:46:08.460Z Transaction: /categories > Create a new category > 400 > application/json - Expected 400
+2025-08-04T09:49:48.344Z Signed request for /categories > Get all categories > 200 > application/json
+2025-08-04T09:49:53.941Z Transaction: /categories > Get all categories > 200 > application/json - Expected 200
+2025-08-04T09:49:53.944Z Signed request for /categories > Get all categories > 500 > application/json
+2025-08-04T09:49:54.215Z Transaction: /categories > Get all categories > 500 > application/json - Expected 500
+2025-08-04T09:49:54.215Z Skipping /categories > Get all categories > 500 > application/json → Expected 500
+2025-08-04T09:49:54.218Z Signed request for /categories > Create a new category > 201 > application/json
+2025-08-04T09:49:54.549Z Transaction: /categories > Create a new category > 201 > application/json - Expected 201
+2025-08-04T09:49:54.551Z Signed request for /categories > Create a new category > 400 > application/json
+2025-08-04T09:49:54.863Z Transaction: /categories > Create a new category > 400 > application/json - Expected 400
+2025-08-04T09:57:59.947Z Signed request for /categories > Get all categories > 200 > application/json
+2025-08-04T09:58:01.929Z Transaction: /categories > Get all categories > 200 > application/json - Expected 200
+2025-08-04T09:58:01.932Z Signed request for /categories > Get all categories > 500 > application/json
+2025-08-04T09:58:02.239Z Transaction: /categories > Get all categories > 500 > application/json - Expected 500
+2025-08-04T09:58:02.239Z Skipping /categories > Get all categories > 500 > application/json → Expected 500
+2025-08-04T09:58:02.244Z Signed request for /categories > Create a new category > 201 > application/json
+2025-08-04T09:58:04.254Z Transaction: /categories > Create a new category > 201 > application/json - Expected 201
+2025-08-04T09:58:04.257Z Signed request for /categories > Create a new category > 400 > application/json
+2025-08-04T09:58:04.559Z Transaction: /categories > Create a new category > 400 > application/json - Expected 400
+2025-08-04T10:05:56.179Z Signed request for /categories > Get all categories > 200 > application/json
+2025-08-04T10:05:58.161Z Transaction: /categories > Get all categories > 200 > application/json - Expected 200
+2025-08-04T10:05:58.163Z Signed request for /categories > Get all categories > 500 > application/json
+2025-08-04T10:05:58.535Z Transaction: /categories > Get all categories > 500 > application/json - Expected 500
+2025-08-04T10:05:58.536Z Skipping /categories > Get all categories > 500 > application/json → Expected 500
+2025-08-04T10:05:58.541Z Signed request for /categories > Create a new category > 201 > application/json
+2025-08-04T10:06:00.346Z Transaction: /categories > Create a new category > 201 > application/json - Expected 201
+2025-08-04T10:06:00.350Z Signed request for /categories > Create a new category > 400 > application/json
+2025-08-04T10:06:00.777Z Transaction: /categories > Create a new category > 400 > application/json - Expected 400
+2025-08-04T10:12:35.485Z Signed request for /categories > Get all categories > 200 > application/json
+2025-08-04T10:12:37.302Z Transaction: /categories > Get all categories > 200 > application/json - Expected 200
+2025-08-04T10:12:37.304Z Signed request for /categories > Get all categories > 500 > application/json
+2025-08-04T10:12:37.620Z Transaction: /categories > Get all categories > 500 > application/json - Expected 500
+2025-08-04T10:12:37.621Z Skipping /categories > Get all categories > 500 > application/json → Expected 500
+2025-08-04T10:12:37.625Z Signed request for /categories > Create a new category > 201 > application/json
+2025-08-04T10:12:39.523Z Transaction: /categories > Create a new category > 201 > application/json - Expected 201
+2025-08-04T10:12:39.527Z Signed request for /categories > Create a new category > 400 > application/json
+2025-08-04T10:12:39.814Z Transaction: /categories > Create a new category > 400 > application/json - Expected 400
+2025-08-04T10:39:55.579Z Signed request for /categories > Get all categories > 200 > application/json
+2025-08-04T10:39:57.660Z Transaction: /categories > Get all categories > 200 > application/json - Expected 200
+2025-08-04T10:39:57.663Z Signed request for /categories > Get all categories > 500 > application/json
+2025-08-04T10:39:58.170Z Transaction: /categories > Get all categories > 500 > application/json - Expected 500
+2025-08-04T10:39:58.170Z Skipping /categories > Get all categories > 500 > application/json → Expected 500
+2025-08-04T10:39:58.176Z Signed request for /categories > Create a new category > 201 > application/json
+2025-08-04T10:39:59.884Z Transaction: /categories > Create a new category > 201 > application/json - Expected 201
+2025-08-04T10:39:59.886Z Signed request for /categories > Create a new category > 400 > application/json
+2025-08-04T10:40:00.203Z Transaction: /categories > Create a new category > 400 > application/json - Expected 400
+2025-08-04T11:03:49.492Z Signed request for /categories > Get all categories > 200 > application/json
+2025-08-04T11:03:51.256Z Transaction: /categories > Get all categories > 200 > application/json - Expected 200
+2025-08-04T11:03:51.258Z Signed request for /categories > Get all categories > 500 > application/json
+2025-08-04T11:03:51.605Z Transaction: /categories > Get all categories > 500 > application/json - Expected 500
+2025-08-04T11:03:51.606Z Skipping /categories > Get all categories > 500 > application/json → Expected 500
+2025-08-04T11:03:51.608Z Signed request for /categories > Create a new category > 201 > application/json
+2025-08-04T11:03:53.197Z Transaction: /categories > Create a new category > 201 > application/json - Expected 201
+2025-08-04T11:03:53.201Z Signed request for /categories > Create a new category > 400 > application/json
+2025-08-04T11:03:53.526Z Transaction: /categories > Create a new category > 400 > application/json - Expected 400
+2025-08-04T12:03:22.817Z Signed request for /categories > Get all categories > 200 > application/json
+2025-08-04T12:03:24.614Z Transaction: /categories > Get all categories > 200 > application/json - Expected 200
+2025-08-04T12:03:24.616Z Signed request for /categories > Get all categories > 500 > application/json
+2025-08-04T12:03:24.923Z Transaction: /categories > Get all categories > 500 > application/json - Expected 500
+2025-08-04T12:03:24.923Z Skipping /categories > Get all categories > 500 > application/json → Expected 500
+2025-08-04T12:03:24.925Z Signed request for /categories > Create a new category > 201 > application/json
+2025-08-04T12:03:26.653Z Transaction: /categories > Create a new category > 201 > application/json - Expected 201
+2025-08-04T12:03:26.657Z Signed request for /categories > Create a new category > 400 > application/json
+2025-08-04T12:03:27.066Z Transaction: /categories > Create a new category > 400 > application/json - Expected 400
+2025-08-04T12:05:00.019Z Signed request for /categories > Get all categories > 200 > application/json
+2025-08-04T12:05:01.798Z Transaction: /categories > Get all categories > 200 > application/json - Expected 200
+2025-08-04T12:05:01.800Z Signed request for /categories > Get all categories > 500 > application/json
+2025-08-04T12:05:02.076Z Transaction: /categories > Get all categories > 500 > application/json - Expected 500
+2025-08-04T12:05:02.076Z Skipping /categories > Get all categories > 500 > application/json → Expected 500
+2025-08-04T12:05:02.079Z Signed request for /categories > Create a new category > 201 > application/json
+2025-08-04T12:05:03.843Z Transaction: /categories > Create a new category > 201 > application/json - Expected 201
+2025-08-04T12:05:03.847Z Signed request for /categories > Create a new category > 400 > application/json
+2025-08-04T12:05:04.182Z Transaction: /categories > Create a new category > 400 > application/json - Expected 400
+2025-08-04T12:08:59.988Z Signed request for /categories > Get all categories > 200 > application/json
+2025-08-04T12:09:05.595Z Transaction: /categories > Get all categories > 200 > application/json - Expected 200
+2025-08-04T12:09:05.597Z Signed request for /categories > Get all categories > 500 > application/json
+2025-08-04T12:09:05.907Z Transaction: /categories > Get all categories > 500 > application/json - Expected 500
+2025-08-04T12:09:05.907Z Skipping /categories > Get all categories > 500 > application/json → Expected 500
+2025-08-04T12:09:05.909Z Signed request for /categories > Create a new category > 201 > application/json
+2025-08-04T12:09:06.255Z Transaction: /categories > Create a new category > 201 > application/json - Expected 201
+2025-08-04T12:09:06.259Z Signed request for /categories > Create a new category > 400 > application/json
+2025-08-04T12:09:06.544Z Transaction: /categories > Create a new category > 400 > application/json - Expected 400
+2025-08-04T12:14:42.160Z Signed request for /categories > Get all categories > 200 > application/json
+2025-08-04T12:14:44.021Z Transaction: /categories > Get all categories > 200 > application/json - Expected 200
+2025-08-04T12:14:44.024Z Signed request for /categories > Get all categories > 500 > application/json
+2025-08-04T12:14:44.363Z Transaction: /categories > Get all categories > 500 > application/json - Expected 500
+2025-08-04T12:14:44.363Z Skipping /categories > Get all categories > 500 > application/json → Expected 500
+2025-08-04T12:14:44.365Z Signed request for /categories > Create a new category > 201 > application/json
+2025-08-04T12:14:46.008Z Transaction: /categories > Create a new category > 201 > application/json - Expected 201
+2025-08-04T12:14:46.013Z Signed request for /categories > Create a new category > 400 > application/json
+2025-08-04T12:14:46.437Z Transaction: /categories > Create a new category > 400 > application/json - Expected 400
+2025-08-04T12:18:30.006Z Signed request for /categories > Get all categories > 200 > application/json
+2025-08-04T12:18:30.604Z Transaction: /categories > Get all categories > 200 > application/json - Expected 200
+2025-08-04T12:18:30.606Z Signed request for /categories > Get all categories > 500 > application/json
+2025-08-04T12:18:30.885Z Transaction: /categories > Get all categories > 500 > application/json - Expected 500
+2025-08-04T12:18:30.885Z Skipping /categories > Get all categories > 500 > application/json → Expected 500
+2025-08-04T12:18:30.886Z Signed request for /categories > Create a new category > 201 > application/json
+2025-08-04T12:18:31.363Z Transaction: /categories > Create a new category > 201 > application/json - Expected 201
+2025-08-04T12:18:31.367Z Signed request for /categories > Create a new category > 400 > application/json
+2025-08-04T12:18:31.637Z Transaction: /categories > Create a new category > 400 > application/json - Expected 400
+2025-08-04T12:18:38.252Z Signed request for /categories > Get all categories > 200 > application/json
+2025-08-04T12:18:38.785Z Transaction: /categories > Get all categories > 200 > application/json - Expected 200
+2025-08-04T12:18:38.787Z Signed request for /categories > Get all categories > 500 > application/json
+2025-08-04T12:18:39.034Z Transaction: /categories > Get all categories > 500 > application/json - Expected 500
+2025-08-04T12:18:39.034Z Skipping /categories > Get all categories > 500 > application/json → Expected 500
+2025-08-04T12:18:39.036Z Signed request for /categories > Create a new category > 201 > application/json
+2025-08-04T12:18:39.480Z Transaction: /categories > Create a new category > 201 > application/json - Expected 201
+2025-08-04T12:18:39.484Z Signed request for /categories > Create a new category > 400 > application/json
+2025-08-04T12:18:39.773Z Transaction: /categories > Create a new category > 400 > application/json - Expected 400
+2025-08-04T12:19:41.535Z Signed request for /categories > Get all categories > 200 > application/json
+2025-08-04T12:19:42.497Z Transaction: /categories > Get all categories > 200 > application/json - Expected 200
+2025-08-04T12:19:42.499Z Signed request for /categories > Get all categories > 500 > application/json
+2025-08-04T12:19:43.070Z Transaction: /categories > Get all categories > 500 > application/json - Expected 500
+2025-08-04T12:19:43.070Z Skipping /categories > Get all categories > 500 > application/json → Expected 500
+2025-08-04T12:19:43.072Z Signed request for /categories > Create a new category > 201 > application/json
+2025-08-04T12:19:43.664Z Transaction: /categories > Create a new category > 201 > application/json - Expected 201
+2025-08-04T12:19:43.667Z Signed request for /categories > Create a new category > 400 > application/json
+2025-08-04T12:19:44.278Z Transaction: /categories > Create a new category > 400 > application/json - Expected 400
+2025-08-04T15:10:39.605Z Signed request for /categories > Get all categories > 200 > application/json
+2025-08-04T15:10:41.458Z Transaction: /categories > Get all categories > 200 > application/json - Expected 200
+2025-08-04T15:10:41.463Z Signed request for /categories > Get all categories > 500 > application/json
+2025-08-04T15:10:41.807Z Transaction: /categories > Get all categories > 500 > application/json - Expected 500
+2025-08-04T15:10:41.807Z Skipping /categories > Get all categories > 500 > application/json → Expected 500
+2025-08-04T15:10:41.815Z Signed request for /categories > Create a new category > 201 > application/json
+2025-08-04T15:10:43.392Z Transaction: /categories > Create a new category > 201 > application/json - Expected 201
+2025-08-04T15:10:43.396Z Signed request for /categories > Create a new category > 400 > application/json
+2025-08-04T15:10:43.688Z Transaction: /categories > Create a new category > 400 > application/json - Expected 400
+2025-08-07T08:23:48.999Z Signed request for /categories > Get all categories > 200 > application/json
+2025-08-07T08:23:50.873Z Transaction: /categories > Get all categories > 200 > application/json - Expected 200
+2025-08-07T08:23:50.877Z Signed request for /categories > Get all categories > 500 > application/json
+2025-08-07T08:23:51.151Z Transaction: /categories > Get all categories > 500 > application/json - Expected 500
+2025-08-07T08:23:51.151Z Skipping /categories > Get all categories > 500 > application/json → Expected 500
+2025-08-07T08:23:51.153Z Signed request for /categories > Create a new category > 201 > application/json
+2025-08-07T08:23:53.503Z Transaction: /categories > Create a new category > 201 > application/json - Expected 201
+2025-08-07T08:23:53.505Z Signed request for /categories > Create a new category > 400 > application/json
+2025-08-07T08:23:53.742Z Transaction: /categories > Create a new category > 400 > application/json - Expected 400

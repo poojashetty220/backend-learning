@@ -1,0 +1,841 @@
+2025-08-04T09:33:39.802Z Signed request for /users > Get all users > 200 > application/json
+2025-08-04T09:33:41.249Z Transaction: /users > Get all users > 200 > application/json - Expected 200
+2025-08-04T09:33:41.253Z Signed request for /users > Get all users > 500 > application/json
+2025-08-04T09:33:41.408Z Transaction: /users > Get all users > 500 > application/json - Expected 500
+2025-08-04T09:33:41.409Z Skipping /users > Get all users > 500 > application/json → Expected 500
+2025-08-04T09:33:41.411Z Signed request for /users/{id} > Get user by ID > 200 > application/json
+2025-08-04T09:33:42.303Z Transaction: /users/{id} > Get user by ID > 200 > application/json - Expected 200
+2025-08-04T09:33:42.306Z Signed request for /users/{id} > Get user by ID > 404 > application/json
+2025-08-04T09:33:42.446Z Transaction: /users/{id} > Get user by ID > 404 > application/json - Expected 404
+2025-08-04T09:33:42.449Z Signed request for /users/{id} > Update user > 200 > application/json
+2025-08-04T09:33:43.536Z Transaction: /users/{id} > Update user > 200 > application/json - Expected 200
+2025-08-04T09:33:43.541Z Signed request for /users/{id} > Update user > 400 > application/json
+2025-08-04T09:33:43.672Z Transaction: /users/{id} > Update user > 400 > application/json - Expected 400
+2025-08-04T09:33:43.673Z Signed request for /users/{id} > Delete user > 200 > application/json
+2025-08-04T09:33:44.742Z Transaction: /users/{id} > Delete user > 200 > application/json - Expected 200
+2025-08-04T09:33:44.743Z Skipping /users/{id} > Delete user > 200 > application/json → DELETE request
+2025-08-04T09:33:44.746Z Signed request for /users/{id} > Delete user > 404 > application/json
+2025-08-04T09:33:44.881Z Transaction: /users/{id} > Delete user > 404 > application/json - Expected 404
+2025-08-04T09:33:44.881Z Skipping /users/{id} > Delete user > 404 > application/json → DELETE request
+2025-08-04T09:43:53.557Z Signed request for /users > Get all users > 200 > application/json
+2025-08-04T09:43:55.355Z Transaction: /users > Get all users > 200 > application/json - Expected 200
+2025-08-04T09:43:55.359Z Signed request for /users > Get all users > 500 > application/json
+2025-08-04T09:43:55.641Z Transaction: /users > Get all users > 500 > application/json - Expected 500
+2025-08-04T09:43:55.641Z Skipping /users > Get all users > 500 > application/json → Expected 500
+2025-08-04T09:43:55.647Z Signed request for /users/{id} > Get user by ID > 200 > application/json
+2025-08-04T09:43:56.883Z Transaction: /users/{id} > Get user by ID > 200 > application/json - Expected 200
+2025-08-04T09:43:56.887Z Signed request for /users/{id} > Get user by ID > 404 > application/json
+2025-08-04T09:43:57.269Z Transaction: /users/{id} > Get user by ID > 404 > application/json - Expected 404
+2025-08-04T09:43:57.273Z Signed request for /users/{id} > Update user > 200 > application/json
+2025-08-04T09:43:58.705Z Transaction: /users/{id} > Update user > 200 > application/json - Expected 200
+2025-08-04T09:43:58.709Z Signed request for /users/{id} > Update user > 400 > application/json
+2025-08-04T09:43:59.012Z Transaction: /users/{id} > Update user > 400 > application/json - Expected 400
+2025-08-04T09:43:59.015Z Signed request for /users/{id} > Delete user > 200 > application/json
+2025-08-04T09:44:00.238Z Transaction: /users/{id} > Delete user > 200 > application/json - Expected 200
+2025-08-04T09:44:00.239Z Skipping /users/{id} > Delete user > 200 > application/json → DELETE request
+2025-08-04T09:44:00.243Z Signed request for /users/{id} > Delete user > 404 > application/json
+2025-08-04T09:44:00.644Z Transaction: /users/{id} > Delete user > 404 > application/json - Expected 404
+2025-08-04T09:44:00.644Z Skipping /users/{id} > Delete user > 404 > application/json → DELETE request
+2025-08-04T09:44:00.648Z Signed request for /users/{id}/addresses > Get user addresses > 200 > application/json
+2025-08-04T09:44:00.649Z Processing getUserAddresses request for /users/{id}/addresses > Get user addresses > 200 > application/json
+2025-08-04T09:44:01.989Z Transaction: /users/{id}/addresses > Get user addresses > 200 > application/json - Expected 200
+2025-08-04T09:44:01.995Z Signed request for /users/{id}/addresses > Get user addresses > 404 > application/json
+2025-08-04T09:44:01.995Z Processing getUserAddresses request for /users/{id}/addresses > Get user addresses > 404 > application/json
+2025-08-04T09:44:02.383Z Transaction: /users/{id}/addresses > Get user addresses > 404 > application/json - Expected 404
+2025-08-04T09:46:15.750Z Signed request for /users > Get all users > 200 > application/json
+2025-08-04T09:46:16.469Z Transaction: /users > Get all users > 200 > application/json - Expected 200
+2025-08-04T09:46:16.471Z Signed request for /users > Get all users > 500 > application/json
+2025-08-04T09:46:16.861Z Transaction: /users > Get all users > 500 > application/json - Expected 500
+2025-08-04T09:46:16.862Z Skipping /users > Get all users > 500 > application/json → Expected 500
+2025-08-04T09:46:16.867Z Signed request for /users/{id} > Get user by ID > 200 > application/json
+2025-08-04T09:46:17.274Z Transaction: /users/{id} > Get user by ID > 200 > application/json - Expected 200
+2025-08-04T09:46:17.279Z Signed request for /users/{id} > Get user by ID > 404 > application/json
+2025-08-04T09:46:17.660Z Transaction: /users/{id} > Get user by ID > 404 > application/json - Expected 404
+2025-08-04T09:46:17.664Z Signed request for /users/{id} > Update user > 200 > application/json
+2025-08-04T09:46:18.080Z Transaction: /users/{id} > Update user > 200 > application/json - Expected 200
+2025-08-04T09:46:18.084Z Signed request for /users/{id} > Update user > 400 > application/json
+2025-08-04T09:46:18.489Z Transaction: /users/{id} > Update user > 400 > application/json - Expected 400
+2025-08-04T09:46:18.492Z Signed request for /users/{id} > Delete user > 200 > application/json
+2025-08-04T09:46:18.898Z Transaction: /users/{id} > Delete user > 200 > application/json - Expected 200
+2025-08-04T09:46:18.899Z Skipping /users/{id} > Delete user > 200 > application/json → DELETE request
+2025-08-04T09:46:18.903Z Signed request for /users/{id} > Delete user > 404 > application/json
+2025-08-04T09:46:19.172Z Transaction: /users/{id} > Delete user > 404 > application/json - Expected 404
+2025-08-04T09:46:19.172Z Skipping /users/{id} > Delete user > 404 > application/json → DELETE request
+2025-08-04T09:46:19.176Z Signed request for /users/{id}/addresses > Get user addresses > 200 > application/json
+2025-08-04T09:46:19.177Z Processing getUserAddresses request for /users/{id}/addresses > Get user addresses > 200 > application/json
+2025-08-04T09:46:19.609Z Transaction: /users/{id}/addresses > Get user addresses > 200 > application/json - Expected 200
+2025-08-04T09:46:19.613Z Signed request for /users/{id}/addresses > Get user addresses > 404 > application/json
+2025-08-04T09:46:19.613Z Processing getUserAddresses request for /users/{id}/addresses > Get user addresses > 404 > application/json
+2025-08-04T09:46:19.917Z Transaction: /users/{id}/addresses > Get user addresses > 404 > application/json - Expected 404
+2025-08-04T09:48:31.230Z Signed request for /users > Get all users > 200 > application/json
+2025-08-04T09:48:31.852Z Transaction: /users > Get all users > 200 > application/json - Expected 200
+2025-08-04T09:48:31.855Z Signed request for /users > Get all users > 500 > application/json
+2025-08-04T09:48:32.239Z Transaction: /users > Get all users > 500 > application/json - Expected 500
+2025-08-04T09:48:32.240Z Skipping /users > Get all users > 500 > application/json → Expected 500
+2025-08-04T09:48:32.241Z Updated URI for /users/{id} > Get user by ID > 200 > application/json: /users/507f1f77bcf86cd799439011
+2025-08-04T09:48:32.247Z Signed request for /users/{id} > Get user by ID > 200 > application/json
+2025-08-04T09:48:32.644Z Transaction: /users/{id} > Get user by ID > 200 > application/json - Expected 200
+2025-08-04T09:48:32.645Z Updated URI for /users/{id} > Get user by ID > 404 > application/json: /users/507f1f77bcf86cd799439011
+2025-08-04T09:48:32.648Z Signed request for /users/{id} > Get user by ID > 404 > application/json
+2025-08-04T09:48:32.954Z Transaction: /users/{id} > Get user by ID > 404 > application/json - Expected 404
+2025-08-04T09:48:32.955Z Updated URI for /users/{id} > Update user > 200 > application/json: /users/507f1f77bcf86cd799439011
+2025-08-04T09:48:32.959Z Signed request for /users/{id} > Update user > 200 > application/json
+2025-08-04T09:48:33.355Z Transaction: /users/{id} > Update user > 200 > application/json - Expected 200
+2025-08-04T09:48:33.357Z Updated URI for /users/{id} > Update user > 400 > application/json: /users/507f1f77bcf86cd799439011
+2025-08-04T09:48:33.361Z Signed request for /users/{id} > Update user > 400 > application/json
+2025-08-04T09:48:33.657Z Transaction: /users/{id} > Update user > 400 > application/json - Expected 400
+2025-08-04T09:48:33.658Z Updated URI for /users/{id} > Delete user > 200 > application/json: /users/507f1f77bcf86cd799439011
+2025-08-04T09:48:33.661Z Signed request for /users/{id} > Delete user > 200 > application/json
+2025-08-04T09:48:34.074Z Transaction: /users/{id} > Delete user > 200 > application/json - Expected 200
+2025-08-04T09:48:34.074Z Skipping /users/{id} > Delete user > 200 > application/json → DELETE request
+2025-08-04T09:48:34.076Z Updated URI for /users/{id} > Delete user > 404 > application/json: /users/507f1f77bcf86cd799439011
+2025-08-04T09:48:34.079Z Signed request for /users/{id} > Delete user > 404 > application/json
+2025-08-04T09:48:34.476Z Transaction: /users/{id} > Delete user > 404 > application/json - Expected 404
+2025-08-04T09:48:34.476Z Skipping /users/{id} > Delete user > 404 > application/json → DELETE request
+2025-08-04T09:48:34.477Z Updated URI for /users/{id}/addresses > Get user addresses > 200 > application/json: /users/507f1f77bcf86cd799439011/addresses
+2025-08-04T09:48:34.480Z Signed request for /users/{id}/addresses > Get user addresses > 200 > application/json
+2025-08-04T09:48:34.897Z Transaction: /users/{id}/addresses > Get user addresses > 200 > application/json - Expected 200
+2025-08-04T09:48:34.898Z Updated URI for /users/{id}/addresses > Get user addresses > 404 > application/json: /users/507f1f77bcf86cd799439011/addresses
+2025-08-04T09:48:34.901Z Signed request for /users/{id}/addresses > Get user addresses > 404 > application/json
+2025-08-04T09:48:35.144Z Transaction: /users/{id}/addresses > Get user addresses > 404 > application/json - Expected 404
+2025-08-04T09:50:01.159Z Signed request for /users > Get all users > 200 > application/json
+2025-08-04T09:50:01.762Z Transaction: /users > Get all users > 200 > application/json - Expected 200
+2025-08-04T09:50:01.765Z Signed request for /users > Get all users > 500 > application/json
+2025-08-04T09:50:02.045Z Transaction: /users > Get all users > 500 > application/json - Expected 500
+2025-08-04T09:50:02.046Z Skipping /users > Get all users > 500 > application/json → Expected 500
+2025-08-04T09:50:02.047Z Updated URI for /users/{id} > Get user by ID > 200 > application/json: /users/507f1f77bcf86cd799439011
+2025-08-04T09:50:02.051Z Signed request for /users/{id} > Get user by ID > 200 > application/json
+2025-08-04T09:50:02.463Z Transaction: /users/{id} > Get user by ID > 200 > application/json - Expected 200
+2025-08-04T09:50:02.465Z Updated URI for /users/{id} > Get user by ID > 404 > application/json: /users/507f1f77bcf86cd799439011
+2025-08-04T09:50:02.468Z Signed request for /users/{id} > Get user by ID > 404 > application/json
+2025-08-04T09:50:02.858Z Transaction: /users/{id} > Get user by ID > 404 > application/json - Expected 404
+2025-08-04T09:50:02.859Z Updated URI for /users/{id} > Update user > 200 > application/json: /users/507f1f77bcf86cd799439011
+2025-08-04T09:50:02.862Z Signed request for /users/{id} > Update user > 200 > application/json
+2025-08-04T09:50:03.264Z Transaction: /users/{id} > Update user > 200 > application/json - Expected 200
+2025-08-04T09:50:03.266Z Updated URI for /users/{id} > Update user > 400 > application/json: /users/507f1f77bcf86cd799439011
+2025-08-04T09:50:03.268Z Signed request for /users/{id} > Update user > 400 > application/json
+2025-08-04T09:50:03.684Z Transaction: /users/{id} > Update user > 400 > application/json - Expected 400
+2025-08-04T09:50:03.712Z Updated URI for /users/{id} > Delete user > 200 > application/json: /users/507f1f77bcf86cd799439011
+2025-08-04T09:50:03.715Z Signed request for /users/{id} > Delete user > 200 > application/json
+2025-08-04T09:50:04.182Z Transaction: /users/{id} > Delete user > 200 > application/json - Expected 200
+2025-08-04T09:50:04.183Z Skipping /users/{id} > Delete user > 200 > application/json → DELETE request
+2025-08-04T09:50:04.184Z Updated URI for /users/{id} > Delete user > 404 > application/json: /users/507f1f77bcf86cd799439011
+2025-08-04T09:50:04.186Z Signed request for /users/{id} > Delete user > 404 > application/json
+2025-08-04T09:50:04.592Z Transaction: /users/{id} > Delete user > 404 > application/json - Expected 404
+2025-08-04T09:50:04.592Z Skipping /users/{id} > Delete user > 404 > application/json → DELETE request
+2025-08-04T09:50:04.593Z Updated URI for /users/{id}/addresses > Get user addresses > 200 > application/json: /users/507f1f77bcf86cd799439011/addresses
+2025-08-04T09:50:04.596Z Signed request for /users/{id}/addresses > Get user addresses > 200 > application/json
+2025-08-04T09:50:05.119Z Transaction: /users/{id}/addresses > Get user addresses > 200 > application/json - Expected 200
+2025-08-04T09:50:05.121Z Updated URI for /users/{id}/addresses > Get user addresses > 404 > application/json: /users/507f1f77bcf86cd799439011/addresses
+2025-08-04T09:50:05.124Z Signed request for /users/{id}/addresses > Get user addresses > 404 > application/json
+2025-08-04T09:50:05.529Z Transaction: /users/{id}/addresses > Get user addresses > 404 > application/json - Expected 404
+2025-08-04T09:50:55.158Z Transaction: /users > Get all users > 200 > application/json - Expected 200
+2025-08-04T09:50:55.498Z Transaction: /users > Get all users > 500 > application/json - Expected 500
+2025-08-04T09:50:55.498Z Skipping /users > Get all users > 500 > application/json → Expected 500
+2025-08-04T09:50:55.499Z Updated URI for /users/{id} > Get user by ID > 200 > application/json: /users/507f1f77bcf86cd799439011
+2025-08-04T09:50:55.804Z Transaction: /users/{id} > Get user by ID > 200 > application/json - Expected 200
+2025-08-04T09:50:55.805Z Updated URI for /users/{id} > Get user by ID > 404 > application/json: /users/507f1f77bcf86cd799439011
+2025-08-04T09:50:56.102Z Transaction: /users/{id} > Get user by ID > 404 > application/json - Expected 404
+2025-08-04T09:50:56.103Z Updated URI for /users/{id} > Update user > 200 > application/json: /users/507f1f77bcf86cd799439011
+2025-08-04T09:50:56.411Z Transaction: /users/{id} > Update user > 200 > application/json - Expected 200
+2025-08-04T09:50:56.413Z Updated URI for /users/{id} > Update user > 400 > application/json: /users/507f1f77bcf86cd799439011
+2025-08-04T09:50:56.719Z Transaction: /users/{id} > Update user > 400 > application/json - Expected 400
+2025-08-04T09:50:56.720Z Updated URI for /users/{id} > Delete user > 200 > application/json: /users/507f1f77bcf86cd799439011
+2025-08-04T09:50:57.136Z Transaction: /users/{id} > Delete user > 200 > application/json - Expected 200
+2025-08-04T09:50:57.136Z Skipping /users/{id} > Delete user > 200 > application/json → DELETE request
+2025-08-04T09:50:57.137Z Updated URI for /users/{id} > Delete user > 404 > application/json: /users/507f1f77bcf86cd799439011
+2025-08-04T09:50:57.481Z Transaction: /users/{id} > Delete user > 404 > application/json - Expected 404
+2025-08-04T09:50:57.481Z Skipping /users/{id} > Delete user > 404 > application/json → DELETE request
+2025-08-04T09:50:57.482Z Updated URI for /users/{id}/addresses > Get user addresses > 200 > application/json: /users/507f1f77bcf86cd799439011/addresses
+2025-08-04T09:50:57.857Z Transaction: /users/{id}/addresses > Get user addresses > 200 > application/json - Expected 200
+2025-08-04T09:50:57.859Z Updated URI for /users/{id}/addresses > Get user addresses > 404 > application/json: /users/507f1f77bcf86cd799439011/addresses
+2025-08-04T09:50:58.147Z Transaction: /users/{id}/addresses > Get user addresses > 404 > application/json - Expected 404
+2025-08-04T09:53:58.820Z Transaction: /users > Get all users > 200 > application/json - Expected 200
+2025-08-04T09:53:59.140Z Transaction: /users > Get all users > 500 > application/json - Expected 500
+2025-08-04T09:53:59.140Z Skipping /users > Get all users > 500 > application/json → Expected 500
+2025-08-04T09:53:59.142Z Updated URI for /users/{id} > Get user by ID > 200 > application/json: /users/689082c0a533a9ebb93f3aa6
+2025-08-04T09:53:59.528Z Transaction: /users/{id} > Get user by ID > 200 > application/json - Expected 200
+2025-08-04T09:53:59.530Z Updated URI for /users/{id} > Get user by ID > 404 > application/json: /users/689082c0a533a9ebb93f3aa6
+2025-08-04T09:53:59.772Z Transaction: /users/{id} > Get user by ID > 404 > application/json - Expected 404
+2025-08-04T09:53:59.773Z Updated URI for /users/{id} > Update user > 200 > application/json: /users/689082c0a533a9ebb93f3aa6
+2025-08-04T09:54:00.036Z Transaction: /users/{id} > Update user > 200 > application/json - Expected 200
+2025-08-04T09:54:00.037Z Updated URI for /users/{id} > Update user > 400 > application/json: /users/689082c0a533a9ebb93f3aa6
+2025-08-04T09:54:00.241Z Transaction: /users/{id} > Update user > 400 > application/json - Expected 400
+2025-08-04T09:54:00.242Z Updated URI for /users/{id} > Delete user > 200 > application/json: /users/689082c0a533a9ebb93f3aa6
+2025-08-04T09:54:00.650Z Transaction: /users/{id} > Delete user > 200 > application/json - Expected 200
+2025-08-04T09:54:00.651Z Skipping /users/{id} > Delete user > 200 > application/json → DELETE request
+2025-08-04T09:54:00.652Z Updated URI for /users/{id} > Delete user > 404 > application/json: /users/689082c0a533a9ebb93f3aa6
+2025-08-04T09:54:01.046Z Transaction: /users/{id} > Delete user > 404 > application/json - Expected 404
+2025-08-04T09:54:01.047Z Skipping /users/{id} > Delete user > 404 > application/json → DELETE request
+2025-08-04T09:54:01.048Z Updated URI for /users/{id}/addresses > Get user addresses > 200 > application/json: /users/689082c0a533a9ebb93f3aa6/addresses
+2025-08-04T09:54:01.307Z Transaction: /users/{id}/addresses > Get user addresses > 200 > application/json - Expected 200
+2025-08-04T09:54:01.307Z Updated URI for /users/{id}/addresses > Get user addresses > 404 > application/json: /users/689082c0a533a9ebb93f3aa6/addresses
+2025-08-04T09:54:01.544Z Transaction: /users/{id}/addresses > Get user addresses > 404 > application/json - Expected 404
+2025-08-04T09:56:09.821Z Transaction: /users > Get all users > 200 > application/json - Expected 200
+2025-08-04T09:56:10.201Z Transaction: /users > Get all users > 500 > application/json - Expected 500
+2025-08-04T09:56:10.202Z Skipping /users > Get all users > 500 > application/json → Expected 500
+2025-08-04T09:56:10.203Z Updated URI for /users/{id} > Get user by ID > 200 > application/json: /users/689082c0a533a9ebb93f3aa6
+2025-08-04T09:56:10.714Z Transaction: /users/{id} > Get user by ID > 200 > application/json - Expected 200
+2025-08-04T09:56:10.716Z Updated URI for /users/{id} > Get user by ID > 404 > application/json: /users/689082c0a533a9ebb93f3aa6
+2025-08-04T09:56:11.110Z Transaction: /users/{id} > Get user by ID > 404 > application/json - Expected 404
+2025-08-04T09:56:11.111Z Updated URI for /users/{id} > Update user > 200 > application/json: /users/689082c0a533a9ebb93f3aa6
+2025-08-04T09:56:12.392Z Transaction: /users/{id} > Update user > 200 > application/json - Expected 200
+2025-08-04T09:56:12.393Z Updated URI for /users/{id} > Update user > 400 > application/json: /users/689082c0a533a9ebb93f3aa6
+2025-08-04T09:56:12.636Z Transaction: /users/{id} > Update user > 400 > application/json - Expected 400
+2025-08-04T09:56:12.637Z Updated URI for /users/{id} > Delete user > 200 > application/json: /users/689082c0a533a9ebb93f3aa6
+2025-08-04T09:56:13.800Z Transaction: /users/{id} > Delete user > 200 > application/json - Expected 200
+2025-08-04T09:56:13.800Z Skipping /users/{id} > Delete user > 200 > application/json → DELETE request
+2025-08-04T09:56:13.801Z Updated URI for /users/{id} > Delete user > 404 > application/json: /users/689082c0a533a9ebb93f3aa6
+2025-08-04T09:56:14.082Z Transaction: /users/{id} > Delete user > 404 > application/json - Expected 404
+2025-08-04T09:56:14.083Z Skipping /users/{id} > Delete user > 404 > application/json → DELETE request
+2025-08-04T09:56:14.083Z Updated URI for /users/{id}/addresses > Get user addresses > 200 > application/json: /users/689082c0a533a9ebb93f3aa6/addresses
+2025-08-04T09:56:15.153Z Transaction: /users/{id}/addresses > Get user addresses > 200 > application/json - Expected 200
+2025-08-04T09:56:15.154Z Updated URI for /users/{id}/addresses > Get user addresses > 404 > application/json: /users/689082c0a533a9ebb93f3aa6/addresses
+2025-08-04T09:56:15.404Z Transaction: /users/{id}/addresses > Get user addresses > 404 > application/json - Expected 404
+2025-08-04T09:58:13.667Z Transaction: /users > Get all users > 200 > application/json - Expected 200
+2025-08-04T09:58:14.135Z Transaction: /users > Get all users > 500 > application/json - Expected 500
+2025-08-04T09:58:14.136Z Skipping /users > Get all users > 500 > application/json → Expected 500
+2025-08-04T09:58:14.560Z Transaction: /users/{id} > Get user by ID > 200 > application/json - Expected 200
+2025-08-04T09:58:14.946Z Transaction: /users/{id} > Get user by ID > 404 > application/json - Expected 404
+2025-08-04T09:58:15.329Z Transaction: /users/{id} > Update user > 200 > application/json - Expected 200
+2025-08-04T09:58:15.614Z Transaction: /users/{id} > Update user > 400 > application/json - Expected 400
+2025-08-04T09:58:16.073Z Transaction: /users/{id} > Delete user > 200 > application/json - Expected 200
+2025-08-04T09:58:16.073Z Skipping /users/{id} > Delete user > 200 > application/json → DELETE request
+2025-08-04T09:58:16.358Z Transaction: /users/{id} > Delete user > 404 > application/json - Expected 404
+2025-08-04T09:58:16.359Z Skipping /users/{id} > Delete user > 404 > application/json → DELETE request
+2025-08-04T09:58:16.730Z Transaction: /users/{id}/addresses > Get user addresses > 200 > application/json - Expected 200
+2025-08-04T09:58:17.198Z Transaction: /users/{id}/addresses > Get user addresses > 404 > application/json - Expected 404
+2025-08-04T10:04:15.413Z Transaction: /users > Get all users > 200 > application/json - Expected 200
+2025-08-04T10:04:15.692Z Transaction: /users > Get all users > 500 > application/json - Expected 500
+2025-08-04T10:04:15.692Z Skipping /users > Get all users > 500 > application/json → Expected 500
+2025-08-04T10:04:15.693Z Updated URI for 200 test /users/{id} > Get user by ID > 200 > application/json: /users/689082c0a533a9ebb93f3aa6
+2025-08-04T10:04:16.058Z Transaction: /users/{id} > Get user by ID > 200 > application/json - Expected 200
+2025-08-04T10:04:16.059Z Keeping non-existent ID for 404 test /users/{id} > Get user by ID > 404 > application/json
+2025-08-04T10:04:16.428Z Transaction: /users/{id} > Get user by ID > 404 > application/json - Expected 404
+2025-08-04T10:04:16.430Z Updated URI for 200 test /users/{id} > Update user > 200 > application/json: /users/689082c0a533a9ebb93f3aa6
+2025-08-04T10:04:17.885Z Transaction: /users/{id} > Update user > 200 > application/json - Expected 200
+2025-08-04T10:04:17.887Z Keeping non-existent ID for 400 test /users/{id} > Update user > 400 > application/json
+2025-08-04T10:04:18.130Z Transaction: /users/{id} > Update user > 400 > application/json - Expected 400
+2025-08-04T10:04:18.130Z Updated URI for 200 test /users/{id} > Delete user > 200 > application/json: /users/689082c0a533a9ebb93f3aa6
+2025-08-04T10:04:19.484Z Transaction: /users/{id} > Delete user > 200 > application/json - Expected 200
+2025-08-04T10:04:19.484Z Skipping /users/{id} > Delete user > 200 > application/json → DELETE request
+2025-08-04T10:04:19.485Z Keeping non-existent ID for 404 test /users/{id} > Delete user > 404 > application/json
+2025-08-04T10:04:19.734Z Transaction: /users/{id} > Delete user > 404 > application/json - Expected 404
+2025-08-04T10:04:19.734Z Skipping /users/{id} > Delete user > 404 > application/json → DELETE request
+2025-08-04T10:04:19.735Z Updated URI for 200 test /users/{id}/addresses > Get user addresses > 200 > application/json: /users/689082c0a533a9ebb93f3aa6/addresses
+2025-08-04T10:04:20.094Z Transaction: /users/{id}/addresses > Get user addresses > 200 > application/json - Expected 200
+2025-08-04T10:04:20.095Z Keeping non-existent ID for 404 test /users/{id}/addresses > Get user addresses > 404 > application/json
+2025-08-04T10:04:20.358Z Transaction: /users/{id}/addresses > Get user addresses > 404 > application/json - Expected 404
+2025-08-04T10:06:10.641Z Transaction: /users > Get all users > 200 > application/json - Expected 200
+2025-08-04T10:06:10.900Z Transaction: /users > Get all users > 500 > application/json - Expected 500
+2025-08-04T10:06:10.901Z Skipping /users > Get all users > 500 > application/json → Expected 500
+2025-08-04T10:06:10.902Z Updated URI for 200 test /users/{id} > Get user by ID > 200 > application/json: /users/689082c0a533a9ebb93f3aa6
+2025-08-04T10:06:11.317Z Transaction: /users/{id} > Get user by ID > 200 > application/json - Expected 200
+2025-08-04T10:06:11.318Z Keeping non-existent ID for 404 test /users/{id} > Get user by ID > 404 > application/json
+2025-08-04T10:06:11.617Z Transaction: /users/{id} > Get user by ID > 404 > application/json - Expected 404
+2025-08-04T10:06:11.618Z Updated URI for 200 test /users/{id} > Update user > 200 > application/json: /users/689082c0a533a9ebb93f3aa6
+2025-08-04T10:06:12.045Z Transaction: /users/{id} > Update user > 200 > application/json - Expected 200
+2025-08-04T10:06:12.046Z Keeping non-existent ID for 400 test /users/{id} > Update user > 400 > application/json
+2025-08-04T10:06:12.337Z Transaction: /users/{id} > Update user > 400 > application/json - Expected 400
+2025-08-04T10:06:12.338Z Updated URI for 200 test /users/{id} > Delete user > 200 > application/json: /users/689082c0a533a9ebb93f3aa6
+2025-08-04T10:06:12.660Z Transaction: /users/{id} > Delete user > 200 > application/json - Expected 200
+2025-08-04T10:06:12.660Z Skipping /users/{id} > Delete user > 200 > application/json → DELETE request
+2025-08-04T10:06:12.661Z Keeping non-existent ID for 404 test /users/{id} > Delete user > 404 > application/json
+2025-08-04T10:06:13.046Z Transaction: /users/{id} > Delete user > 404 > application/json - Expected 404
+2025-08-04T10:06:13.047Z Skipping /users/{id} > Delete user > 404 > application/json → DELETE request
+2025-08-04T10:06:13.047Z Updated URI for 200 test /users/{id}/addresses > Get user addresses > 200 > application/json: /users/689082c0a533a9ebb93f3aa6/addresses
+2025-08-04T10:06:13.562Z Transaction: /users/{id}/addresses > Get user addresses > 200 > application/json - Expected 200
+2025-08-04T10:06:13.564Z Keeping non-existent ID for 404 test /users/{id}/addresses > Get user addresses > 404 > application/json
+2025-08-04T10:06:13.850Z Transaction: /users/{id}/addresses > Get user addresses > 404 > application/json - Expected 404
+2025-08-04T10:12:54.920Z Transaction: /users > Get all users > 200 > application/json - Expected 200
+2025-08-04T10:12:55.221Z Transaction: /users > Get all users > 500 > application/json - Expected 500
+2025-08-04T10:12:55.221Z Skipping /users > Get all users > 500 > application/json → Expected 500
+2025-08-04T10:12:55.223Z Updated URI for 200 test /users/{id} > Get user by ID > 200 > application/json: /users/6884da289d564917a54fe54f
+2025-08-04T10:12:56.422Z Transaction: /users/{id} > Get user by ID > 200 > application/json - Expected 200
+2025-08-04T10:12:56.424Z Keeping non-existent ID for 404 test /users/{id} > Get user by ID > 404 > application/json
+2025-08-04T10:12:56.764Z Transaction: /users/{id} > Get user by ID > 404 > application/json - Expected 404
+2025-08-04T10:12:56.766Z Updated URI for 200 test /users/{id} > Update user > 200 > application/json: /users/6884da289d564917a54fe54f
+2025-08-04T10:12:58.176Z Transaction: /users/{id} > Update user > 200 > application/json - Expected 200
+2025-08-04T10:12:58.177Z Keeping non-existent ID for 400 test /users/{id} > Update user > 400 > application/json
+2025-08-04T10:12:58.884Z Transaction: /users/{id} > Update user > 400 > application/json - Expected 400
+2025-08-04T10:12:58.886Z Updated URI for 200 test /users/{id} > Delete user > 200 > application/json: /users/6884da289d564917a54fe54f
+2025-08-04T10:13:00.163Z Transaction: /users/{id} > Delete user > 200 > application/json - Expected 200
+2025-08-04T10:13:00.163Z Skipping /users/{id} > Delete user > 200 > application/json → DELETE request
+2025-08-04T10:13:00.164Z Keeping non-existent ID for 404 test /users/{id} > Delete user > 404 > application/json
+2025-08-04T10:13:00.458Z Transaction: /users/{id} > Delete user > 404 > application/json - Expected 404
+2025-08-04T10:13:00.458Z Skipping /users/{id} > Delete user > 404 > application/json → DELETE request
+2025-08-04T10:13:00.459Z Updated URI for 200 test /users/{id}/addresses > Get user addresses > 200 > application/json: /users/6884da289d564917a54fe54f/addresses
+2025-08-04T10:13:01.948Z Transaction: /users/{id}/addresses > Get user addresses > 200 > application/json - Expected 200
+2025-08-04T10:13:01.951Z Keeping non-existent ID for 404 test /users/{id}/addresses > Get user addresses > 404 > application/json
+2025-08-04T10:13:02.261Z Transaction: /users/{id}/addresses > Get user addresses > 404 > application/json - Expected 404
+2025-08-04T10:37:24.488Z Transaction: /users > Get all users > 200 > application/json - Expected 200
+2025-08-04T10:37:24.782Z Transaction: /users > Get all users > 500 > application/json - Expected 500
+2025-08-04T10:37:24.782Z Skipping /users > Get all users > 500 > application/json → Expected 500
+2025-08-04T10:37:24.782Z Updated URI for 200 test /users/{id} > Get user by ID > 200 > application/json: /users/6886f5d0016320b880e0fecf
+2025-08-04T10:37:25.292Z Transaction: /users/{id} > Get user by ID > 200 > application/json - Expected 200
+2025-08-04T10:37:25.294Z Keeping non-existent ID for 404 test /users/{id} > Get user by ID > 404 > application/json
+2025-08-04T10:37:25.539Z Transaction: /users/{id} > Get user by ID > 404 > application/json - Expected 404
+2025-08-04T10:37:25.539Z Updated URI for 200 test /users/{id} > Update user > 200 > application/json: /users/6886f5d0016320b880e0fecf
+2025-08-04T10:37:27.233Z Transaction: /users/{id} > Update user > 200 > application/json - Expected 200
+2025-08-04T10:37:27.235Z Keeping non-existent ID for 400 test /users/{id} > Update user > 400 > application/json
+2025-08-04T10:37:27.618Z Transaction: /users/{id} > Update user > 400 > application/json - Expected 400
+2025-08-04T10:37:27.618Z Updated URI for 200 test /users/{id} > Delete user > 200 > application/json: /users/6886f5d0016320b880e0fecf
+2025-08-04T10:37:29.059Z Transaction: /users/{id} > Delete user > 200 > application/json - Expected 200
+2025-08-04T10:37:29.060Z Skipping /users/{id} > Delete user > 200 > application/json → DELETE request
+2025-08-04T10:37:29.062Z Keeping non-existent ID for 404 test /users/{id} > Delete user > 404 > application/json
+2025-08-04T10:37:29.364Z Transaction: /users/{id} > Delete user > 404 > application/json - Expected 404
+2025-08-04T10:37:29.365Z Skipping /users/{id} > Delete user > 404 > application/json → DELETE request
+2025-08-04T10:37:29.366Z Updated URI for 200 test /users/{id}/addresses > Get user addresses > 200 > application/json: /users/6886f5d0016320b880e0fecf/addresses
+2025-08-04T10:37:29.878Z Transaction: /users/{id}/addresses > Get user addresses > 200 > application/json - Expected 200
+2025-08-04T10:37:29.878Z Keeping non-existent ID for 404 test /users/{id}/addresses > Get user addresses > 404 > application/json
+2025-08-04T10:37:30.133Z Transaction: /users/{id}/addresses > Get user addresses > 404 > application/json - Expected 404
+2025-08-04T10:40:12.356Z Transaction: /users > Get all users > 200 > application/json - Expected 200
+2025-08-04T10:40:12.623Z Transaction: /users > Get all users > 500 > application/json - Expected 500
+2025-08-04T10:40:12.623Z Skipping /users > Get all users > 500 > application/json → Expected 500
+2025-08-04T10:40:12.625Z Updated URI for 200 test /users/{id} > Get user by ID > 200 > application/json: /users/6886f5d0016320b880e0fecf
+2025-08-04T10:40:13.039Z Transaction: /users/{id} > Get user by ID > 200 > application/json - Expected 200
+2025-08-04T10:40:13.040Z Keeping non-existent ID for 404 test /users/{id} > Get user by ID > 404 > application/json
+2025-08-04T10:40:13.333Z Transaction: /users/{id} > Get user by ID > 404 > application/json - Expected 404
+2025-08-04T10:40:13.334Z Updated URI for 200 test /users/{id} > Update user > 200 > application/json: /users/6886f5d0016320b880e0fecf
+2025-08-04T10:40:14.791Z Transaction: /users/{id} > Update user > 200 > application/json - Expected 200
+2025-08-04T10:40:14.792Z Keeping non-existent ID for 400 test /users/{id} > Update user > 400 > application/json
+2025-08-04T10:40:15.077Z Transaction: /users/{id} > Update user > 400 > application/json - Expected 400
+2025-08-04T10:40:15.079Z Updated URI for 200 test /users/{id} > Delete user > 200 > application/json: /users/6886f5d0016320b880e0fecf
+2025-08-04T10:40:16.594Z Transaction: /users/{id} > Delete user > 200 > application/json - Expected 200
+2025-08-04T10:40:16.594Z Skipping /users/{id} > Delete user > 200 > application/json → DELETE request
+2025-08-04T10:40:16.596Z Keeping non-existent ID for 404 test /users/{id} > Delete user > 404 > application/json
+2025-08-04T10:40:17.011Z Transaction: /users/{id} > Delete user > 404 > application/json - Expected 404
+2025-08-04T10:40:17.012Z Skipping /users/{id} > Delete user > 404 > application/json → DELETE request
+2025-08-04T10:40:17.013Z Updated URI for 200 test /users/{id}/addresses > Get user addresses > 200 > application/json: /users/6886f5d0016320b880e0fecf/addresses
+2025-08-04T10:40:18.211Z Transaction: /users/{id}/addresses > Get user addresses > 200 > application/json - Expected 200
+2025-08-04T10:40:18.213Z Keeping non-existent ID for 404 test /users/{id}/addresses > Get user addresses > 404 > application/json
+2025-08-04T10:40:18.548Z Transaction: /users/{id}/addresses > Get user addresses > 404 > application/json - Expected 404
+2025-08-04T10:43:22.586Z Transaction: /users > Get all users > 200 > application/json - Expected 200
+2025-08-04T10:43:23.084Z Transaction: /users > Get all users > 500 > application/json - Expected 500
+2025-08-04T10:43:23.084Z Skipping /users > Get all users > 500 > application/json → Expected 500
+2025-08-04T10:43:23.085Z Updated URI for 200 test /users/{id} > Get user by ID > 200 > application/json: /users/6886f5d0016320b880e0fecf
+2025-08-04T10:43:23.604Z Transaction: /users/{id} > Get user by ID > 200 > application/json - Expected 200
+2025-08-04T10:43:23.605Z Keeping non-existent ID for 404 test /users/{id} > Get user by ID > 404 > application/json
+2025-08-04T10:43:23.970Z Transaction: /users/{id} > Get user by ID > 404 > application/json - Expected 404
+2025-08-04T10:43:23.971Z Updated URI for 200 test /users/{id} > Update user > 200 > application/json: /users/6886f5d0016320b880e0fecf
+2025-08-04T10:43:24.339Z Transaction: /users/{id} > Update user > 200 > application/json - Expected 200
+2025-08-04T10:43:24.340Z Keeping non-existent ID for 400 test /users/{id} > Update user > 400 > application/json
+2025-08-04T10:43:24.555Z Transaction: /users/{id} > Update user > 400 > application/json - Expected 400
+2025-08-04T10:43:24.556Z Updated URI for 200 test /users/{id} > Delete user > 200 > application/json: /users/6886f5d0016320b880e0fecf
+2025-08-04T10:43:25.003Z Transaction: /users/{id} > Delete user > 200 > application/json - Expected 200
+2025-08-04T10:43:25.004Z Skipping /users/{id} > Delete user > 200 > application/json → DELETE request
+2025-08-04T10:43:25.005Z Keeping non-existent ID for 404 test /users/{id} > Delete user > 404 > application/json
+2025-08-04T10:43:25.263Z Transaction: /users/{id} > Delete user > 404 > application/json - Expected 404
+2025-08-04T10:43:25.263Z Skipping /users/{id} > Delete user > 404 > application/json → DELETE request
+2025-08-04T10:43:25.264Z Updated URI for 200 test /users/{id}/addresses > Get user addresses > 200 > application/json: /users/6886f5d0016320b880e0fecf/addresses
+2025-08-04T10:43:25.623Z Transaction: /users/{id}/addresses > Get user addresses > 200 > application/json - Expected 200
+2025-08-04T10:43:25.623Z Keeping non-existent ID for 404 test /users/{id}/addresses > Get user addresses > 404 > application/json
+2025-08-04T10:43:26.138Z Transaction: /users/{id}/addresses > Get user addresses > 404 > application/json - Expected 404
+2025-08-04T10:44:01.394Z Transaction: /users > Get all users > 200 > application/json - Expected 200
+2025-08-04T10:44:01.755Z Transaction: /users > Get all users > 500 > application/json - Expected 500
+2025-08-04T10:44:01.756Z Skipping /users > Get all users > 500 > application/json → Expected 500
+2025-08-04T10:44:01.757Z Updated URI for 200 test /users/{id} > Get user by ID > 200 > application/json: /users/6886f5d0016320b880e0fecf
+2025-08-04T10:44:02.177Z Transaction: /users/{id} > Get user by ID > 200 > application/json - Expected 200
+2025-08-04T10:44:02.177Z Keeping non-existent ID for 404 test /users/{id} > Get user by ID > 404 > application/json
+2025-08-04T10:44:02.840Z Transaction: /users/{id} > Get user by ID > 404 > application/json - Expected 404
+2025-08-04T10:44:02.841Z Updated URI for 200 test /users/{id} > Update user > 200 > application/json: /users/6886f5d0016320b880e0fecf
+2025-08-04T10:44:03.194Z Transaction: /users/{id} > Update user > 200 > application/json - Expected 200
+2025-08-04T10:44:03.194Z Keeping non-existent ID for 400 test /users/{id} > Update user > 400 > application/json
+2025-08-04T10:44:03.619Z Transaction: /users/{id} > Update user > 400 > application/json - Expected 400
+2025-08-04T10:44:03.620Z Updated URI for 200 test /users/{id} > Delete user > 200 > application/json: /users/6886f5d0016320b880e0fecf
+2025-08-04T10:44:04.032Z Transaction: /users/{id} > Delete user > 200 > application/json - Expected 200
+2025-08-04T10:44:04.033Z Skipping /users/{id} > Delete user > 200 > application/json → DELETE request
+2025-08-04T10:44:04.038Z Keeping non-existent ID for 404 test /users/{id} > Delete user > 404 > application/json
+2025-08-04T10:44:04.343Z Transaction: /users/{id} > Delete user > 404 > application/json - Expected 404
+2025-08-04T10:44:04.343Z Skipping /users/{id} > Delete user > 404 > application/json → DELETE request
+2025-08-04T10:44:04.344Z Updated URI for 200 test /users/{id}/addresses > Get user addresses > 200 > application/json: /users/6886f5d0016320b880e0fecf/addresses
+2025-08-04T10:44:04.740Z Transaction: /users/{id}/addresses > Get user addresses > 200 > application/json - Expected 200
+2025-08-04T10:44:04.740Z Keeping non-existent ID for 404 test /users/{id}/addresses > Get user addresses > 404 > application/json
+2025-08-04T10:44:05.074Z Transaction: /users/{id}/addresses > Get user addresses > 404 > application/json - Expected 404
+2025-08-04T10:44:28.724Z Transaction: /users > Get all users > 200 > application/json - Expected 200
+2025-08-04T10:44:28.964Z Transaction: /users > Get all users > 500 > application/json - Expected 500
+2025-08-04T10:44:28.964Z Skipping /users > Get all users > 500 > application/json → Expected 500
+2025-08-04T10:44:28.965Z Updated URI for 200 test /users/{id} > Get user by ID > 200 > application/json: /users/6886f5d0016320b880e0fecf
+2025-08-04T10:44:29.243Z Transaction: /users/{id} > Get user by ID > 200 > application/json - Expected 200
+2025-08-04T10:44:29.244Z Skipping /users/{id} > Get user by ID > 200 > application/json → User modification test
+2025-08-04T10:44:29.244Z Keeping non-existent ID for 404 test /users/{id} > Get user by ID > 404 > application/json
+2025-08-04T10:44:29.731Z Transaction: /users/{id} > Get user by ID > 404 > application/json - Expected 404
+2025-08-04T10:44:29.732Z Updated URI for 200 test /users/{id} > Update user > 200 > application/json: /users/6886f5d0016320b880e0fecf
+2025-08-04T10:44:30.129Z Transaction: /users/{id} > Update user > 200 > application/json - Expected 200
+2025-08-04T10:44:30.129Z Skipping /users/{id} > Update user > 200 > application/json → User modification test
+2025-08-04T10:44:30.130Z Keeping non-existent ID for 400 test /users/{id} > Update user > 400 > application/json
+2025-08-04T10:44:30.330Z Transaction: /users/{id} > Update user > 400 > application/json - Expected 400
+2025-08-04T10:44:30.331Z Updated URI for 200 test /users/{id} > Delete user > 200 > application/json: /users/6886f5d0016320b880e0fecf
+2025-08-04T10:44:30.581Z Transaction: /users/{id} > Delete user > 200 > application/json - Expected 200
+2025-08-04T10:44:30.581Z Skipping /users/{id} > Delete user > 200 > application/json → DELETE request
+2025-08-04T10:44:30.582Z Skipping /users/{id} > Delete user > 200 > application/json → User modification test
+2025-08-04T10:44:30.582Z Keeping non-existent ID for 404 test /users/{id} > Delete user > 404 > application/json
+2025-08-04T10:44:31.038Z Transaction: /users/{id} > Delete user > 404 > application/json - Expected 404
+2025-08-04T10:44:31.038Z Skipping /users/{id} > Delete user > 404 > application/json → DELETE request
+2025-08-04T10:44:31.039Z Updated URI for 200 test /users/{id}/addresses > Get user addresses > 200 > application/json: /users/6886f5d0016320b880e0fecf/addresses
+2025-08-04T10:44:31.265Z Transaction: /users/{id}/addresses > Get user addresses > 200 > application/json - Expected 200
+2025-08-04T10:44:31.301Z Skipping /users/{id}/addresses > Get user addresses > 200 > application/json → Addresses test
+2025-08-04T10:44:31.302Z Keeping non-existent ID for 404 test /users/{id}/addresses > Get user addresses > 404 > application/json
+2025-08-04T10:44:31.567Z Transaction: /users/{id}/addresses > Get user addresses > 404 > application/json - Expected 404
+2025-08-04T10:46:07.107Z Transaction: /users > Get all users > 200 > application/json - Expected 200
+2025-08-04T10:46:07.391Z Transaction: /users > Get all users > 500 > application/json - Expected 500
+2025-08-04T10:46:07.391Z Skipping /users > Get all users > 500 > application/json → Expected 500
+2025-08-04T10:46:07.392Z Updated URI for 200 test /users/{id} > Get user by ID > 200 > application/json: /users/6886f5d0016320b880e0fecf
+2025-08-04T10:46:07.685Z Transaction: /users/{id} > Get user by ID > 200 > application/json - Expected 200
+2025-08-04T10:46:07.685Z Skipping /users/{id} > Get user by ID > 200 > application/json → User modification test
+2025-08-04T10:46:07.686Z Keeping non-existent ID for 404 test /users/{id} > Get user by ID > 404 > application/json
+2025-08-04T10:46:08.057Z Transaction: /users/{id} > Get user by ID > 404 > application/json - Expected 404
+2025-08-04T10:46:08.058Z Updated URI for 200 test /users/{id} > Update user > 200 > application/json: /users/6886f5d0016320b880e0fecf
+2025-08-04T10:46:08.450Z Transaction: /users/{id} > Update user > 200 > application/json - Expected 200
+2025-08-04T10:46:08.450Z Skipping /users/{id} > Update user > 200 > application/json → User modification test
+2025-08-04T10:46:08.451Z Keeping non-existent ID for 400 test /users/{id} > Update user > 400 > application/json
+2025-08-04T10:46:08.862Z Transaction: /users/{id} > Update user > 400 > application/json - Expected 400
+2025-08-04T10:46:08.862Z Updated URI for 200 test /users/{id} > Delete user > 200 > application/json: /users/6886f5d0016320b880e0fecf
+2025-08-04T10:46:09.269Z Transaction: /users/{id} > Delete user > 200 > application/json - Expected 200
+2025-08-04T10:46:09.270Z Skipping /users/{id} > Delete user > 200 > application/json → DELETE request
+2025-08-04T10:46:09.270Z Skipping /users/{id} > Delete user > 200 > application/json → User modification test
+2025-08-04T10:46:09.271Z Keeping non-existent ID for 404 test /users/{id} > Delete user > 404 > application/json
+2025-08-04T10:46:09.543Z Transaction: /users/{id} > Delete user > 404 > application/json - Expected 404
+2025-08-04T10:46:09.543Z Skipping /users/{id} > Delete user > 404 > application/json → DELETE request
+2025-08-04T10:46:09.543Z Updated URI for 200 test /users/{id}/addresses > Get user addresses > 200 > application/json: /users/6886f5d0016320b880e0fecf/addresses
+2025-08-04T10:46:09.990Z Transaction: /users/{id}/addresses > Get user addresses > 200 > application/json - Expected 200
+2025-08-04T10:46:09.990Z Skipping /users/{id}/addresses > Get user addresses > 200 > application/json → Addresses test
+2025-08-04T10:46:09.991Z Keeping non-existent ID for 404 test /users/{id}/addresses > Get user addresses > 404 > application/json
+2025-08-04T10:46:10.234Z Transaction: /users/{id}/addresses > Get user addresses > 404 > application/json - Expected 404
+2025-08-04T10:47:32.479Z Transaction: /users > Get all users > 200 > application/json - Expected 200
+2025-08-04T10:47:32.912Z Transaction: /users > Get all users > 500 > application/json - Expected 500
+2025-08-04T10:47:32.913Z Skipping /users > Get all users > 500 > application/json → Expected 500
+2025-08-04T10:47:43.293Z Transaction: /users/{id} > Get user by ID > 200 > application/json - Expected 200
+2025-08-04T10:47:43.294Z Keeping non-existent ID for 404 test /users/{id} > Get user by ID > 404 > application/json
+2025-08-04T10:47:43.542Z Transaction: /users/{id} > Get user by ID > 404 > application/json - Expected 404
+2025-08-04T10:47:53.862Z Transaction: /users/{id} > Update user > 200 > application/json - Expected 200
+2025-08-04T10:47:53.863Z Keeping non-existent ID for 400 test /users/{id} > Update user > 400 > application/json
+2025-08-04T10:47:54.140Z Transaction: /users/{id} > Update user > 400 > application/json - Expected 400
+2025-08-04T10:48:09.693Z Transaction: /users/{id} > Delete user > 200 > application/json - Expected 200
+2025-08-04T10:48:09.693Z Skipping /users/{id} > Delete user > 200 > application/json → DELETE request
+2025-08-04T10:48:09.694Z Keeping non-existent ID for 404 test /users/{id} > Delete user > 404 > application/json
+2025-08-04T10:48:10.132Z Transaction: /users/{id} > Delete user > 404 > application/json - Expected 404
+2025-08-04T10:48:10.132Z Skipping /users/{id} > Delete user > 404 > application/json → DELETE request
+2025-08-04T10:48:20.797Z Transaction: /users/{id}/addresses > Get user addresses > 200 > application/json - Expected 200
+2025-08-04T10:48:20.798Z Keeping non-existent ID for 404 test /users/{id}/addresses > Get user addresses > 404 > application/json
+2025-08-04T10:48:21.143Z Transaction: /users/{id}/addresses > Get user addresses > 404 > application/json - Expected 404
+2025-08-04T10:49:43.276Z Transaction: /users > Get all users > 200 > application/json - Expected 200
+2025-08-04T10:49:43.595Z Transaction: /users > Get all users > 500 > application/json - Expected 500
+2025-08-04T10:49:43.595Z Skipping /users > Get all users > 500 > application/json → Expected 500
+2025-08-04T10:49:43.596Z Mocked 200 response for /users/{id} > Get user by ID > 200 > application/json
+2025-08-04T10:49:43.597Z Transaction: /users/{id} > Get user by ID > 200 > application/json - Expected 200
+2025-08-04T10:49:43.598Z Keeping non-existent ID for 404 test /users/{id} > Get user by ID > 404 > application/json
+2025-08-04T10:49:43.888Z Transaction: /users/{id} > Get user by ID > 404 > application/json - Expected 404
+2025-08-04T10:49:43.889Z Mocked 200 response for /users/{id} > Update user > 200 > application/json
+2025-08-04T10:49:43.892Z Transaction: /users/{id} > Update user > 200 > application/json - Expected 200
+2025-08-04T10:49:43.892Z Keeping non-existent ID for 400 test /users/{id} > Update user > 400 > application/json
+2025-08-04T10:49:44.122Z Transaction: /users/{id} > Update user > 400 > application/json - Expected 400
+2025-08-04T10:49:44.122Z Mocked 200 response for /users/{id} > Delete user > 200 > application/json
+2025-08-04T10:49:44.123Z Transaction: /users/{id} > Delete user > 200 > application/json - Expected 200
+2025-08-04T10:49:44.123Z Skipping /users/{id} > Delete user > 200 > application/json → DELETE request
+2025-08-04T10:49:44.123Z Keeping non-existent ID for 404 test /users/{id} > Delete user > 404 > application/json
+2025-08-04T10:49:44.493Z Transaction: /users/{id} > Delete user > 404 > application/json - Expected 404
+2025-08-04T10:49:44.493Z Skipping /users/{id} > Delete user > 404 > application/json → DELETE request
+2025-08-04T10:49:44.493Z Mocked 200 response for /users/{id}/addresses > Get user addresses > 200 > application/json
+2025-08-04T10:49:44.494Z Transaction: /users/{id}/addresses > Get user addresses > 200 > application/json - Expected 200
+2025-08-04T10:49:44.494Z Keeping non-existent ID for 404 test /users/{id}/addresses > Get user addresses > 404 > application/json
+2025-08-04T10:49:44.757Z Transaction: /users/{id}/addresses > Get user addresses > 404 > application/json - Expected 404
+2025-08-04T10:50:38.648Z Transaction: /users > Get all users > 200 > application/json - Expected 200
+2025-08-04T10:50:38.873Z Transaction: /users > Get all users > 500 > application/json - Expected 500
+2025-08-04T10:50:38.873Z Skipping /users > Get all users > 500 > application/json → Expected 500
+2025-08-04T10:50:38.873Z Updated URI for 200 test /users/{id} > Get user by ID > 200 > application/json: /users/6886f5d0016320b880e0fecf
+2025-08-04T10:50:39.281Z Transaction: /users/{id} > Get user by ID > 200 > application/json - Expected 200
+2025-08-04T10:50:39.281Z Keeping non-existent ID for 404 test /users/{id} > Get user by ID > 404 > application/json
+2025-08-04T10:50:39.538Z Transaction: /users/{id} > Get user by ID > 404 > application/json - Expected 404
+2025-08-04T10:50:39.538Z Updated URI for 200 test /users/{id} > Update user > 200 > application/json: /users/6886f5d0016320b880e0fecf
+2025-08-04T10:50:39.937Z Transaction: /users/{id} > Update user > 200 > application/json - Expected 200
+2025-08-04T10:50:39.938Z Keeping non-existent ID for 400 test /users/{id} > Update user > 400 > application/json
+2025-08-04T10:50:40.322Z Transaction: /users/{id} > Update user > 400 > application/json - Expected 400
+2025-08-04T10:50:40.323Z Updated URI for 200 test /users/{id} > Delete user > 200 > application/json: /users/6886f5d0016320b880e0fecf
+2025-08-04T10:50:40.563Z Transaction: /users/{id} > Delete user > 200 > application/json - Expected 200
+2025-08-04T10:50:40.563Z Skipping /users/{id} > Delete user > 200 > application/json → DELETE request
+2025-08-04T10:50:40.563Z Keeping non-existent ID for 404 test /users/{id} > Delete user > 404 > application/json
+2025-08-04T10:50:40.824Z Transaction: /users/{id} > Delete user > 404 > application/json - Expected 404
+2025-08-04T10:50:40.824Z Skipping /users/{id} > Delete user > 404 > application/json → DELETE request
+2025-08-04T10:50:40.824Z Updated URI for 200 test /users/{id}/addresses > Get user addresses > 200 > application/json: /users/6886f5d0016320b880e0fecf/addresses
+2025-08-04T10:50:41.345Z Transaction: /users/{id}/addresses > Get user addresses > 200 > application/json - Expected 200
+2025-08-04T10:50:41.345Z Keeping non-existent ID for 404 test /users/{id}/addresses > Get user addresses > 404 > application/json
+2025-08-04T10:50:41.563Z Transaction: /users/{id}/addresses > Get user addresses > 404 > application/json - Expected 404
+2025-08-04T10:51:27.633Z Transaction: /users > Get all users > 200 > application/json - Expected 200
+2025-08-04T10:51:27.901Z Transaction: /users > Get all users > 500 > application/json - Expected 500
+2025-08-04T10:51:27.901Z Skipping /users > Get all users > 500 > application/json → Expected 500
+2025-08-04T10:51:27.902Z Mocked 200 response for /users/{id} > Get user by ID > 200 > application/json
+2025-08-04T10:51:27.902Z Transaction: /users/{id} > Get user by ID > 200 > application/json - Expected 200
+2025-08-04T10:51:27.903Z Keeping non-existent ID for 404 test /users/{id} > Get user by ID > 404 > application/json
+2025-08-04T10:51:28.330Z Transaction: /users/{id} > Get user by ID > 404 > application/json - Expected 404
+2025-08-04T10:51:28.330Z Mocked 200 response for /users/{id} > Update user > 200 > application/json
+2025-08-04T10:51:28.331Z Transaction: /users/{id} > Update user > 200 > application/json - Expected 200
+2025-08-04T10:51:28.331Z Keeping non-existent ID for 400 test /users/{id} > Update user > 400 > application/json
+2025-08-04T10:51:28.610Z Transaction: /users/{id} > Update user > 400 > application/json - Expected 400
+2025-08-04T10:51:28.611Z Mocked 200 response for /users/{id} > Delete user > 200 > application/json
+2025-08-04T10:51:28.613Z Transaction: /users/{id} > Delete user > 200 > application/json - Expected 200
+2025-08-04T10:51:28.613Z Skipping /users/{id} > Delete user > 200 > application/json → DELETE request
+2025-08-04T10:51:28.617Z Keeping non-existent ID for 404 test /users/{id} > Delete user > 404 > application/json
+2025-08-04T10:51:28.867Z Transaction: /users/{id} > Delete user > 404 > application/json - Expected 404
+2025-08-04T10:51:28.867Z Skipping /users/{id} > Delete user > 404 > application/json → DELETE request
+2025-08-04T10:51:28.868Z Mocked 200 response for /users/{id}/addresses > Get user addresses > 200 > application/json
+2025-08-04T10:51:28.868Z Transaction: /users/{id}/addresses > Get user addresses > 200 > application/json - Expected 200
+2025-08-04T10:51:28.868Z Keeping non-existent ID for 404 test /users/{id}/addresses > Get user addresses > 404 > application/json
+2025-08-04T10:51:29.084Z Transaction: /users/{id}/addresses > Get user addresses > 404 > application/json - Expected 404
+2025-08-04T10:51:54.351Z Transaction: /users > Get all users > 200 > application/json - Expected 200
+2025-08-04T10:51:54.722Z Transaction: /users > Get all users > 500 > application/json - Expected 500
+2025-08-04T10:51:54.722Z Skipping /users > Get all users > 500 > application/json → Expected 500
+2025-08-04T10:51:54.723Z Mocked 200 response for /users/{id} > Get user by ID > 200 > application/json
+2025-08-04T10:51:54.724Z Transaction: /users/{id} > Get user by ID > 200 > application/json - Expected 200
+2025-08-04T10:51:54.725Z Keeping non-existent ID for 404 test /users/{id} > Get user by ID > 404 > application/json
+2025-08-04T10:51:55.162Z Transaction: /users/{id} > Get user by ID > 404 > application/json - Expected 404
+2025-08-04T10:51:55.162Z Mocked 200 response for /users/{id} > Update user > 200 > application/json
+2025-08-04T10:51:55.163Z Transaction: /users/{id} > Update user > 200 > application/json - Expected 200
+2025-08-04T10:51:55.163Z Keeping non-existent ID for 400 test /users/{id} > Update user > 400 > application/json
+2025-08-04T10:51:55.526Z Transaction: /users/{id} > Update user > 400 > application/json - Expected 400
+2025-08-04T10:51:55.526Z Mocked 200 response for /users/{id} > Delete user > 200 > application/json
+2025-08-04T10:51:55.526Z Transaction: /users/{id} > Delete user > 200 > application/json - Expected 200
+2025-08-04T10:51:55.526Z Skipping /users/{id} > Delete user > 200 > application/json → DELETE request
+2025-08-04T10:51:55.527Z Keeping non-existent ID for 404 test /users/{id} > Delete user > 404 > application/json
+2025-08-04T10:51:55.803Z Transaction: /users/{id} > Delete user > 404 > application/json - Expected 404
+2025-08-04T10:51:55.803Z Skipping /users/{id} > Delete user > 404 > application/json → DELETE request
+2025-08-04T10:51:55.804Z Mocked 200 response for /users/{id}/addresses > Get user addresses > 200 > application/json
+2025-08-04T10:51:55.804Z Transaction: /users/{id}/addresses > Get user addresses > 200 > application/json - Expected 200
+2025-08-04T10:51:55.804Z Keeping non-existent ID for 404 test /users/{id}/addresses > Get user addresses > 404 > application/json
+2025-08-04T10:51:56.285Z Transaction: /users/{id}/addresses > Get user addresses > 404 > application/json - Expected 404
+2025-08-04T11:01:35.246Z Transaction: /users > Get all users > 200 > application/json - Expected 200
+2025-08-04T11:01:35.326Z Transaction: /users > Get all users > 500 > application/json - Expected 500
+2025-08-04T11:01:35.326Z Skipping /users > Get all users > 500 > application/json → Expected 500
+2025-08-04T11:01:35.326Z Mocked 200 response for /users/{id} > Get user by ID > 200 > application/json
+2025-08-04T11:01:35.327Z Transaction: /users/{id} > Get user by ID > 200 > application/json - Expected 200
+2025-08-04T11:01:35.327Z Keeping non-existent ID for 404 test /users/{id} > Get user by ID > 404 > application/json
+2025-08-04T11:01:35.435Z Transaction: /users/{id} > Get user by ID > 404 > application/json - Expected 404
+2025-08-04T11:01:35.436Z Mocked 200 response for /users/{id} > Update user > 200 > application/json
+2025-08-04T11:01:35.436Z Transaction: /users/{id} > Update user > 200 > application/json - Expected 200
+2025-08-04T11:01:35.436Z Keeping non-existent ID for 400 test /users/{id} > Update user > 400 > application/json
+2025-08-04T11:01:36.315Z Transaction: /users/{id} > Update user > 400 > application/json - Expected 400
+2025-08-04T11:01:36.316Z Mocked 200 response for /users/{id} > Delete user > 200 > application/json
+2025-08-04T11:01:36.377Z Transaction: /users/{id} > Delete user > 200 > application/json - Expected 200
+2025-08-04T11:01:36.377Z Skipping /users/{id} > Delete user > 200 > application/json → DELETE request
+2025-08-04T11:01:36.378Z Keeping non-existent ID for 404 test /users/{id} > Delete user > 404 > application/json
+2025-08-04T11:01:37.671Z Transaction: /users/{id} > Delete user > 404 > application/json - Expected 404
+2025-08-04T11:01:37.671Z Skipping /users/{id} > Delete user > 404 > application/json → DELETE request
+2025-08-04T11:01:37.672Z Mocked 200 response for /users/{id}/addresses > Get user addresses > 200 > application/json
+2025-08-04T11:01:37.673Z Transaction: /users/{id}/addresses > Get user addresses > 200 > application/json - Expected 200
+2025-08-04T11:01:37.674Z Keeping non-existent ID for 404 test /users/{id}/addresses > Get user addresses > 404 > application/json
+2025-08-04T11:01:39.075Z Transaction: /users/{id}/addresses > Get user addresses > 404 > application/json - Expected 404
+2025-08-04T11:02:17.220Z Transaction: /users > Get all users > 200 > application/json - Expected 200
+2025-08-04T11:02:17.409Z Transaction: /users > Get all users > 500 > application/json - Expected 500
+2025-08-04T11:02:17.409Z Skipping /users > Get all users > 500 > application/json → Expected 500
+2025-08-04T11:02:17.411Z Updated URI for 200 test /users/{id} > Get user by ID > 200 > application/json: /users/6884db52e96ab27d5f2527d3
+2025-08-04T11:02:17.557Z Transaction: /users/{id} > Get user by ID > 200 > application/json - Expected 200
+2025-08-04T11:02:17.558Z Keeping non-existent ID for 404 test /users/{id} > Get user by ID > 404 > application/json
+2025-08-04T11:02:17.682Z Transaction: /users/{id} > Get user by ID > 404 > application/json - Expected 404
+2025-08-04T11:02:17.683Z Updated URI for 200 test /users/{id} > Update user > 200 > application/json: /users/6884db52e96ab27d5f2527d3
+2025-08-04T11:02:18.191Z Transaction: /users/{id} > Update user > 200 > application/json - Expected 200
+2025-08-04T11:02:18.192Z Keeping non-existent ID for 400 test /users/{id} > Update user > 400 > application/json
+2025-08-04T11:02:18.330Z Transaction: /users/{id} > Update user > 400 > application/json - Expected 400
+2025-08-04T11:02:18.331Z Updated URI for 200 test /users/{id} > Delete user > 200 > application/json: /users/6884db52e96ab27d5f2527d3
+2025-08-04T11:02:18.545Z Transaction: /users/{id} > Delete user > 200 > application/json - Expected 200
+2025-08-04T11:02:18.546Z Skipping /users/{id} > Delete user > 200 > application/json → DELETE request
+2025-08-04T11:02:18.547Z Keeping non-existent ID for 404 test /users/{id} > Delete user > 404 > application/json
+2025-08-04T11:02:18.692Z Transaction: /users/{id} > Delete user > 404 > application/json - Expected 404
+2025-08-04T11:02:18.692Z Skipping /users/{id} > Delete user > 404 > application/json → DELETE request
+2025-08-04T11:02:18.693Z Updated URI for 200 test /users/{id}/addresses > Get user addresses > 200 > application/json: /users/6884db52e96ab27d5f2527d3/addresses
+2025-08-04T11:02:18.901Z Transaction: /users/{id}/addresses > Get user addresses > 200 > application/json - Expected 200
+2025-08-04T11:02:18.902Z Keeping non-existent ID for 404 test /users/{id}/addresses > Get user addresses > 404 > application/json
+2025-08-04T11:02:19.202Z Transaction: /users/{id}/addresses > Get user addresses > 404 > application/json - Expected 404
+2025-08-04T11:04:02.158Z Transaction: /users > Get all users > 200 > application/json - Expected 200
+2025-08-04T11:04:02.301Z Transaction: /users > Get all users > 500 > application/json - Expected 500
+2025-08-04T11:04:02.302Z Skipping /users > Get all users > 500 > application/json → Expected 500
+2025-08-04T11:04:02.302Z Updated URI for 200 test /users/{id} > Get user by ID > 200 > application/json: /users/6884db52e96ab27d5f2527d3
+2025-08-04T11:04:02.494Z Transaction: /users/{id} > Get user by ID > 200 > application/json - Expected 200
+2025-08-04T11:04:02.495Z Keeping non-existent ID for 404 test /users/{id} > Get user by ID > 404 > application/json
+2025-08-04T11:04:02.594Z Transaction: /users/{id} > Get user by ID > 404 > application/json - Expected 404
+2025-08-04T11:04:02.595Z Updated URI for 200 test /users/{id} > Update user > 200 > application/json: /users/6884db52e96ab27d5f2527d3
+2025-08-04T11:04:03.013Z Transaction: /users/{id} > Update user > 200 > application/json - Expected 200
+2025-08-04T11:04:03.013Z Keeping non-existent ID for 400 test /users/{id} > Update user > 400 > application/json
+2025-08-04T11:04:03.113Z Transaction: /users/{id} > Update user > 400 > application/json - Expected 400
+2025-08-04T11:04:03.114Z Updated URI for 200 test /users/{id} > Delete user > 200 > application/json: /users/6884db52e96ab27d5f2527d3
+2025-08-04T11:04:03.519Z Transaction: /users/{id} > Delete user > 200 > application/json - Expected 200
+2025-08-04T11:04:03.519Z Skipping /users/{id} > Delete user > 200 > application/json → DELETE request
+2025-08-04T11:04:03.519Z Keeping non-existent ID for 404 test /users/{id} > Delete user > 404 > application/json
+2025-08-04T11:04:03.635Z Transaction: /users/{id} > Delete user > 404 > application/json - Expected 404
+2025-08-04T11:04:03.635Z Skipping /users/{id} > Delete user > 404 > application/json → DELETE request
+2025-08-04T11:04:03.636Z Updated URI for 200 test /users/{id}/addresses > Get user addresses > 200 > application/json: /users/6884db52e96ab27d5f2527d3/addresses
+2025-08-04T11:04:03.856Z Transaction: /users/{id}/addresses > Get user addresses > 200 > application/json - Expected 200
+2025-08-04T11:04:03.857Z Keeping non-existent ID for 404 test /users/{id}/addresses > Get user addresses > 404 > application/json
+2025-08-04T11:04:03.991Z Transaction: /users/{id}/addresses > Get user addresses > 404 > application/json - Expected 404
+2025-08-04T11:07:12.374Z Transaction: /users > Get all users > 200 > application/json - Expected 200
+2025-08-04T11:07:12.507Z Transaction: /users > Get all users > 500 > application/json - Expected 500
+2025-08-04T11:07:12.507Z Skipping /users > Get all users > 500 > application/json → Expected 500
+2025-08-04T11:07:12.508Z Updated URI for 200 test /users/{id} > Get user by ID > 200 > application/json: /users/6884db52e96ab27d5f2527d3
+2025-08-04T11:07:12.671Z Transaction: /users/{id} > Get user by ID > 200 > application/json - Expected 200
+2025-08-04T11:07:12.671Z Keeping non-existent ID for 404 test /users/{id} > Get user by ID > 404 > application/json
+2025-08-04T11:07:12.808Z Transaction: /users/{id} > Get user by ID > 404 > application/json - Expected 404
+2025-08-04T11:07:12.809Z Updated URI for 200 test /users/{id} > Update user > 200 > application/json: /users/6884db52e96ab27d5f2527d3
+2025-08-04T11:07:13.132Z Transaction: /users/{id} > Update user > 200 > application/json - Expected 200
+2025-08-04T11:07:13.133Z Keeping non-existent ID for 400 test /users/{id} > Update user > 400 > application/json
+2025-08-04T11:07:13.256Z Transaction: /users/{id} > Update user > 400 > application/json - Expected 400
+2025-08-04T11:07:13.256Z Updated URI for 200 test /users/{id} > Delete user > 200 > application/json: /users/6884db52e96ab27d5f2527d3
+2025-08-04T11:07:13.374Z Transaction: /users/{id} > Delete user > 200 > application/json - Expected 200
+2025-08-04T11:07:13.374Z Skipping /users/{id} > Delete user > 200 > application/json → DELETE request
+2025-08-04T11:07:13.375Z Keeping non-existent ID for 404 test /users/{id} > Delete user > 404 > application/json
+2025-08-04T11:07:13.494Z Transaction: /users/{id} > Delete user > 404 > application/json - Expected 404
+2025-08-04T11:07:13.495Z Skipping /users/{id} > Delete user > 404 > application/json → DELETE request
+2025-08-04T11:07:13.495Z Updated URI for 200 test /users/{id}/addresses > Get user addresses > 200 > application/json: /users/6884db52e96ab27d5f2527d3/addresses
+2025-08-04T11:07:13.878Z Transaction: /users/{id}/addresses > Get user addresses > 200 > application/json - Expected 200
+2025-08-04T11:07:13.878Z Keeping non-existent ID for 404 test /users/{id}/addresses > Get user addresses > 404 > application/json
+2025-08-04T11:07:14.016Z Transaction: /users/{id}/addresses > Get user addresses > 404 > application/json - Expected 404
+2025-08-04T11:07:34.186Z Transaction: /users > Get all users > 200 > application/json - Expected 200
+2025-08-04T11:07:34.325Z Transaction: /users > Get all users > 500 > application/json - Expected 500
+2025-08-04T11:07:34.325Z Skipping /users > Get all users > 500 > application/json → Expected 500
+2025-08-04T11:07:34.326Z Updated URI for 200 test /users/{id} > Get user by ID > 200 > application/json: /users/6884db52e96ab27d5f2527d3
+2025-08-04T11:07:34.426Z Transaction: /users/{id} > Get user by ID > 200 > application/json - Expected 200
+2025-08-04T11:07:34.426Z Keeping non-existent ID for 404 test /users/{id} > Get user by ID > 404 > application/json
+2025-08-04T11:07:34.558Z Transaction: /users/{id} > Get user by ID > 404 > application/json - Expected 404
+2025-08-04T11:07:34.558Z Updated URI for 200 test /users/{id} > Update user > 200 > application/json: /users/6884db52e96ab27d5f2527d3
+2025-08-04T11:07:34.684Z Transaction: /users/{id} > Update user > 200 > application/json - Expected 200
+2025-08-04T11:07:34.684Z Keeping non-existent ID for 400 test /users/{id} > Update user > 400 > application/json
+2025-08-04T11:07:34.814Z Transaction: /users/{id} > Update user > 400 > application/json - Expected 400
+2025-08-04T11:07:34.815Z Updated URI for 200 test /users/{id} > Delete user > 200 > application/json: /users/6884db52e96ab27d5f2527d3
+2025-08-04T11:07:34.906Z Transaction: /users/{id} > Delete user > 200 > application/json - Expected 200
+2025-08-04T11:07:34.906Z Skipping /users/{id} > Delete user > 200 > application/json → DELETE request
+2025-08-04T11:07:34.907Z Keeping non-existent ID for 404 test /users/{id} > Delete user > 404 > application/json
+2025-08-04T11:07:34.973Z Transaction: /users/{id} > Delete user > 404 > application/json - Expected 404
+2025-08-04T11:07:34.973Z Skipping /users/{id} > Delete user > 404 > application/json → DELETE request
+2025-08-04T11:07:34.973Z Updated URI for 200 test /users/{id}/addresses > Get user addresses > 200 > application/json: /users/6884db52e96ab27d5f2527d3/addresses
+2025-08-04T11:07:35.086Z Transaction: /users/{id}/addresses > Get user addresses > 200 > application/json - Expected 200
+2025-08-04T11:07:35.087Z Keeping non-existent ID for 404 test /users/{id}/addresses > Get user addresses > 404 > application/json
+2025-08-04T11:07:35.210Z Transaction: /users/{id}/addresses > Get user addresses > 404 > application/json - Expected 404
+2025-08-04T11:07:57.326Z Transaction: /users > Get all users > 200 > application/json - Expected 200
+2025-08-04T11:07:57.457Z Transaction: /users > Get all users > 500 > application/json - Expected 500
+2025-08-04T11:07:57.457Z Skipping /users > Get all users > 500 > application/json → Expected 500
+2025-08-04T11:07:57.457Z Updated URI for 200 test /users/{id} > Get user by ID > 200 > application/json: /users/6884db52e96ab27d5f2527d3
+2025-08-04T11:07:57.610Z Transaction: /users/{id} > Get user by ID > 200 > application/json - Expected 200
+2025-08-04T11:07:57.611Z Keeping non-existent ID for 404 test /users/{id} > Get user by ID > 404 > application/json
+2025-08-04T11:07:57.736Z Transaction: /users/{id} > Get user by ID > 404 > application/json - Expected 404
+2025-08-04T11:07:57.737Z Updated URI for 200 test /users/{id} > Update user > 200 > application/json: /users/6884db52e96ab27d5f2527d3
+2025-08-04T11:07:57.876Z Transaction: /users/{id} > Update user > 200 > application/json - Expected 200
+2025-08-04T11:07:57.877Z Keeping non-existent ID for 400 test /users/{id} > Update user > 400 > application/json
+2025-08-04T11:07:57.993Z Transaction: /users/{id} > Update user > 400 > application/json - Expected 400
+2025-08-04T11:07:57.993Z Updated URI for 200 test /users/{id} > Delete user > 200 > application/json: /users/6884db52e96ab27d5f2527d3
+2025-08-04T11:07:58.157Z Transaction: /users/{id} > Delete user > 200 > application/json - Expected 200
+2025-08-04T11:07:58.157Z Skipping /users/{id} > Delete user > 200 > application/json → DELETE request
+2025-08-04T11:07:58.158Z Keeping non-existent ID for 404 test /users/{id} > Delete user > 404 > application/json
+2025-08-04T11:07:58.231Z Transaction: /users/{id} > Delete user > 404 > application/json - Expected 404
+2025-08-04T11:07:58.231Z Skipping /users/{id} > Delete user > 404 > application/json → DELETE request
+2025-08-04T11:07:58.231Z Updated URI for 200 test /users/{id}/addresses > Get user addresses > 200 > application/json: /users/6884db52e96ab27d5f2527d3/addresses
+2025-08-04T11:07:58.347Z Transaction: /users/{id}/addresses > Get user addresses > 200 > application/json - Expected 200
+2025-08-04T11:07:58.348Z Keeping non-existent ID for 404 test /users/{id}/addresses > Get user addresses > 404 > application/json
+2025-08-04T11:07:58.533Z Transaction: /users/{id}/addresses > Get user addresses > 404 > application/json - Expected 404
+2025-08-04T11:10:11.944Z Transaction: /users > Get all users > 200 > application/json - Expected 200
+2025-08-04T11:10:12.019Z Transaction: /users > Get all users > 500 > application/json - Expected 500
+2025-08-04T11:10:12.019Z Skipping /users > Get all users > 500 > application/json → Expected 500
+2025-08-04T11:10:12.019Z Updated URI for 200 test /users/{id} > Get user by ID > 200 > application/json: /users/6884db52e96ab27d5f2527d3
+2025-08-04T11:10:12.156Z Transaction: /users/{id} > Get user by ID > 200 > application/json - Expected 200
+2025-08-04T11:10:12.157Z Keeping non-existent ID for 404 test /users/{id} > Get user by ID > 404 > application/json
+2025-08-04T11:10:12.282Z Transaction: /users/{id} > Get user by ID > 404 > application/json - Expected 404
+2025-08-04T11:10:12.283Z Updated URI for 200 test /users/{id} > Update user > 200 > application/json: /users/6884db52e96ab27d5f2527d3
+2025-08-04T11:10:12.636Z Transaction: /users/{id} > Update user > 200 > application/json - Expected 200
+2025-08-04T11:10:12.637Z Keeping non-existent ID for 400 test /users/{id} > Update user > 400 > application/json
+2025-08-04T11:10:12.704Z Transaction: /users/{id} > Update user > 400 > application/json - Expected 400
+2025-08-04T11:10:12.705Z Updated URI for 200 test /users/{id} > Delete user > 200 > application/json: /users/6884db52e96ab27d5f2527d3
+2025-08-04T11:10:13.030Z Transaction: /users/{id} > Delete user > 200 > application/json - Expected 200
+2025-08-04T11:10:13.030Z Skipping /users/{id} > Delete user > 200 > application/json → DELETE request
+2025-08-04T11:10:13.030Z Keeping non-existent ID for 404 test /users/{id} > Delete user > 404 > application/json
+2025-08-04T11:10:13.128Z Transaction: /users/{id} > Delete user > 404 > application/json - Expected 404
+2025-08-04T11:10:13.128Z Skipping /users/{id} > Delete user > 404 > application/json → DELETE request
+2025-08-04T11:10:13.128Z Updated URI for 200 test /users/{id}/addresses > Get user addresses > 200 > application/json: /users/6884db52e96ab27d5f2527d3/addresses
+2025-08-04T11:10:13.288Z Transaction: /users/{id}/addresses > Get user addresses > 200 > application/json - Expected 200
+2025-08-04T11:10:13.288Z Keeping non-existent ID for 404 test /users/{id}/addresses > Get user addresses > 404 > application/json
+2025-08-04T11:10:13.417Z Transaction: /users/{id}/addresses > Get user addresses > 404 > application/json - Expected 404
+2025-08-04T11:11:02.533Z Transaction: /users > Get all users > 200 > application/json - Expected 200
+2025-08-04T11:11:02.672Z Transaction: /users > Get all users > 500 > application/json - Expected 500
+2025-08-04T11:11:02.672Z Skipping /users > Get all users > 500 > application/json → Expected 500
+2025-08-04T11:11:02.673Z Updated URI for 200 test /users/{id} > Get user by ID > 200 > application/json: /users/6884da289d564917a54fe54f
+2025-08-04T11:11:02.820Z Transaction: /users/{id} > Get user by ID > 200 > application/json - Expected 200
+2025-08-04T11:11:02.820Z Keeping non-existent ID for 404 test /users/{id} > Get user by ID > 404 > application/json
+2025-08-04T11:11:02.941Z Transaction: /users/{id} > Get user by ID > 404 > application/json - Expected 404
+2025-08-04T11:11:02.942Z Updated URI for 200 test /users/{id} > Update user > 200 > application/json: /users/6884da289d564917a54fe54f
+2025-08-04T11:11:03.038Z Transaction: /users/{id} > Update user > 200 > application/json - Expected 200
+2025-08-04T11:11:03.038Z Keeping non-existent ID for 400 test /users/{id} > Update user > 400 > application/json
+2025-08-04T11:11:03.144Z Transaction: /users/{id} > Update user > 400 > application/json - Expected 400
+2025-08-04T11:11:03.145Z Updated URI for 200 test /users/{id} > Delete user > 200 > application/json: /users/6884da289d564917a54fe54f
+2025-08-04T11:11:03.280Z Transaction: /users/{id} > Delete user > 200 > application/json - Expected 200
+2025-08-04T11:11:03.280Z Skipping /users/{id} > Delete user > 200 > application/json → DELETE request
+2025-08-04T11:11:03.281Z Keeping non-existent ID for 404 test /users/{id} > Delete user > 404 > application/json
+2025-08-04T11:11:03.389Z Transaction: /users/{id} > Delete user > 404 > application/json - Expected 404
+2025-08-04T11:11:03.389Z Skipping /users/{id} > Delete user > 404 > application/json → DELETE request
+2025-08-04T11:11:03.390Z Updated URI for 200 test /users/{id}/addresses > Get user addresses > 200 > application/json: /users/6884da289d564917a54fe54f/addresses
+2025-08-04T11:11:03.504Z Transaction: /users/{id}/addresses > Get user addresses > 200 > application/json - Expected 200
+2025-08-04T11:11:03.505Z Keeping non-existent ID for 404 test /users/{id}/addresses > Get user addresses > 404 > application/json
+2025-08-04T11:11:03.605Z Transaction: /users/{id}/addresses > Get user addresses > 404 > application/json - Expected 404
+2025-08-04T11:23:56.720Z Transaction: /users > Get all users > 200 > application/json - Expected 200
+2025-08-04T11:23:56.847Z Transaction: /users > Get all users > 500 > application/json - Expected 500
+2025-08-04T11:23:56.848Z Skipping /users > Get all users > 500 > application/json → Expected 500
+2025-08-04T11:23:56.848Z Updated URI for 200 test /users/{id} > Get user by ID > 200 > application/json: /users/6884da289d564917a54fe54f
+2025-08-04T11:23:58.162Z Transaction: /users/{id} > Get user by ID > 200 > application/json - Expected 200
+2025-08-04T11:23:58.163Z Keeping non-existent ID for 404 test /users/{id} > Get user by ID > 404 > application/json
+2025-08-04T11:23:58.267Z Transaction: /users/{id} > Get user by ID > 404 > application/json - Expected 404
+2025-08-04T11:23:58.268Z Updated URI for 200 test /users/{id} > Update user > 200 > application/json: /users/6884da289d564917a54fe54f
+2025-08-04T11:23:59.663Z Transaction: /users/{id} > Update user > 200 > application/json - Expected 200
+2025-08-04T11:23:59.664Z Keeping non-existent ID for 400 test /users/{id} > Update user > 400 > application/json
+2025-08-04T11:23:59.813Z Transaction: /users/{id} > Update user > 400 > application/json - Expected 400
+2025-08-04T11:23:59.814Z Updated URI for 200 test /users/{id}/addresses > Get user addresses > 200 > application/json: /users/6884da289d564917a54fe54f/addresses
+2025-08-04T11:24:01.432Z Transaction: /users/{id}/addresses > Get user addresses > 200 > application/json - Expected 200
+2025-08-04T11:24:01.488Z Keeping non-existent ID for 404 test /users/{id}/addresses > Get user addresses > 404 > application/json
+2025-08-04T11:24:01.627Z Transaction: /users/{id}/addresses > Get user addresses > 404 > application/json - Expected 404
+2025-08-04T11:46:14.847Z Transaction: /users > Get all users > 200 > application/json - Expected 200
+2025-08-04T11:46:15.044Z Transaction: /users > Get all users > 500 > application/json - Expected 500
+2025-08-04T11:46:15.045Z Skipping /users > Get all users > 500 > application/json → Expected 500
+2025-08-04T11:46:15.045Z Updated URI for 200 test /users/{id} > Get user by ID > 200 > application/json: /users/6884da289d564917a54fe54f
+2025-08-04T11:46:16.339Z Transaction: /users/{id} > Get user by ID > 200 > application/json - Expected 200
+2025-08-04T11:46:16.339Z Keeping non-existent ID for 404 test /users/{id} > Get user by ID > 404 > application/json
+2025-08-04T11:46:16.495Z Transaction: /users/{id} > Get user by ID > 404 > application/json - Expected 404
+2025-08-04T11:46:16.496Z Updated URI for 200 test /users/{id} > Update user > 200 > application/json: /users/6884da289d564917a54fe54f
+2025-08-04T11:46:18.161Z Transaction: /users/{id} > Update user > 200 > application/json - Expected 200
+2025-08-04T11:46:18.162Z Keeping non-existent ID for 400 test /users/{id} > Update user > 400 > application/json
+2025-08-04T11:46:18.238Z Transaction: /users/{id} > Update user > 400 > application/json - Expected 400
+2025-08-04T11:46:18.239Z Skipping /users/{id} > Delete user > 200 > application/json → DELETE request
+2025-08-04T11:46:18.239Z Transaction: /users/{id} > Delete user > 200 > application/json - Expected 200
+2025-08-04T11:46:18.240Z Skipping /users/{id} > Delete user > 404 > application/json → DELETE request
+2025-08-04T11:46:18.240Z Transaction: /users/{id} > Delete user > 404 > application/json - Expected 404
+2025-08-04T11:46:18.240Z Updated URI for 200 test /users/{id}/addresses > Get user addresses > 200 > application/json: /users/6884da289d564917a54fe54f/addresses
+2025-08-04T11:46:19.552Z Transaction: /users/{id}/addresses > Get user addresses > 200 > application/json - Expected 200
+2025-08-04T11:46:19.552Z Keeping non-existent ID for 404 test /users/{id}/addresses > Get user addresses > 404 > application/json
+2025-08-04T11:46:19.672Z Transaction: /users/{id}/addresses > Get user addresses > 404 > application/json - Expected 404
+2025-08-04T11:51:07.569Z Transaction: /users > Get all users > 200 > application/json - Expected 200
+2025-08-04T11:51:07.723Z Transaction: /users > Get all users > 500 > application/json - Expected 500
+2025-08-04T11:51:07.723Z Skipping /users > Get all users > 500 > application/json → Expected 500
+2025-08-04T11:51:07.724Z Updated URI for 200 test /users/{id} > Get user by ID > 200 > application/json: /users/6884da289d564917a54fe54f
+2025-08-04T11:51:07.874Z Transaction: /users/{id} > Get user by ID > 200 > application/json - Expected 200
+2025-08-04T11:51:07.875Z Updated URI for 404 test /users/{id} > Get user by ID > 404 > application/json: /users/507f1f77bcf86cd799439011
+2025-08-04T11:51:08.013Z Transaction: /users/{id} > Get user by ID > 404 > application/json - Expected 404
+2025-08-04T11:51:08.013Z Updated URI for 200 test /users/{id} > Update user > 200 > application/json: /users/6884da289d564917a54fe54f
+2025-08-04T11:51:08.226Z Transaction: /users/{id} > Update user > 200 > application/json - Expected 200
+2025-08-04T11:51:08.304Z Transaction: /users/{id} > Update user > 400 > application/json - Expected 400
+2025-08-04T11:51:08.304Z Skipping /users/{id} > Delete user > 200 > application/json → DELETE request
+2025-08-04T11:51:08.305Z Transaction: /users/{id} > Delete user > 200 > application/json - Expected 200
+2025-08-04T11:51:08.305Z Skipping /users/{id} > Delete user > 404 > application/json → DELETE request
+2025-08-04T11:51:08.306Z Transaction: /users/{id} > Delete user > 404 > application/json - Expected 404
+2025-08-04T11:51:08.306Z Updated URI for 200 test /users/{id}/addresses > Get user addresses > 200 > application/json: /users/6884da289d564917a54fe54f/addresses
+2025-08-04T11:51:08.460Z Transaction: /users/{id}/addresses > Get user addresses > 200 > application/json - Expected 200
+2025-08-04T11:51:08.460Z Updated URI for 404 test /users/{id}/addresses > Get user addresses > 404 > application/json: /users/507f1f77bcf86cd799439011/addresses
+2025-08-04T11:51:08.595Z Transaction: /users/{id}/addresses > Get user addresses > 404 > application/json - Expected 404
+2025-08-04T11:52:31.152Z Transaction: /users > Get all users > 200 > application/json - Expected 200
+2025-08-04T11:52:31.302Z Transaction: /users > Get all users > 500 > application/json - Expected 500
+2025-08-04T11:52:31.302Z Skipping /users > Get all users > 500 > application/json → Expected 500
+2025-08-04T11:52:31.303Z Updated URI for 200 test /users/{id} > Get user by ID > 200 > application/json: /users/6884da289d564917a54fe54f
+2025-08-04T11:52:31.408Z Transaction: /users/{id} > Get user by ID > 200 > application/json - Expected 200
+2025-08-04T11:52:31.408Z Updated URI for 404 test /users/{id} > Get user by ID > 404 > application/json: /users/000000000000000000000000
+2025-08-04T11:52:31.490Z Transaction: /users/{id} > Get user by ID > 404 > application/json - Expected 404
+2025-08-04T11:52:31.491Z Updated URI for 200 test /users/{id} > Update user > 200 > application/json: /users/6884da289d564917a54fe54f
+2025-08-04T11:52:31.708Z Transaction: /users/{id} > Update user > 200 > application/json - Expected 200
+2025-08-04T11:52:32.136Z Transaction: /users/{id} > Update user > 400 > application/json - Expected 400
+2025-08-04T11:52:32.137Z Skipping /users/{id} > Delete user > 200 > application/json → DELETE request
+2025-08-04T11:52:32.138Z Transaction: /users/{id} > Delete user > 200 > application/json - Expected 200
+2025-08-04T11:52:32.139Z Skipping /users/{id} > Delete user > 404 > application/json → DELETE request
+2025-08-04T11:52:32.139Z Transaction: /users/{id} > Delete user > 404 > application/json - Expected 404
+2025-08-04T11:52:32.140Z Updated URI for 200 test /users/{id}/addresses > Get user addresses > 200 > application/json: /users/6884da289d564917a54fe54f/addresses
+2025-08-04T11:52:32.452Z Transaction: /users/{id}/addresses > Get user addresses > 200 > application/json - Expected 200
+2025-08-04T11:52:32.453Z Updated URI for 404 test /users/{id}/addresses > Get user addresses > 404 > application/json: /users/000000000000000000000000/addresses
+2025-08-04T11:52:32.542Z Transaction: /users/{id}/addresses > Get user addresses > 404 > application/json - Expected 404
+2025-08-04T11:54:00.698Z Transaction: /users > Get all users > 200 > application/json - Expected 200
+2025-08-04T11:54:00.813Z Transaction: /users > Get all users > 500 > application/json - Expected 500
+2025-08-04T11:54:00.814Z Skipping /users > Get all users > 500 > application/json → Expected 500
+2025-08-04T11:54:00.814Z Updated URI for 200 test /users/{id} > Get user by ID > 200 > application/json: /users/6884da289d564917a54fe54f
+2025-08-04T11:54:01.230Z Transaction: /users/{id} > Get user by ID > 200 > application/json - Expected 200
+2025-08-04T11:54:01.230Z Updated URI for 404 test /users/{id} > Get user by ID > 404 > application/json: /users/000000000000000000000000
+2025-08-04T11:54:01.355Z Transaction: /users/{id} > Get user by ID > 404 > application/json - Expected 404
+2025-08-04T11:54:01.355Z Updated URI for 200 test /users/{id} > Update user > 200 > application/json: /users/6884da289d564917a54fe54f
+2025-08-04T11:54:01.466Z Transaction: /users/{id} > Update user > 200 > application/json - Expected 200
+2025-08-04T11:54:01.541Z Transaction: /users/{id} > Update user > 400 > application/json - Expected 400
+2025-08-04T11:54:01.542Z Skipping /users/{id} > Delete user > 200 > application/json → DELETE request
+2025-08-04T11:54:01.542Z Transaction: /users/{id} > Delete user > 200 > application/json - Expected 200
+2025-08-04T11:54:01.543Z Skipping /users/{id} > Delete user > 404 > application/json → DELETE request
+2025-08-04T11:54:01.543Z Transaction: /users/{id} > Delete user > 404 > application/json - Expected 404
+2025-08-04T11:54:01.544Z Updated URI for 200 test /users/{id}/addresses > Get user addresses > 200 > application/json: /users/6884da289d564917a54fe54f/addresses
+2025-08-04T11:54:01.653Z Transaction: /users/{id}/addresses > Get user addresses > 200 > application/json - Expected 200
+2025-08-04T11:54:01.654Z Updated URI for 404 test /users/{id}/addresses > Get user addresses > 404 > application/json: /users/000000000000000000000000/addresses
+2025-08-04T11:54:01.754Z Transaction: /users/{id}/addresses > Get user addresses > 404 > application/json - Expected 404
+2025-08-04T11:55:56.384Z Transaction: /users > Get all users > 200 > application/json - Expected 200
+2025-08-04T11:55:56.528Z Transaction: /users > Get all users > 500 > application/json - Expected 500
+2025-08-04T11:55:56.528Z Skipping /users > Get all users > 500 > application/json → Expected 500
+2025-08-04T11:55:56.528Z Updated URI for 200 test /users/{id} > Get user by ID > 200 > application/json: /users/6884da289d564917a54fe54f
+2025-08-04T11:55:57.752Z Transaction: /users/{id} > Get user by ID > 200 > application/json - Expected 200
+2025-08-04T11:55:57.753Z Updated URI for 404 test /users/{id} > Get user by ID > 404 > application/json: /users/000000000000000000000000
+2025-08-04T11:55:57.880Z Transaction: /users/{id} > Get user by ID > 404 > application/json - Expected 404
+2025-08-04T11:55:57.882Z Updated URI for 200 test /users/{id} > Update user > 200 > application/json: /users/6884da289d564917a54fe54f
+2025-08-04T11:55:59.098Z Transaction: /users/{id} > Update user > 200 > application/json - Expected 200
+2025-08-04T11:55:59.169Z Transaction: /users/{id} > Update user > 400 > application/json - Expected 400
+2025-08-04T11:55:59.169Z Skipping /users/{id} > Delete user > 200 > application/json → DELETE request
+2025-08-04T11:55:59.170Z Transaction: /users/{id} > Delete user > 200 > application/json - Expected 200
+2025-08-04T11:55:59.170Z Skipping /users/{id} > Delete user > 404 > application/json → DELETE request
+2025-08-04T11:55:59.170Z Transaction: /users/{id} > Delete user > 404 > application/json - Expected 404
+2025-08-04T11:55:59.171Z Updated URI for 200 test /users/{id}/addresses > Get user addresses > 200 > application/json: /users/6884da289d564917a54fe54f/addresses
+2025-08-04T11:56:00.533Z Transaction: /users/{id}/addresses > Get user addresses > 200 > application/json - Expected 200
+2025-08-04T11:56:00.533Z Updated URI for 404 test /users/{id}/addresses > Get user addresses > 404 > application/json: /users/000000000000000000000000/addresses
+2025-08-04T11:56:00.666Z Transaction: /users/{id}/addresses > Get user addresses > 404 > application/json - Expected 404
+2025-08-04T11:57:38.673Z Transaction: /users > Get all users > 200 > application/json - Expected 200
+2025-08-04T11:57:38.836Z Transaction: /users > Get all users > 500 > application/json - Expected 500
+2025-08-04T11:57:38.836Z Skipping /users > Get all users > 500 > application/json → Expected 500
+2025-08-04T11:57:39.029Z Transaction: /users/{id} > Get user by ID > 200 > application/json - Expected 200
+2025-08-04T11:57:39.150Z Transaction: /users/{id} > Get user by ID > 404 > application/json - Expected 404
+2025-08-04T11:57:39.307Z Transaction: /users/{id} > Update user > 200 > application/json - Expected 200
+2025-08-04T11:57:39.436Z Transaction: /users/{id} > Update user > 400 > application/json - Expected 400
+2025-08-04T11:57:39.437Z Skipping /users/{id} > Delete user > 200 > application/json → DELETE request
+2025-08-04T11:57:39.438Z Transaction: /users/{id} > Delete user > 200 > application/json - Expected 200
+2025-08-04T11:57:39.439Z Skipping /users/{id} > Delete user > 404 > application/json → DELETE request
+2025-08-04T11:57:39.439Z Transaction: /users/{id} > Delete user > 404 > application/json - Expected 404
+2025-08-04T11:57:39.613Z Transaction: /users/{id}/addresses > Get user addresses > 200 > application/json - Expected 200
+2025-08-04T11:57:39.755Z Transaction: /users/{id}/addresses > Get user addresses > 404 > application/json - Expected 404
+2025-08-04T11:58:27.237Z Transaction: /users > Get all users > 200 > application/json - Expected 200
+2025-08-04T11:58:27.381Z Transaction: /users > Get all users > 500 > application/json - Expected 500
+2025-08-04T11:58:27.381Z Skipping /users > Get all users > 500 > application/json → Expected 500
+2025-08-04T11:58:27.588Z Transaction: /users/{id} > Get user by ID > 200 > application/json - Expected 200
+2025-08-04T11:58:27.744Z Transaction: /users/{id} > Get user by ID > 404 > application/json - Expected 404
+2025-08-04T11:58:27.930Z Transaction: /users/{id} > Update user > 200 > application/json - Expected 200
+2025-08-04T11:58:28.071Z Transaction: /users/{id} > Update user > 400 > application/json - Expected 400
+2025-08-04T11:58:28.072Z Skipping /users/{id} > Delete user > 200 > application/json → DELETE request
+2025-08-04T11:58:28.072Z Transaction: /users/{id} > Delete user > 200 > application/json - Expected 200
+2025-08-04T11:58:28.073Z Skipping /users/{id} > Delete user > 404 > application/json → DELETE request
+2025-08-04T11:58:28.073Z Transaction: /users/{id} > Delete user > 404 > application/json - Expected 404
+2025-08-04T11:58:28.299Z Transaction: /users/{id}/addresses > Get user addresses > 200 > application/json - Expected 200
+2025-08-04T11:58:28.409Z Transaction: /users/{id}/addresses > Get user addresses > 404 > application/json - Expected 404
+2025-08-04T12:02:02.804Z Skipping /users > Get all users > 500 > application/json → Expected 500
+2025-08-04T12:02:02.993Z Replaced ID for 404 test: /users/ffffffffffffffffffffffff
+2025-08-04T12:02:03.130Z Added PUT body for /users/{id} > Update user > 200 > application/json
+2025-08-04T12:02:03.340Z Skipping /users/{id} > Delete user > 200 > application/json → DELETE request
+2025-08-04T12:02:03.340Z Skipping /users/{id} > Delete user > 404 > application/json → DELETE request
+2025-08-04T12:02:03.517Z Replaced ID for 404 test: /users/ffffffffffffffffffffffff/addresses
+2025-08-04T12:02:32.989Z Skipping /users > Get all users > 500 > application/json → Expected 500
+2025-08-04T12:02:33.084Z Replaced ID for 404 test: /users/6887582d2b93f60018550791
+2025-08-04T12:02:33.181Z Added PUT body for /users/{id} > Update user > 200 > application/json
+2025-08-04T12:02:33.367Z Skipping /users/{id} > Delete user > 200 > application/json → DELETE request
+2025-08-04T12:02:33.368Z Skipping /users/{id} > Delete user > 404 > application/json → DELETE request
+2025-08-04T12:02:33.474Z Replaced ID for 404 test: /users/6887582d2b93f60018550791/addresses
+2025-08-04T12:02:48.600Z Skipping /users > Get all users > 500 > application/json → Expected 500
+2025-08-04T12:02:48.733Z Replaced ID for 404 test: /users/ffffffffffffffffffffffff
+2025-08-04T12:02:48.867Z Added PUT body for /users/{id} > Update user > 200 > application/json
+2025-08-04T12:02:49.140Z Skipping /users/{id} > Delete user > 200 > application/json → DELETE request
+2025-08-04T12:02:49.141Z Skipping /users/{id} > Delete user > 404 > application/json → DELETE request
+2025-08-04T12:02:49.274Z Replaced ID for 404 test: /users/ffffffffffffffffffffffff/addresses
+2025-08-04T12:19:51.655Z Skipping /users > Get all users > 500 > application/json → Expected 500
+2025-08-04T12:19:53.026Z Replaced ID for 404 test: /users/ffffffffffffffffffffffff
+2025-08-04T12:19:53.275Z Added PUT body for /users/{id} > Update user > 200 > application/json
+2025-08-04T12:19:54.805Z Skipping /users/{id} > Delete user > 200 > application/json → DELETE request
+2025-08-04T12:19:54.806Z Skipping /users/{id} > Delete user > 404 > application/json → DELETE request
+2025-08-04T12:19:56.316Z Replaced ID for 404 test: /users/ffffffffffffffffffffffff/addresses
+2025-08-04T15:10:56.761Z Skipping /users > Get all users > 500 > application/json → Expected 500
+2025-08-04T15:10:58.208Z Replaced ID for 404 test: /users/ffffffffffffffffffffffff
+2025-08-04T15:10:58.366Z Added PUT body for /users/{id} > Update user > 200 > application/json
+2025-08-04T15:10:59.719Z Skipping /users/{id} > Delete user > 200 > application/json → DELETE request
+2025-08-04T15:10:59.721Z Skipping /users/{id} > Delete user > 404 > application/json → DELETE request
+2025-08-04T15:11:00.954Z Replaced ID for 404 test: /users/ffffffffffffffffffffffff/addresses
+2025-08-07T08:24:05.378Z Skipping /users > Get all users > 500 > application/json → Expected 500
+2025-08-07T08:24:06.968Z Replaced ID for 404 test: /users/ffffffffffffffffffffffff
+2025-08-07T08:24:07.060Z Added PUT body for /users/{id} > Update user > 200 > application/json
+2025-08-07T08:24:08.600Z Skipping /users/{id} > Delete user > 200 > application/json → DELETE request
+2025-08-07T08:24:08.600Z Skipping /users/{id} > Delete user > 404 > application/json → DELETE request
+2025-08-07T08:24:09.844Z Replaced ID for 404 test: /users/ffffffffffffffffffffffff/addresses

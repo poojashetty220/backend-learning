@@ -1,0 +1,64 @@
+service: orders
+frameworkVersion: '3'
+useDotenv: true
+
+provider:
+  name: aws
+  runtime: nodejs20.x
+  region: ap-south-1
+  stage: dev
+  environment:
+    MONGODB_CONNECTION_STRING: ${env:MONGODB_CONNECTION_STRING}
+
+  iam:
+    role:
+      statements:
+        - Effect: "Allow"
+          Action:
+             - lambda:*
+          Resource: "*"
+
+functions:
+  orders:
+    handler: handlers/list.handler
+    events:
+      - http:
+          path: /orders
+          method: get
+          cors:
+            origin: '*'
+            headers:
+              - Content-Type
+  createOrder:
+    handler: handlers/create.handler
+    events:
+      - http:
+          path: /orders
+          method: post
+          cors:
+            origin: '*'
+            headers:
+              - Content-Type
+  getUserOrders:
+    handler: handlers/getUserOrders.handler
+    events:
+      - http:
+          path: /orders/user/{userId}
+          method: get
+          cors:
+            origin: '*'
+            headers:
+              - Content-Type
+  updateOrder:
+    handler: handlers/update.handler
+    events:
+      - http:
+          path: /orders/{id}
+          method: put
+          cors:
+            origin: '*'
+            headers:
+              - Content-Type
+
+plugins:
+  - serverless-dotenv-plugin

@@ -4,10 +4,11 @@ useDotenv: true
 
 provider:
   name: aws
-  runtime: nodejs22.x
+  runtime: nodejs20.x
   region: ap-south-1
   environment:
     MONGODB_CONNECTION_STRING: ${env:MONGODB_CONNECTION_STRING}
+    JWT_SECRET: ${env:JWT_SECRET}
 
   iam:
     role:
@@ -28,6 +29,7 @@ functions:
             origin: '*'
             headers:
               - Content-Type
+              - Authorization
   createCategory:
     handler: handlers/create.handler
     events:
@@ -38,6 +40,7 @@ functions:
             origin: '*'
             headers:
               - Content-Type
+              - Authorization
 
 plugins:
   - serverless-dotenv-plugin

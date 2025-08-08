@@ -1,0 +1,73 @@
+service: users
+frameworkVersion: '3'
+useDotenv: true
+
+provider:
+  name: aws
+  runtime: nodejs20.x
+  region: ap-south-1
+  environment:
+    MONGODB_CONNECTION_STRING: ${env:MONGODB_CONNECTION_STRING}
+
+  iam:
+    role:
+      statements:
+        - Effect: "Allow"
+          Action:
+             - lambda:*
+          Resource: "*"
+
+functions:
+  users:
+    handler: handlers/list.handler
+    events:
+      - http:
+          path: /users
+          method: get
+          cors:
+            origin: '*'
+            headers:
+              - Content-Type
+  getUser:
+    handler: handlers/getUser.handler
+    events:
+      - http:
+          path: /users/{id}
+          method: get
+          cors:
+            origin: '*'
+            headers:
+              - Content-Type
+  updateUser:
+    handler: handlers/update.handler
+    events:
+      - http:
+          path: /users/{id}
+          method: put
+          cors:
+            origin: '*'
+            headers:
+              - Content-Type
+  deleteUser:
+    handler: handlers/delete.handler
+    events:
+      - http:
+          path: /users/{id}
+          method: delete
+          cors:
+            origin: '*'
+            headers:
+              - Content-Type
+  getUserAddresses:
+    handler: handlers/getUserAddresses.handler
+    events:
+      - http:
+          path: /users/{id}/addresses
+          method: get
+          cors:
+            origin: '*'
+            headers:
+              - Content-Type
+
+plugins:
+  - serverless-dotenv-plugin

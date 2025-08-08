@@ -1,0 +1,90 @@
+service: ecommerce-api
+frameworkVersion: '3'
+useDotenv: true
+
+provider:
+  name: aws
+  runtime: nodejs20.x
+  region: ap-south-1
+  environment:
+    MONGODB_URI: ${env:MONGODB_URI}
+
+functions:
+  # Users
+  registerUser:
+    handler: handlers/users/registerUser.handler
+    events:
+      - http:
+          path: api/register
+          method: post
+          cors: true
+
+  getUserProfile:
+    handler: handlers/users/getUserProfile.handler
+    events:
+      - http:
+          path: api/profile
+          method: get
+          cors: true
+
+  updateUserProfile:
+    handler: handlers/users/updateUserProfile.handler
+    events:
+      - http:
+          path: api/profile
+          method: patch
+          cors: true
+
+  # Products
+  searchProducts:
+    handler: handlers/products/searchProducts.handler
+    events:
+      - http:
+          path: api/products
+          method: get
+          cors: true
+
+  # Cart
+  addToCart:
+    handler: handlers/cart/addToCart.handler
+    events:
+      - http:
+          path: api/cart/add
+          method: post
+          cors: true
+
+  removeFromCart:
+    handler: handlers/cart/removeFromCart.handler
+    events:
+      - http:
+          path: api/cart/remove
+          method: delete
+          cors: true
+
+  # Orders
+  checkout:
+    handler: handlers/orders/checkout.handler
+    events:
+      - http:
+          path: api/checkout
+          method: post
+          cors: true
+
+  getOrderStatus:
+    handler: handlers/orders/getOrderStatus.handler
+    events:
+      - http:
+          path: api/orders/{orderId}/status
+          method: get
+          cors: true
+
+  getOrderHistory:
+    handler: handlers/orders/getOrderHistory.handler
+    events:
+      - http:
+          path: api/orders
+          method: get
+          cors: true
+
+plugins:
+  - serverless-dotenv-plugin

@@ -22,3 +22,4 @@ services/html-to-pdf/.serverless
 services/html-to-pdf/package-lock.json
 services/export-data-into-excel/.serverless
 services/cognito-sign-up/.serverless
+Milestone-5/ecommerce-api/node_modules

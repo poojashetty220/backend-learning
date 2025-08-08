@@ -15,8 +15,54 @@
     "/categories": {
       "get": {
         "summary": "Get all categories",
-        "description": "Retrieves a list of all categories sorted by name.",
+        "description": "Retrieves a list of all categories with optional filtering and pagination.",
         "tags": ["Categories"],
+        "security": [
+          {
+            "BearerAuth": []
+          }
+        ],
+        "parameters": [
+          {
+            "in": "query",
+            "name": "search",
+            "schema": {
+              "type": "string"
+            },
+            "description": "Search term for filtering categories by name"
+          },
+          {
+            "in": "query",
+            "name": "status",
+            "schema": {
+              "type": "string",
+              "example": "active",
+              "enum": ["active", "inactive"]
+            },
+            "description": "Search term for filtering categories by name"
+          },
+          {
+            "in": "query",
+            "name": "limit",
+            "schema": {
+              "type": "integer",
+              "minimum": 1,
+              "maximum": 100,
+              "default": 10
+            },
+            "description": "Number of categories to return"
+          },
+          {
+            "in": "query",
+            "name": "offset",
+            "schema": {
+              "type": "integer",
+              "minimum": 0,
+              "default": 0
+            },
+            "description": "Number of categories to skip"
+          }
+        ],
         "responses": {
           "200": {
             "description": "Successfully retrieved list of categories",
@@ -47,6 +93,11 @@
         "summary": "Create a new category",
         "description": "Creates a new category with the provided data.",
         "tags": ["Categories"],
+        "security": [
+          {
+            "BearerAuth": []
+          }
+        ],
         "requestBody": {
           "content": {
             "application/json": {
@@ -76,19 +127,36 @@
                 }
               }
             }
+          },
+          "401": {
+            "description": "Unauthorized",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
           }
         }
       }
     }
   },
   "components": {
+    "securitySchemes": {
+      "BearerAuth": {
+        "type": "http",
+        "scheme": "bearer",
+        "bearerFormat": "JWT"
+      }
+    },
     "schemas": {
       "Category": {
         "type": "object",
         "properties": {
           "id": {
             "type": "string",
-            "example": "64a9b0c2f5a5d2a7e4f4a1b2"
+            "example": "6884da289d564917a54fe54f"
           },
           "name": {
             "type": "string",

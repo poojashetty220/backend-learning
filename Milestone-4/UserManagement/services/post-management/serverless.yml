@@ -1,0 +1,74 @@
+service: posts
+frameworkVersion: '3'
+useDotenv: true
+
+provider:
+  name: aws
+  runtime: nodejs20.x
+  region: ap-south-1
+  stage: dev
+  environment:
+    MONGODB_CONNECTION_STRING: ${env:MONGODB_CONNECTION_STRING}
+
+  iam:
+    role:
+      statements:
+        - Effect: "Allow"
+          Action:
+             - lambda:*
+          Resource: "*"
+
+functions:
+  posts:
+    handler: handlers/list.handler
+    events:
+      - http:
+          path: /posts
+          method: get
+          cors:
+            origin: '*'
+            headers:
+              - Content-Type
+  createPost:
+    handler: handlers/create.handler
+    events:
+      - http:
+          path: /posts
+          method: post
+          cors:
+            origin: '*'
+            headers:
+              - Content-Type
+  updatePost:
+    handler: handlers/update.handler
+    events:
+      - http:
+          path: /posts/{id}
+          method: patch
+          cors:
+            origin: '*'
+            headers:
+              - Content-Type
+  deletePost:
+    handler: handlers/delete.handler
+    events:
+      - http:
+          path: /posts/{id}
+          method: delete
+          cors:
+            origin: '*'
+            headers:
+              - Content-Type
+  getPostsByCategory:
+    handler: handlers/getByCategory.handler
+    events:
+      - http:
+          path: /posts/category/{categoryId}
+          method: get
+          cors:
+            origin: '*'
+            headers:
+              - Content-Type
+
+plugins:
+  - serverless-dotenv-plugin

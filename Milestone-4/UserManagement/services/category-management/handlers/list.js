@@ -1,32 +1,66 @@
+require('dotenv').config();
 const mongoose = require('mongoose');
 const Category = require('../entities/Categories');
 const mongoConnection = require('../lib/mongo-connection');
+const { authenticate } = require('../middleware/auth');
+
 let connection;
+
 module.exports.handler = async (eventData) => {
-    console.log('MONGODB_CONNECTION_STRING:', process.env.MONGODB_CONNECTION_STRING);
-    try {   
-        // Establish MongoDB connection
+    try {
+        // Authentication
+        const authResult = authenticate(eventData);
+        if (authResult.error) {
+            return {
+                statusCode: 401,
+                body: JSON.stringify({ message: authResult.error }),
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Access-Control-Allow-Origin': '*',
+                },
+            };
+        }
+        
         connection = await mongoConnection.connect();
 
-        const categories = await Category.find().sort({ name: 1 });
+        // Query parameters
+        const { search = '', limit = '10', offset = '0' } = eventData.queryStringParameters || {};
+        const limitNum = Math.min(parseInt(limit) || 10, 100);
+        const offsetNum = parseInt(offset) || 0;
+
+        // Build filter
+        const filter = {};
+        if (search) {
+            filter.name = { $regex: search, $options: 'i' };
+        }
+
+        const categories = await Category.find(filter)
+            .sort({ name: 1 })
+            .limit(limitNum)
+            .skip(offsetNum);
+
         return {
             statusCode: 200,
             body: JSON.stringify(categories),
             headers: {
                 'Content-Type': 'application/json',
+                'Access-Control-Allow-Origin': '*',
             },
         };
     } catch (error) {
-        console.error('Error fetching categories:', error);
+        console.error('Error in list handler:', error);
         return {
             statusCode: 500,
-            body: JSON.stringify({ message: error.message }),
+            body: JSON.stringify({ 
+                message: error.message,
+                stack: error.stack
+            }),
             headers: {
                 'Content-Type': 'application/json',
+                'Access-Control-Allow-Origin': '*',
             },
         };
     } finally {
-        // Disconnect from the MongoDB database
         if (connection) {
             await mongoose.disconnect();
         }
