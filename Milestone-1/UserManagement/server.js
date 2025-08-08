@@ -21,7 +21,7 @@ const app = express();
 const PORT = 3001;
 
 // Middleware to parse JSON
-app.use(express.json());
+app.use(express.json()); // for serialization
 
 // Enable CORS
 app.use(cors);

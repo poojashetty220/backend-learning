@@ -13,15 +13,18 @@ router.get('/', async (req, res) => {
       limit = 10
     } = req.query;
 
-    const pageNum = parseInt(page) || 1;
-    const limitNum = parseInt(limit) || 10;
-    const skip = (pageNum - 1) * limitNum;
-
     const filter = {};
 
     // Case-insensitive search
     if (search) {
-      const regex = new RegExp(search.toString(), 'i');
+      let decodedSearch;
+      try {
+        decodedSearch = decodeURIComponent(search);
+      } catch (e) {
+        decodedSearch = search;
+      }
+      const escapedSearch = decodedSearch.replace(/[.*+?^${}&$#'=(\-)|[\]\\]/g, '\\$&');
+      const regex = new RegExp(escapedSearch, 'i');
       filter.$or = [
         { title: regex },
       ];
@@ -32,31 +35,33 @@ router.get('/', async (req, res) => {
       : 'created_at';
     const sortDirection = sort_order === 'asc' ? 1 : -1;
 
-    const posts = await Post.find(filter)
-      .populate('categories', 'name')
-      .populate('user_id')
-      .sort({ [sortField]: sortDirection })
-      .skip(skip)
-      .limit(limitNum);
+    const options = {
+      page: parseInt(page),
+      limit: parseInt(limit),
+      sort: { [sortField]: sortDirection },
+      populate: [
+        { path: 'categories', select: 'name' },
+        { path: 'user_id' }
+      ]
+    };
 
-    const totalCount = await Post.countDocuments(filter);
-    const totalPages = Math.ceil(totalCount / limitNum);
+    const result = await Post.paginate(filter, options);
 
-    const postsWithUserInfo = posts.map(post => {
+    const postsWithUserInfo = result.docs.map(post => {
       const postObj = post.toObject();
       postObj.user_info = postObj.user_id;
       postObj.user_id = postObj.user_id ? postObj.user_id._id.toString() : null;
       return postObj;
     });
 
-    res.json({ 
+    res.status(200).json({
       posts: postsWithUserInfo, 
       stats: { 
-        totalCount,
-        currentPage: pageNum,
-        totalPages,
-        hasNextPage: pageNum < totalPages,
-        hasPrevPage: pageNum > 1
+        totalCount: result.totalDocs,
+        currentPage: result.page,
+        totalPages: result.totalPages,
+        hasNextPage: result.hasNextPage,
+        hasPrevPage: result.hasPrevPage
       }
     });
   } catch (error) {
@@ -66,12 +71,15 @@ router.get('/', async (req, res) => {
 
 // Create post
 router.post('/', async (req, res) => {
+  if (!req.body || !req.body.title || !req.body.content || !req.body.user_id) {
+    return res.status(400).json({ message: 'Title, content, and user ID are required' });
+  }
   try {
     const post = new Post(req.body);
     const savedPost = await post.save();
-    res.status(201).json(savedPost);
+    res.status(201).json({ ...savedPost.toObject() });
   } catch (error) {
-    res.status(400).json({ message: error.message });
+    res.status(500).json({ message: error.message });
   }
 });
 
@@ -80,19 +88,22 @@ router.delete('/:id', async (req, res) => {
   try {
     const post = await Post.findByIdAndDelete(req.params.id);
     if (!post) return res.status(404).json({ message: 'Post not found' });
-    res.json({ message: 'Post deleted successfully' });
+    res.status(200).json({ message: 'Post deleted successfully' });
   } catch (error) {
     res.status(500).json({ message: error.message });
   }
 });
 
 router.patch('/:id', async (req, res) => {
+  if (!req.body || Object.keys(req.body).length === 0) {
+    return res.status(400).json({ message: 'Request body is required' });
+  }
   try {
     const post = await Post.findByIdAndUpdate(req.params.id, req.body, { new: true });
     if (!post) return res.status(404).json({ message: 'Post not found' });
-    res.json(post);
+    res.status(200).json({ ...post.toObject() });
   } catch (error) {
-    res.status(400).json({ message: error.message });
+    res.status(500).json({ message: error.message });
   }
 });
 
@@ -111,7 +122,7 @@ router.get('/category/:categoryId', async (req, res) => {
       return postObj;
     });
 
-    res.json({ posts: postsWithUserInfo });
+    res.status(200).json({ posts: postsWithUserInfo });
   } catch (error) {
     res.status(500).json({ message: error.message });
   }

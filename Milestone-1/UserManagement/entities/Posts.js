@@ -1,4 +1,5 @@
 import mongoose from 'mongoose';
+import mongoosePaginate from 'mongoose-paginate-v2';
 
 const postSchema = new mongoose.Schema({
   title: { type: String, required: true },
@@ -8,6 +9,8 @@ const postSchema = new mongoose.Schema({
   user_name: { type: String, required: true },
   created_at: { type: Date, default: Date.now },
 });
+
+postSchema.plugin(mongoosePaginate);
 
 const Post = mongoose.model('Post', postSchema);
 

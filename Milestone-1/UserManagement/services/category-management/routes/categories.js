@@ -8,24 +8,23 @@ router.get('/', async (req, res) => {
   try {
     const page = parseInt(req.query.page) || 1;
     const limit = parseInt(req.query.limit) || 10;
-    const skip = (page - 1) * limit;
 
-    const categories = await Category.find()
-      .sort({ name: 1 })
-      .skip(skip)
-      .limit(limit);
+    const options = {
+      page,
+      limit,
+      sort: { name: 1 }
+    };
+
+    const result = await Category.paginate({}, options);
     
-    const totalCount = await Category.countDocuments();
-    const totalPages = Math.ceil(totalCount / limit);
-    
-    res.json({
-      categories,
+    return res.status(200).json({
+      categories: result.docs,
       stats: {
-        totalCount,
-        currentPage: page,
-        totalPages,
-        hasNextPage: page < totalPages,
-        hasPrevPage: page > 1
+        totalCount: result.totalDocs,
+        currentPage: result.page,
+        totalPages: result.totalPages,
+        hasNextPage: result.hasNextPage,
+        hasPrevPage: result.hasPrevPage
       }
     });
   } catch (error) {
@@ -35,12 +34,15 @@ router.get('/', async (req, res) => {
 
 // Create a new category
 router.post('/', async (req, res) => {
+  if (!req.body || !req.body.name) {
+    return res.status(400).json({ message: 'Name is required' });
+  }
   try {
     const category = new Category(req.body);
     const savedCategory = await category.save();
-    res.status(201).json(savedCategory);
+    res.status(201).json({ ...savedCategory.toObject() });
   } catch (error) {
-    res.status(400).json({ message: error.message });
+    res.status(500).json({ message: error.message });
   }
 });
 
@@ -52,9 +54,9 @@ router.patch('/:id', async (req, res) => {
     }
     const category = await Category.findByIdAndUpdate(req.params.id, req.body, { new: true });
     if (!category) return res.status(404).json({ message: 'Category not found' });
-    res.json(category);
+    res.status(200).json({ ...category.toObject() });
   } catch (error) {
-    res.status(400).json({ message: error.message });
+    res.status(500).json({ message: error.message });
   }
 });
 

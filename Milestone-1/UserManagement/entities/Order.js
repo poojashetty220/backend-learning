@@ -1,4 +1,5 @@
 import mongoose from 'mongoose';
+import mongoosePaginate from 'mongoose-paginate-v2';
 
 const orderSchema = new mongoose.Schema({
    order_number: { type: String, required: true, unique: true },
@@ -7,6 +8,8 @@ const orderSchema = new mongoose.Schema({
   user_name: { type: String, required: true },
   created_at: { type: Date, default: Date.now },
 });
+
+orderSchema.plugin(mongoosePaginate);
 
 const Order = mongoose.model('Order', orderSchema);
 

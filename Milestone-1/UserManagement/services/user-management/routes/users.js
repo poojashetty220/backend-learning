@@ -9,6 +9,9 @@ const JWT_SECRET = process.env.JWT_SECRET || 'your_jwt_secret';
 
 // Login route
 router.post('/login', async (req, res) => {
+  if (!req.body || !req.body.email || !req.body.password) {
+    return res.status(400).json({ message: 'Email and password are required' });
+  }
   const { email, password } = req.body;
   try {
     const user = await User.findOne({ email });
@@ -21,7 +24,7 @@ router.post('/login', async (req, res) => {
     // Add expiration time of 1 hour to the token
     const token = jwt.sign(payload, JWT_SECRET, { expiresIn: '1h' });
 
-    res.json({ token, user: { id: user._id, email: user.email, name: user.name, page_access: user.page_access } });
+    res.status(200).json({ token, user: { id: user._id, email: user.email, name: user.name, page_access: user.page_access } });
   } catch (error) {
     res.status(500).json({ message: error.message });
   }
@@ -38,7 +41,7 @@ router.get('/multiple-addresses', async (req, res) => {
       addresses: { $exists: true, $type: 'array' },
       $expr: { $gt: [{ $size: '$addresses' }, 1] }
     });
-    res.json({ users });
+    res.status(200).json({ users });
   } catch (error) {
     res.status(500).json({ message: error.message });
   }
@@ -46,12 +49,15 @@ router.get('/multiple-addresses', async (req, res) => {
 
 // Create user
 router.post('/', async (req, res) => {
+  if (!req.body || !req.body.name || !req.body.email || !req.body.password) {
+    return res.status(400).json({ message: 'Name, email, and password are required' });
+  }
   try {
     const user = new User(req.body);
     const savedUser = await user.save();
-    res.status(201).json(savedUser);
+    res.status(201).json({ ...savedUser.toObject() });
   } catch (error) {
-    res.status(400).json({ message: error.message });
+    res.status(500).json({ message: error.message });
   }
 });
 
@@ -62,7 +68,9 @@ router.get('/', async (req, res) => {
       city = '',
       search = '',
       sort_by = 'created_at',
-      sort_order = 'desc'
+      sort_order = 'desc',
+      page = 1,
+      limit = 10
     } = req.query;
 
     const filter = {};
@@ -86,12 +94,19 @@ router.get('/', async (req, res) => {
 
     // Filter by city (case-insensitive)
     if (city) {
-      filter['addresses.city'] = { $regex: new RegExp(city.toString(), 'i') };
+      filter['addresses.city'] = { $regex: new RegExp((decodeURIComponent(city)).toString(), 'i') };
     }
 
     // Case-insensitive search
     if (search) {
-      const regex = new RegExp(search.toString(), 'i');
+      let decodedSearch;
+      try {
+        decodedSearch = decodeURIComponent(search);
+      } catch (e) {
+        decodedSearch = search;
+      }
+      const escapedSearch = decodedSearch.replace(/[.*+?^${}&$#'=(\-)|[\]\\]/g, '\\$&');
+      const regex = new RegExp(escapedSearch, 'i');
       filter.$or = [
         { name: regex },
         { email: regex },
@@ -104,60 +119,52 @@ router.get('/', async (req, res) => {
       : 'created_at';
     const sortDirection = sort_order === 'asc' ? 1 : -1;
 
-    const pageNum = parseInt(req.query.page) || 1;
-    const limitNum = parseInt(req.query.limit) || 10;
-    const skip = (pageNum - 1) * limitNum;
+    const options = {
+      page: parseInt(page),
+      limit: parseInt(limit),
+      sort: { [sortField]: sortDirection }
+    };
 
-    const pipeline = [
+    const result = await User.paginate(filter, options);
+    
+    // Calculate average age for stats
+    const avgPipeline = [
       { $match: filter },
       {
-        $facet: {
-          users: [
-            { $sort: { [sortField]: sortDirection } },
-            { $skip: skip },
-            { $limit: limitNum }
-          ],
-          stats: [
-            {
-              $group: {
-                _id: null,
-                averageAge: {
-                  $avg: {
-                    $cond: [
-                      { $ne: ['$age', null] },
-                      {
-                        $convert: {
-                          input: '$age',
-                          to: 'int',
-                          onError: null,
-                          onNull: null
-                        }
-                      },
-                      null
-                    ]
+        $group: {
+          _id: null,
+          averageAge: {
+            $avg: {
+              $cond: [
+                { $ne: ['$age', null] },
+                {
+                  $convert: {
+                    input: '$age',
+                    to: 'int',
+                    onError: null,
+                    onNull: null
                   }
                 },
-                totalCount: { $sum: 1 }
-              }
+                null
+              ]
             }
-          ]
+          }
         }
       }
     ];
-
-    const result = await User.aggregate(pipeline)
-    const users = result[0].users;
-    const stats = result[0].stats[0] || { averageAge: 0, totalCount: 0 };
-    const totalPages = Math.ceil(stats.totalCount / limitNum);
+    
+    const avgResult = await User.aggregate(avgPipeline);
+    const averageAge = avgResult[0]?.averageAge || 0;
 
     res.json({ 
-      users, 
+      users: result.docs, 
       stats: {
-        ...stats,
-        currentPage: pageNum,
-        totalPages,
-        hasNextPage: pageNum < totalPages,
-        hasPrevPage: pageNum > 1
+        averageAge,
+        totalCount: result.totalDocs,
+        currentPage: result.page,
+        totalPages: result.totalPages,
+        hasNextPage: result.hasNextPage,
+        hasPrevPage: result.hasPrevPage
       }
     });
   } catch (error) {
@@ -208,7 +215,7 @@ router.patch('/:id', async (req, res) => {
     if (!user) return res.status(404).json({ message: 'User not found' });
     res.json(user);
   } catch (error) {
-    res.status(400).json({ message: error.message });
+    res.status(500).json({ message: error.message });
   }
 });
 

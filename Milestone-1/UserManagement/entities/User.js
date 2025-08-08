@@ -1,4 +1,5 @@
 import mongoose from 'mongoose';
+import mongoosePaginate from 'mongoose-paginate-v2';
 
 const addressSchema = new mongoose.Schema({
   street: { type: String, required: true },
@@ -18,6 +19,8 @@ const userSchema = new mongoose.Schema({
   addresses: { type: [addressSchema], default: [] },
   page_access: [{ type: String }],
 });
+
+userSchema.plugin(mongoosePaginate);
 
 const User = mongoose.model('User', userSchema);
 
